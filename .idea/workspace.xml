@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4029a07b-f9b3-4576-9bd9-1c32b621e664" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/models/database.js" afterDir="false" />
-    </list>
+    <list default="true" id="4029a07b-f9b3-4576-9bd9-1c32b621e664" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -67,7 +65,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="y" value="20" />
     <option name="width" value="1440" />
     <option name="height" value="815" />
@@ -156,12 +154,12 @@
       <option name="presentableId" value="Default" />
       <updated>1534307929352</updated>
       <workItem from="1534307931443" duration="96000" />
-      <workItem from="1534308137640" duration="579000" />
+      <workItem from="1534308137640" duration="1395000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="675000" />
+    <option name="totallyTimeSpent" value="1491000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
