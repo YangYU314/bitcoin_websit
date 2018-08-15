@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4029a07b-f9b3-4576-9bd9-1c32b621e664" name="Default" comment="" />
+    <list default="true" id="4029a07b-f9b3-4576-9bd9-1c32b621e664" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/models/database.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -14,15 +16,40 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="API.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/API.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="database.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/models/database.js">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/controllers/API.js" />
+        <option value="$PROJECT_DIR$/models/database.js" />
+      </list>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
@@ -45,6 +72,9 @@
     <option name="width" value="1440" />
     <option name="height" value="815" />
   </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -57,6 +87,16 @@
             <path>
               <item name="COMP5703_22_3" type="b2602c69:ProjectViewProjectNode" />
               <item name="COMP5703_22_3" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="COMP5703_22_3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="COMP5703_22_3" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="COMP5703_22_3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="COMP5703_22_3" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="COMP5703_22_3" type="b2602c69:ProjectViewProjectNode" />
@@ -116,12 +156,12 @@
       <option name="presentableId" value="Default" />
       <updated>1534307929352</updated>
       <workItem from="1534307931443" duration="96000" />
-      <workItem from="1534308137640" duration="328000" />
+      <workItem from="1534308137640" duration="579000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="424000" />
+    <option name="totallyTimeSpent" value="675000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
@@ -163,6 +203,12 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/API.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/database.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
