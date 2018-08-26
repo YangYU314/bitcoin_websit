@@ -13,5 +13,6 @@ router.post('/register', controller.validation_register);
 
 //overall
 router.get('/home', home.showMainPage);
+router.get('/data', home.showData);
 
 module.exports = router;
