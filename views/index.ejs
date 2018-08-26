@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="description" content="Cryptocurrency Website">
-  <meta name="keywords" content="USYD, website">
-  <link href='/stylesheets/style.css' rel='stylesheet'>
-  <title><%= title %></title>
-</head>
+<html>
+  <head>
+    <title> BITVISION </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
 
-<body>
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
-<a href="login">Login</a>
-<a href="register">Sign Up</a>
-</body>
+  <body>
+
+    <header id="header">
+        <div class="inner">
+            <a href="index.html" class="logo"><img src="images/logo.png" width="120"/></a>
+            <nav id="nav">
+                <a href="index.ejs">Home</a>
+                <a href="home.ejs">Market</a>
+                <a href="person.ejs">Personal</a>
+            </nav>
+        </div>
+    </header>
+
+        <section id="banner">
+            <div class="inner">
+                <header>
+                    <a href="index.html" class="logo">
+                        <img src="images/logo.png" height="100"/></a>
+                </header>
+                <footer>
+                    <a href="login.ejs" class="button">Log In</a>
+                    <a href="signup.ejs" class="button">Sign up</a>
+                </footer>
+            </div>
+        </section>
+  </body>
 </html>
