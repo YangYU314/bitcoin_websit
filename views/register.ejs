@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Cryptocurrency Website">
+    <meta name="keywords" content="USYD, website">
+    <link href="/stylesheets/reset.css" rel="stylesheet">
+    <link href='/stylesheets/style.css' rel='stylesheet'>
+    <link href="/stylesheets/register.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="/javascripts/register.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <form id="register" method="POST" enctype="multipart/form-data" onsubmit="return false">
+        <fieldset>
+            <legend>Create Account</legend><br><br>
+            <div class="field">
+                <label for="firstname">Firstname:</label>
+                <input type="text" name="firstname" id="firstname">
+            </div>
+
+            <div class="field">
+                <label for="lastname">Lastname:</label>
+                <input type="text" name="lastname" id="lastname">
+            </div>
+
+            <div class="field">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" placeholder="Words or numbers only!" autofocus maxlength="60" required>
+            </div>
+
+            <div class="field">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+            </div>
+
+            <div class="field">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" placeholder="e.g. swordsgod1111@icloud.com" required>
+            </div><br><br>
+
+            <div class="field">
+                <input type="submit" class="submit" id="submit" value="Create Your Account">
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>
