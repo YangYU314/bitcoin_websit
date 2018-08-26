@@ -37,6 +37,7 @@ module.exports.validation_login = function(req, res){
 
 module.exports.logout = function(req, res) {
     var sess = req.session;
+    console.log(sess);
     if ("username" in sess && sess.username != null){
         sess.username = null;
         res.json({result: 0});

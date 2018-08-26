@@ -11,4 +11,7 @@ router.get('/logout', controller.logout);
 router.get('/register', controller.register);
 router.post('/register', controller.validation_register);
 
+//overall
+router.get('/home', home.showMainPage);
+
 module.exports = router;
