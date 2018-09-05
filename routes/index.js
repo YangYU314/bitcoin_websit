@@ -5,6 +5,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', controller.showMainPage);
+router.get('/test', controller.showTest);
 router.get('/login', controller.login);
 router.post('/login',controller.validation_login);
 router.get('/logout', controller.logout);
@@ -13,6 +14,7 @@ router.post('/register', controller.validation_register);
 
 //overall
 router.get('/home', home.showMainPage);
-router.get('/data', home.showData);
+router.post('/candle_stick', home.candle_stick);
+
 
 module.exports = router;
