@@ -1,4 +1,5 @@
 var candleStickModel = require('../models/candle_stick');
+var worldMapModel = require('../models/worldMap');
 
 module.exports.showMainPage = function(req, res){
     var sess = req.session;
@@ -10,17 +11,17 @@ module.exports.showMainPage = function(req, res){
     }
 }
 
+//candle stick
 module.exports.candle_stick = function(req, res){
     var product_id = req.body.product_id;
     candleStickModel.candle_stick_data(product_id, function(result){
         res.json(result);
     });
-    //bitcoin.candle_stick()
-    /*var temp = new Array();
-    publicClient.getProductHistoricRates('BTC-USD', function(err, res, data){
-        for (var i = 0; i < 10; i++){
-            temp[i] = data[i];
-        }
+}
+
+//world map
+module.exports.world_map = function(req, res){
+    worldMapModel.world_map_data(function(result){
+        res.json(result);
     });
-    res.json({result: temp});*/
 }
