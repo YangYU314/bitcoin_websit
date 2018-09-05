@@ -3,8 +3,8 @@ $(document).ready(function(){
         click_logout();
     });
 
-    chart_generate();
-    //map_exchange_distribution();
+    //chart_generate();
+    map_exchange_distribution();
 })
 
 //logout
@@ -318,11 +318,19 @@ function firstChart(){
 
 function map_exchange_distribution(){
     $.ajax({
-        url: "/data",
+        url: "/world_map",
         type: "GET",
         success: function (data) {
-            if (data.result != null ){
-                var data = [[116.4,39.9],[]];
+            var coord = [];
+            for (var i=0; i<data.length; i++){
+                var temp= [];
+
+                //need modify
+                temp.push(data[i].longitude);
+                temp.push(data[i].latitude);
+                coord.push(temp);
+            }
+                //var data = [[116.4,39.9],[]];
                 var myChart = echarts.init(document.getElementById('map'));
 // var convertData = function (data) {
 //     var res = [];
@@ -396,7 +404,7 @@ function map_exchange_distribution(){
                             name: 'pm2.5',
                             type: 'scatter',
                             coordinateSystem: 'geo',
-                            data: data,
+                            data: coord,
                             symbolSize: 3,
                             label: {
                                 normal: {
@@ -419,7 +427,7 @@ function map_exchange_distribution(){
 
                 };
                 myChart.setOption(option);
-            }
+
         },
             error: function () {
                 alert("Fail to get firstChart data!");
