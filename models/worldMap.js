@@ -21,36 +21,34 @@ worldMapSchema.statics.world_map_data = function(callback){
             var temp = new Array();
             var nodeData = result.nodes;
             var list;
-            var la;
-            var lo;
-            var city;
-            var countryCode;
+            var latitude;
+            var longitude;
+            // var city;
+            // var countryCode;
 
             for (const key in nodeData) {
                 //filter specific elements
                 list = nodeData[key];
-                city = list[6];
+                /*city = list[6];
                 countryCode = list[7];
-                la = list[8];
-                lo = list[9];
+                latitude = list[8];
+                longitude = list[9];
 
-                //save in database
-                // var newMap = new worldMap(
-                //     {
-                //         city: city,
-                //         countryCode: countryCode,
-                //         latitude: la,
-                //         longitude: lo,
-                //     });
-                //
-                // newMap.save();
+                save in database
+                var newMap = new worldMap(
+                    {
+                        city: city,
+                        countryCode: countryCode,
+                        latitude: la,
+                        longitude: lo,
+                    });
+
+                newMap.save();*/
 
                 //save jason into the array
                 var mapArray = {};
-                mapArray["city"] = city;
-                mapArray["countryCode"] = countryCode;
-                mapArray["latitude"] = la;
-                mapArray["longitude"] = lo;
+                mapArray["latitude"] = list[8];
+                mapArray["longitude"] = list[9];
                 temp.push(mapArray);
             }
             //console.log(temp);
