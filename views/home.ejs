@@ -4,20 +4,185 @@
     <meta charset="utf-8">
     <meta name="description" content="Cryptocurrency Website">
     <meta name="keywords" content="USYD, website">
-    <link href="/stylesheets/reset.css" rel="stylesheet">
-    <link href='/stylesheets/style.css' rel='stylesheet'>
+    <!--<link href="/stylesheets/reset.css" rel="stylesheet">-->
+    <!--<link href='/stylesheets/style.css' rel='stylesheet'>-->
+    <link href='/stylesheets/home.css' rel='stylesheet'>
+    <link href='/stylesheets/bootstrap-theme.css' rel='stylesheet'>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="/javascripts/home.js" type="text/javascript"></script>
     <script src="/javascripts/echarts.js" type="text/javascript"></script>
 </head>
 
 <body>
-    <h>I'm here!</h>
-    <p>Welcome to your home, <%=user%></p>
-    <button id="logout">Logout</button>
 
-    <script src="/javascripts/echarts.js" type="text/javascript"></script>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 600px;height:400px;"></div>
+<!--<header id="header">-->
+    <!--<div class="inner">-->
+        <!--<a href="index.html" class="logo"><img src="images/logo.png" width="120"/></a>-->
+        <!--<nav id="nav">-->
+            <!--<a href="index.ejs">Home</a>-->
+            <!--<a href="home.ejs">Market</a>-->
+            <!--<a href="person.ejs">Personal</a>-->
+        <!--</nav>-->
+    <!--</div>-->
+<!--</header>-->
+
+
+    <!--<h>I'm here!</h>-->
+    <!--<p>Welcome to your home, <%=user%></p>-->
+    <!--<button id="logout">Logout</button>-->
+
+    <!--<script src="/javascripts/echarts.js" type="text/javascript"></script>-->
+    <!--&lt;!&ndash; 为ECharts准备一个具备大小（宽高）的Dom &ndash;&gt;-->
+    <!--<div id="main" style="width: 600px;height:400px;"></div>-->
+    <section id="container" class="">
+
+        <header class="header dark-bg">
+            <div class="inner">
+                <a href="index" class="logo"><img src="images/logo.png" width="120"/></a>
+                <div id="nav">
+                    <!--<ul>-->
+                        <!--<li><a href="home">Home</a></li>-->
+                        <!--<li><a href="home">Market</a></li>-->
+                        <!--<li><a href="person.ejs">Personal</a></li>-->
+                    <!--</ul>-->
+                    <a href="home">Home</a>
+                    <a href="home.ejs">Market</a>
+                    <a href="person.ejs">Personal</a>
+                </div>
+            </div>
+            <div class="top-nav notification-row">
+                <!-- notificatoin dropdown start-->
+                <ul class="nav pull-right top-menu">
+                    <li class="dropdown">
+                        <!--<a data-toggle="dropdown" class="dropdown-toggle" href="#">-->
+                        <a data-toggle="dropdown" class="dropdown-toggle">
+                            <!--<span class="profile-ava">-->
+                            <!--<img alt="" src="img/avatar1_small.jpg">-->
+                            <!--</span>-->
+                            <span class="username"><%=user%></span>
+                            <b class="caret"></b>
+                        </a>
+                        <!--<ul class="dropdown-menu extended logout">-->
+                            <!--<div class="log-arrow-up"></div>-->
+                            <!--<li class="eborder-top">-->
+                                <!--<a href="#"><i class="icon_profile"></i> My Profile</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="#"><i class="icon_mail_alt"></i> My Inbox</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="#"><i class="icon_clock_alt"></i> Timeline</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="#"><i class="icon_chat_alt"></i> Chats</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="login.html"><i class="icon_key_alt"></i> Log Out</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a href="documentation.html"><i class="icon_key_alt"></i> Documentation</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!-- notificatoin dropdown end-->
+            </div>
+        </header>
+
+        <section id="main-content">
+            <section class="wrapper">
+                <div class="banner_row1">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="info-box">
+                            <h1>BITCOIN(BTC)</h1>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="info-box" id="banner_md">
+                            <h2 class="LastPrice">Last Price:</h2>
+                            <h2 class="24hrVolume">24hr Volume:</h2>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="info-box" id="bitlogo">
+                            <img src="images/bitcoin.png" >
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+                </div>
+
+                <div class="banner_row2">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box">
+                            <i class="fa"><img src="images/coins.png"></i>
+                            <div class="type">Bitcoin</div>
+                            <div class="price">3469.00USD</div>
+                            <div class="volume">12</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box">
+                            <i class="fa"><img src="images/coins.png"></i>
+                            <div class="type">Tether</div>
+                            <div class="price">1122.91USD</div>
+                            <div class="volume">12</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box">
+                            <i class="fa"><img src="images/coins.png"></i>
+                            <div class="type">FLO</div>
+                            <div class="price">1233.00USD</div>
+                            <div class="volume">12</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                        <div class="info-box">
+                            <i class="fa"><img src="images/coins.png"></i>
+                            <div class="type">Bytes</div>
+                            <div class="price">4540.67USD</div>
+                            <div class="volume">12</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+                </div><!--/.row-->
+
+                <div class="row">
+                    <div class="col-lg-9 col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2><i class="fa fa-map-marker red"></i><strong>Charts</strong></h2>
+                                <!--<div class="panel-actions">-->
+                                    <!--<a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>-->
+                                    <!--<a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>-->
+                                    <!--<a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>-->
+                                <!--</div>-->
+                            </div>
+                            <!--charts-->
+                            <div class="panel-body-map">
+                                <div id="map" style="height:380px;"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </section>
+    </section>
+
+
+
+
+
+
+
 </body>
 </html>
