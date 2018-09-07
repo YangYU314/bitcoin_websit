@@ -2,9 +2,13 @@ $(document).ready(function(){
     $('#logout').click(function(){
         click_logout();
     });
+    //var t1 = window.setInterval(candlestick_chart(),1000);
+    //var t2 = window.setInterval("candlestick_chart()",3000);
+    //var t1 = window.setInterval(map_exchange_distribution(),1000);
+    var t2 = window.setInterval("map_exchange_distribution()",3000);
 
     //chart_generate();
-    map_exchange_distribution();
+    //map_exchange_distribution();
 })
 
 //logout
@@ -23,18 +27,18 @@ function click_logout(){
     })
 }
 
-function chart_generate() {
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById('map'));
-    var upColor = '#ec0000';
-    var upBorderColor = '#8A0000';
-    var downColor = '#00da3c';
-    var downBorderColor = '#008F28';
-    firstChart();
-}
+// function chart_generate() {
+//     // 基于准备好的dom，初始化echarts实例
+//     var myChart = echarts.init(document.getElementById('map'));
+//     var upColor = '#ec0000';
+//     var upBorderColor = '#8A0000';
+//     var downColor = '#00da3c';
+//     var downBorderColor = '#008F28';
+//     firstChart();
+// }
 
 //data
-function firstChart(){
+function candlestick_chart(){
     $.ajax({
         url: "/candle_stick",
         type: "POST",
@@ -56,7 +60,8 @@ function firstChart(){
                 var time = [];
                 var values = [];
                 for (var i=0; i<data.length; i++){
-                    time.push(data[i].time);
+
+                    time.push(unixtime_exchange(data[i].time));
                     var temp= [];
 
                     //need modify
@@ -105,7 +110,16 @@ function firstChart(){
                 //         values: values
                 //     };
                 // }
+                function unixtime_exchange(time){
 
+                        let unixtime = time
+                        let unixTimestamp = new Date(unixtime * 1000)
+                        let Y = unixTimestamp.getFullYear()
+                        let M = ((unixTimestamp.getMonth() + 1) > 10 ? (unixTimestamp.getMonth() + 1) : '0' + (unixTimestamp.getMonth() + 1))
+                        let D = (unixTimestamp.getDate() > 10 ? unixTimestamp.getDate() : '0' + unixTimestamp.getDate())
+                        let toDay = Y + '-' + M + '-' + D
+                        return toDay
+                }
                 function calculateMA(dayCount) {
                     var result = [];
                     for (var i = 0, len = data.values.length; i < len; i++) {
