@@ -5,19 +5,18 @@ $(document).ready(function(){
     });
     $('#candle_chart').click(function () {
         candlestick_chart();
-        var t1 = window.setInterval("candlestick_chart('BTC-USD')",30000);
+
     });
     $('#map_chart').click(function () {
         map_exchange_distribution();
-        var t2 = window.setInterval("map_exchange_distribution()",30000);
+
     });
     $('#ask_bid_chart').click(function () {
         bid_ask_chart();
-        var t3 = window.setInterval("bid_ask_chart()",30000);
+
     });
     var last_price;
     candlestick_chart('BTC-USD');
-    var t1 = window.setInterval("candlestick_chart('BTC-USD')",3000);
     //alert(last_price);
 })
 //logout
@@ -27,7 +26,7 @@ function click_logout(){
         type: "GET",
         success: function (data) {
             if (data.result == 0){
-                window.location.href = "login";
+                window.location.href = "/";
             }
         },
         error: function () {
@@ -37,6 +36,7 @@ function click_logout(){
 }
 //data show
 function candlestick_chart(product_id){
+    var t1 = window.setInterval("candlestick_chart('BTC-USD')",30000);
     $.ajax({
         url: "/candle_stick",
         type: "POST",
@@ -285,6 +285,7 @@ function candlestick_chart(product_id){
     })
 }
 function map_exchange_distribution(){
+    var t2 = window.setInterval("map_exchange_distribution()",30000);
     $.ajax({
         url: "/world_map",
         type: "GET",
@@ -365,6 +366,7 @@ function map_exchange_distribution(){
     )
 }
 function bid_ask_chart(){
+    var t3 = window.setInterval("bid_ask_chart()",30000);
     $.ajax({
             url: "/ask_bid",
             type: "GET",
