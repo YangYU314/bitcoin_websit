@@ -71,5 +71,5 @@ function getData(url, callback){
     });
 }
 
-var worldMap = mongoose.model('worldMap', worldMapSchema, 'worldMap');
+var worldMap = mongoose.model('WorldMap', worldMapSchema, 'worldMap');
 module.exports = worldMap;
