@@ -1,0 +1,166 @@
+
+/*header{*/
+/*margin-bottom: 20px;*/
+/*}*/
+
+body{
+    background: url(../../public/images/body-bg.png);
+    color:#838383;
+    /*font: 13px/1.7em 'Open Sans';*/
+}
+
+
+.account-container {
+    width: 380px;
+    display: block;
+    margin: auto;
+    background: #f9f9f9;
+    border: 1px solid #d5d5d5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow:  0px 0px 2px #dadada, inset 0px -3px 0px #e6e6e6;
+    left:0;
+    right: 0;
+    top: 100px;
+    bottom: 0;
+    position: relative;
+}
+
+.content {
+    padding: 16px 28px 23px;
+}
+
+.content h1{
+    font-size: 20pt;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.nav.pull-right {
+    float: right;
+}
+.nav>li {
+    display: block;
+    float: left;
+}
+.nav>li>a {
+    float: none;
+    padding: 10px 10px 11px;
+    line-height: 19px;
+    color: ghostwhite;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.nav>li>a:hover{
+    color: #fed189;
+}
+
+.nav.pull-right {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+.login-fields {
+
+}
+
+.login-fields .field {
+    margin-bottom: 1.25em;
+}
+
+.login-fields label {
+    display: none;
+}
+
+.login-fields input {
+    /*font-family: 'Open Sans';*/
+    font-size: 13px;
+    color: #8e8d8d;
+    padding: 11px 15px 10px 50px;
+    background-color: #fdfdfd;
+    width: 255px;
+    display: block;
+    margin: 0;
+    box-shadow: inset 2px 2px 4px #f1f1f1;
+}
+
+.username-field { background: url(../../public/images/user.png) no-repeat; }
+
+.password-field { background: url(../../public/images/password.png) no-repeat; }
+
+/** Text Under Box**/
+.login-extra {
+    display: block;
+    width: 380px;
+    margin: 8em auto;
+    text-align: left;
+    line-height: 19px;
+    text-shadow: 1px 1px 0px #fff;
+    position: relative;
+}
+
+
+.account-container h1 {
+    margin-bottom: .4em;
+    color: #525252;
+}
+
+/*.submit{*/
+/*-webkit-border-radius: 6px;*/
+/*-moz-border-radius: 6px;*/
+/*!*border-radius: 3px;*!*/
+/*display: inline-block;*/
+/*background-color: #4c4f53;*/
+/*color: white;*/
+/*width: 100px;*/
+/*height: 30px;*/
+/*!*float: right; *!*/
+/*margin-top: 0px;*/
+/*width:150px;*/
+/*height: 40px;*/
+/*horiz-align: center;*/
+/*}*/
+
+/*.submit:hover{*/
+/*color: #fabb3d;*/
+/*}*/
+
+.submit{
+    margin-right: auto;
+    margin-left: auto;
+    height: 3.5em;
+    width: 10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #434954;
+    color: #FFFFFF;
+    box-shadow:none;
+    border-radius: 30px;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .75em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    /*padding: 0 4em;*/
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.submit:hover {
+    opacity: 0.95;
+    color: #6cc091;
+}
+
+.register .login-fields input {
+    width: 299px;
+    padding-left: 6px;
+}
+
+.register h1 {
+    color: #444;
+}

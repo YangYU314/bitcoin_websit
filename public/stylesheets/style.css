@@ -16,7 +16,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 html,body{
-    height: 100%;
+  height: 100%;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -516,7 +516,7 @@ input[type="radio"] + label:before {
 }
 
 ::-webkit-input-placeholder {
-  
+
   color: #6cc091 !important;
   opacity: 0.8;
 }
@@ -933,21 +933,20 @@ button,
   margin-right: 20px;
 }
 
- #submit{
-  
+#submit{
   margin-right: auto;
   margin-left: auto;
-   margin-top: 20px;
-   height: 3.5em;
-   width: 10em;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   background: rgba(108,192,145,0.8);
-   color: #FFFFFF;
-   box-shadow:none;
+  margin-top: 20px;
+  height: 3.5em;
+  width: 10em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(108,192,145,0.8);
+  color: #FFFFFF;
+  box-shadow:none;
 }
- #submit:hover { opacity: 0.6; color: #fff; }
+#submit:hover { opacity: 0.6; color: #fff; }
 
 input[type="submit"]:hover,
 input[type="reset"]:hover,
@@ -1007,24 +1006,24 @@ button:active,
   margin: 0;
   padding: 0;
   position: absolute;
-  
+
   top: 0;
   font-size: 1em;
 }
 
 #header .logo1 {
-    color: #ffffff;
-    display: inline-block;
-    font-weight: 400;
-    height: inherit;
-    left: 0;
-    line-height: inherit;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    
-    top: 0;
-    font-size: 1em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: 400;
+  height: inherit;
+  left: 0;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+
+  top: 0;
+  font-size: 1em;
 }
 
 #header .logo strong {
@@ -1084,7 +1083,7 @@ button:active,
   content: '';
   background: rgba(75, 75, 93, 0.85);
   position: absolute;
-  
+
   width: 100%;
   height: 100%;
   top: 0;
@@ -1096,7 +1095,7 @@ button:active,
   position: relative;
   z-index: 10005;
   padding-top: 225px;
-    padding-bottom: auto;
+  padding-bottom: auto;
 
 }
 
