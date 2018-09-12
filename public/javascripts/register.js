@@ -9,7 +9,7 @@ $(document).ready(function(){
                     alert("Username has already been used!");
                 }else{
                     alert("Register success!");
-                    window.location.href = "login";
+                    window.location.href = "/";
                 }
             },
             error: function () {
