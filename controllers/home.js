@@ -4,7 +4,7 @@ var worldMapModel = require('../models/worldMap');
 module.exports.showMainPage = function(req, res){
     var sess = req.session;
     if ("username" in sess && sess.username != null){
-        res.render('home', {user: sess.username});
+        res.render('home', {user: sess.username, preference: sess.preference});
     }else{
         res.render('home', {user: "Shenghui wu"});
         //res.render('login');
