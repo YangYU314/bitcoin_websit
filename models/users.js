@@ -6,19 +6,20 @@ var userSchema = new Schema({
     lastname: String,
     username: String,
     password: String,
-    email: String
+    email: String,
+    preference: String
 });
 
 userSchema.statics.find_login = function(username, password, callback){
     return this
         .find({username: username, password: password})
-        .select({username:1})
+        .select({username:1, preference:1})
         .exec(function (err, result){
             if(err){
                 console.log(err);
             }else{
                 if (result.length > 0){
-                    callback(result[0].username);
+                    callback(result[0]);
                 }else{
                     callback(0);
                 }
@@ -26,7 +27,7 @@ userSchema.statics.find_login = function(username, password, callback){
         })
 }
 
-userSchema.statics.insert_register = function(firstname, lastname, username, password, email, callback){
+userSchema.statics.insert_register = function(firstname, lastname, username, password, email, preference, callback){
     users.find_username(username, function(err, res){
         if(err){
             console.log(err);
@@ -40,7 +41,8 @@ userSchema.statics.insert_register = function(firstname, lastname, username, pas
                         lastname: lastname,
                         username: username,
                         password: password,
-                        email: email
+                        email: email,
+                        preference: preference
                     })
                 newUser.save();
                 callback(1);

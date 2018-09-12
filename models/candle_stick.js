@@ -21,24 +21,27 @@ candleStickSchema.statics.candle_stick_data = function (product_id, callback){
     //update data
     Candle_stick.findNewest(product_id, function(result){
         if(result == null){
-            publicClient.getProductHistoricRates(product_id, function (err, res, data){
+            publicClient.getProductHistoricRates(product_id, {granularity: 3600}, function (err, res, data){
                 for (var i in data){
-                    var newData = new Candle_stick({
-                        product_id: product_id,
-                        time: data[i][0],
-                        open: data[i][3],
-                        close: data[i][4],
-                        low: data[i][1],
-                        high: data[i][2],
-                        volume: data[i][5]
-                    });
-                    newData.save();
+                    if (i >= 6){
+                        var newData = new Candle_stick({
+                            product_id: product_id,
+                            time: data[i][0],
+                            open: data[i][3],
+                            close: data[i][4],
+                            low: data[i][1],
+                            high: data[i][2],
+                            volume: data[i][5]
+                        });
+                        newData.save();
+                    }
                 }
             });
         }else{
+            var latestTime = result.time;
             publicClient.getProductHistoricRates(product_id, function (err, res, data){
                 for (var i in data){
-                    if (data[i][0] <= result){
+                    if (data[i][0] <= latestTime){
                         break;
                     }else{
                         var newData = new Candle_stick({
@@ -75,7 +78,7 @@ candleStickSchema.statics.findNewest = function (product_id, callback) {
             console.log("Query: findNewest Error!");
         }else{
             if(data.length > 0){
-                callback(data[0].time);
+                callback(data[0]);
             }else{
                 callback(null);
             }
@@ -87,7 +90,7 @@ candleStickSchema.statics.findNewest = function (product_id, callback) {
 candleStickSchema.statics.findData = function (product_id, callback) {
     var data = [
         {$match: {product_id: product_id}},
-        {$sort: {'time': -1}}
+        {$sort: {'time': 1}}
     ];
     this.aggregate(data, function(err, data){
         if(err){
