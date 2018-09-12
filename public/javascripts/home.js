@@ -77,7 +77,7 @@ function candlestick_chart(product_id){
                 //mini line chart of each coin
                 mini_last_price_collection = last_price_collection.slice(0,1000);
                 //alert(mini_last_price_collection);
-                var my_miniChart = echarts.init(document.getElementById('fa'));
+                var my_miniChart = echarts.init(document.getElementById('volume'));
                 var mini_option = {
                     tooltip: {
                         trigger: 'axis',
@@ -99,8 +99,8 @@ function candlestick_chart(product_id){
                     },
                     yAxis: {
                         type: 'value',
-                        max:6500,
-                        min:6000,
+                        max:6400,
+                        min:6100,
                         show:false,
                         //boundaryGap: [0, '100%'],
                         splitLine: {
@@ -131,7 +131,6 @@ function candlestick_chart(product_id){
                 // }, 10000);
                 my_miniChart.setOption(mini_option);
                 function unixtime_exchange(time){
-
                     var unixTimestamp = new Date(time*1000);
                     var commonTime = unixTimestamp.toLocaleString()
 
@@ -153,7 +152,7 @@ function candlestick_chart(product_id){
                     return result;
                 }
                 var option = {
-                    backgroundColor: '#0F0F0F',
+                    backgroundColor: '#53565d',
                     legend: {
                         data: ['Daily', 'MA5', 'MA10', 'MA20', 'MA30'],
                         inactiveColor: '#777',
