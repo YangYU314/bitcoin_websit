@@ -13,10 +13,12 @@ $(document).ready(function(){
             async: false,
             success: function (data) {
                 if (data != null ){
+                    news_list= data;
+                    console.log(news_list);
                     for (var i=0; i<data.length; i++){
                         var temp= [];
                         //console.log(data[i]);
-                        news_list= data;
+                        //
                         //need modify
                         // temp[i].push(data[i].articleTitle);
                         // temp[i].push(data[i].articleDescrption);
@@ -27,7 +29,8 @@ $(document).ready(function(){
                 }
             }
         })
-        console.log(news_list);
+        var last_price_show = document.getElementById("titlekk");
+        last_price_show.innerText = news_list[0].articleTitle;
     });
     $('#logout').click(function(){
         click_logout();
