@@ -2,7 +2,6 @@
 /* Import fonts */
 /*@import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);*/
 @import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600";
-/*@import url(line-icons.css);*/
 
 body {
     color: #797979;
@@ -795,23 +794,24 @@ row3{
     transition: all 0.5s ease;
 }
 #container.toggled {
-    padding-left: 220px;
+    padding-right: 300px;
 }
 #container.toggled #sidebar-wrapper {
-    width: 220px;
+    width: 300px;
 }
 #container.toggled #page-content-wrapper {
-    margin-right: -220px;
+    margin-left: -300px;
     position: absolute;
 }
 #sidebar-wrapper {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease;
-    background-color: #1a1a1a !important;
     height: 100%;
-    left: 220px;
-    margin-left: -220px;
+    right: 300px;
+    position: absolute;
+    background-color: transparent;
+    margin-right: -300px;
     overflow-x: hidden;
     overflow-y: auto;
     transition: all 0.5s ease;
@@ -834,8 +834,8 @@ row3{
     padding: 0;
     position: absolute;
     top: 0;
-    width: 220px;
-    z-index: 10000;
+    width: 300px;
+    z-index: 10001;
 }
 
 .sidebar-nav li {
@@ -845,7 +845,7 @@ row3{
     width: 100%;
 }
 .sidebar-nav li:before {
-    background-color: #1c1c1c;
+    /*background-color: #fabb3d;*/
     content: '';
     height: 100%;
     left: 0;
@@ -892,7 +892,7 @@ row3{
 .sidebar-nav li a {
     color: #1a1a1a;
     display: block;
-    padding: 10px 15px 10px 30px;
+    /*padding: 10px 15px 10px 30px;*/
     text-decoration: none;
 }
 .sidebar-nav li.open:hover before {
@@ -900,16 +900,16 @@ row3{
     transition: width 0.2s ease-in;
     width: 100%;
 }
-.sidebar-nav .dropdown-menu {
-    background-color: #222222;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    width: 100%;
-}
+/*.sidebar-nav .dropdown-menu {*/
+/*background-color: #222222;*/
+/*border-radius: 0;*/
+/*border: none;*/
+/*box-shadow: none;*/
+/*margin: 0;*/
+/*padding: 0;*/
+/*position: relative;*/
+/*width: 100%;*/
+/*}*/
 .sidebar-nav li a:hover,
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus,
@@ -933,11 +933,12 @@ row3{
     border: none;
     display: block;
     height: 32px;
-    margin-left: 15px;
+    /*margin-left: 15px;*/
+    right: 25px;
     position: fixed;
     top: 20px;
     width: 32px;
-    z-index: 999;
+    z-index: 199999;
 }
 .hamburger:hover {
     outline: none;
@@ -1052,3 +1053,68 @@ row3{
     z-index: 1;
 }
 
+.tab{
+    table-layout: fixed;
+    width:90%;
+    word-break: break-all;
+    word-wrap: break-word;//表格固定布局
+}
+/*??????????*/
+td{
+    width:100px;             /*单元格宽度*/
+    /*height:50px;             !*单元格高度*!*/
+    text-align:left;       /*单元格文字居中对齐*/
+}
+.award-name{
+    /*-o-text-overflow:ellipsis;*/
+    /*text-overflow:ellipsis;*/
+    /*overflow:hidden;*/
+    /*white-space:nowrap;*/
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    align:left;
+    width:100%;
+    /*//超出部分显示省略号*/
+
+
+}
+/*.award-name #title{*/
+/*height: 30%;*/
+/*font-weight: 200;*/
+/*font-size: 100px;*/
+
+/*}*/
+.tr1{
+    height: 30px;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 10px;
+
+}
+
+.tr2{
+    height: 70px;
+    font-size: 12px;
+}
+
+/*.award-name #description{*/
+/*height: 70%;*/
+
+/*}*/
+
+.tab #co1{
+    align:"left";
+    width:30%;
+}
+
+.tab #co1 img{
+    width: 70%;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    horiz-align: center;
+    margin-left: 10%;
+}
+/*<!--已改-->*/
