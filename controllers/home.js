@@ -11,7 +11,6 @@ module.exports.showMainPage = function(req, res){
         res.render('home', {user: "Shenghui wu", preference: "BTC-USD"});
         //res.render('login');
     }
-
 }
 
 //candle stick
@@ -41,7 +40,8 @@ module.exports.world_map = function(req, res){
 
 //order book
 module.exports.order_book = function(req, res){
-    orderBookModel.order_book_data(function(result){
+    var product_id = req.body.product_id;
+    orderBookModel.order_book_data(product_id, function(result){
         res.json(result);
     });
 }

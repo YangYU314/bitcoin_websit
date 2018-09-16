@@ -26,7 +26,7 @@ newsSchema.statics.news_data = function(callback){
             var image;
             var descrption;
             var url;
-            for (var i = 0; i < newsData.length; i++){
+            for (var i = 0; i < 5; i++){
                 title = newsData[i].title;
                 image = newsData[i].urlToImage;
                 descrption = newsData[i].description;
