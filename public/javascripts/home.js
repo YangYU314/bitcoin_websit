@@ -4,10 +4,29 @@ $(document).ready(function(){
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
-    var news_list = [];
+    var news_list   ;
 
     $("#news").click(function(){
-        news_request();
+        $.ajax({
+            url: "/news",
+            type: "GET",
+            async: false,
+            success: function (data) {
+                if (data != null ){
+                    for (var i=0; i<data.length; i++){
+                        var temp= [];
+                        //console.log(data[i]);
+                        news_list= data;
+                        //need modify
+                        // temp[i].push(data[i].articleTitle);
+                        // temp[i].push(data[i].articleDescrption);
+                        // temp[i].push(data[i].articleImage);
+                        // temp[i].push(data[i].articleUrl);
+                    }
+                    // console.log(temp);
+                }
+            }
+        })
         console.log(news_list);
     });
     $('#logout').click(function(){
@@ -509,22 +528,5 @@ function bid_ask_chart(){
 }
 
 function news_request(){
-    $.ajax({
-        url: "/news",
-        type: "GET",
-        success: function (data) {
-            if (data != null ){
-                for (var i=0; i<data.length; i++){
-                    var temp= [];
 
-                    //need modify
-                    temp.push(data[i].articleTitle);
-                    temp.push(data[i].articleDescrption);
-                    temp.push(data[i].articleImage);
-                    temp.push(data[i].articleUrl);
-                }
-                news_list.push(temp);
-            }
-        }
-})
 }
