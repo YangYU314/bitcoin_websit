@@ -19,52 +19,94 @@ var candleStickSchema = new Schema({
 //update and get data from collection candle_stick
 candleStickSchema.statics.candle_stick_data = function (product_id, callback){
     //update data
-    Candle_stick.findNewest(product_id, function(result){
-        if(result == null){
-            publicClient.getProductHistoricRates(product_id, {granularity: 3600}, function (err, res, data){
-                for (var i in data){
-                    if (i >= 6){
-                        var newData = new Candle_stick({
-                            product_id: product_id,
-                            time: data[i][0],
-                            open: data[i][3],
-                            close: data[i][4],
-                            low: data[i][1],
-                            high: data[i][2],
-                            volume: data[i][5]
-                        });
-                        newData.save();
-                    }
-                }
-            });
-        }else{
-            var latestTime = result.time;
-            publicClient.getProductHistoricRates(product_id, function (err, res, data){
-                for (var i in data){
-                    if (data[i][0] <= latestTime){
-                        break;
-                    }else{
-                        var newData = new Candle_stick({
-                            product_id: product_id,
-                            time: data[i][0],
-                            open: data[i][3],
-                            close: data[i][4],
-                            low: data[i][1],
-                            high: data[i][2],
-                            volume: data[i][5]
-                        });
-                        newData.save();
-                    }
-                }
+    Candle_stick.update_data(product_id, function(results){
+        if (results == 1){
+            //get data
+            Candle_stick.findAllData(product_id, function(result){
+                callback(result);
             });
         }
     });
+}
 
-    //get data
-    Candle_stick.findData(product_id, function(result){
-        callback(result);
+//update data
+candleStickSchema.statics.update_data = function (product_id, callback){
+    Candle_stick.findNewest(product_id, function (result) {
+        if (result == null) {
+            publicClient.getProductHistoricRates(product_id, {granularity: 3600}, function (err, res, data) {
+                for (var i in data) {
+                    if (i >= 6) {
+                        var newData = new Candle_stick({
+                            product_id: product_id,
+                            time: data[i][0],
+                            open: data[i][3],
+                            close: data[i][4],
+                            low: data[i][1],
+                            high: data[i][2],
+                            volume: data[i][5]
+                        });
+                        newData.save();
+                    }
+                }
+            });
+
+            publicClient.getProductHistoricRates(product_id, function (err, res, data) {
+                for (var i in data) {
+                    if (data[i][0] <= latestTime) {
+                        break;
+                    } else {
+                        var newData = new Candle_stick({
+                            product_id: product_id,
+                            time: data[i][0],
+                            open: data[i][3],
+                            close: data[i][4],
+                            low: data[i][1],
+                            high: data[i][2],
+                            volume: data[i][5]
+                        });
+                        newData.save();
+                    }
+                }
+                callback(1);
+            });
+        } else {
+            var latestTime = result.time;
+            publicClient.getProductHistoricRates(product_id, function (err, res, data) {
+                for (var i in data) {
+                    if (data[i][0] <= latestTime) {
+                        break;
+                    } else {
+                        var newData = new Candle_stick({
+                            product_id: product_id,
+                            time: data[i][0],
+                            open: data[i][3],
+                            close: data[i][4],
+                            low: data[i][1],
+                            high: data[i][2],
+                            volume: data[i][5]
+                        });
+                        newData.save();
+                    }
+                }
+                callback(1);
+            });
+        }
     });
 }
+
+//get last price from collection candle_stick
+candleStickSchema.statics.last_price_data = function (product_id, callback){
+    //update data
+    Candle_stick.update_data(product_id, function(results){
+        if (results == 1){
+            //get data
+            Candle_stick.findData(product_id, function(result){
+                callback(result);
+            });
+        }
+    });
+}
+
 
 //find the newest row and get its time
 candleStickSchema.statics.findNewest = function (product_id, callback) {
@@ -87,10 +129,30 @@ candleStickSchema.statics.findNewest = function (product_id, callback) {
 };
 
 //find all the data and get its time, open, close, low, high
-candleStickSchema.statics.findData = function (product_id, callback) {
+candleStickSchema.statics.findAllData = function (product_id, callback) {
     var data = [
         {$match: {product_id: product_id}},
         {$sort: {'time': 1}}
+    ];
+    this.aggregate(data, function(err, data){
+        if(err){
+            console.log("Query: findAllData Error!");
+        }else{
+            if(data.length > 0){
+                callback(data);
+            }else{
+                callback(null);
+            }
+        }
+    });
+};
+
+//find and get its close (last price)
+candleStickSchema.statics.findData = function (product_id, callback) {
+    var data = [
+        {$match: {product_id: product_id}},
+        {$sort: {'time': -1}},
+        {$limit: 1}
     ];
     this.aggregate(data, function(err, data){
         if(err){
