@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 const gdax = require('gdax');
 const publicClient = new gdax.PublicClient();
 
-var candleStickSchema = new Schema({
+var orderBookSchema = new Schema({
         product_id: String,
         time: Number,
         open: Number,
@@ -13,11 +13,11 @@ var candleStickSchema = new Schema({
         volume: Number
     },
     {
-        collection:'candle_stick'
-});
+        collection:'order_book'
+    });
 
-//update and get data from collection candle stick
-candleStickSchema.statics.candle_stick_data = function (product_id, callback){
+//update and get data from collection order book
+orderBookSchema.statics.order_book_data = function (product_id, callback){
     //update data
     Candle_stick.update_data(product_id, function(results){
         if (results == 1){
@@ -30,7 +30,7 @@ candleStickSchema.statics.candle_stick_data = function (product_id, callback){
 }
 
 //update data
-candleStickSchema.statics.update_data = function (product_id, callback){
+orderBookSchema.statics.update_data = function (product_id, callback){
     Candle_stick.findNewest(product_id, function (result) {
         if (result == null) {
             publicClient.getProductHistoricRates(product_id, {granularity: 3600}, function (err, res, data) {
@@ -95,7 +95,7 @@ candleStickSchema.statics.update_data = function (product_id, callback){
 }
 
 //get last price from collection candle_stick
-candleStickSchema.statics.last_price_data = function (product_id, callback){
+orderBookSchema.statics.last_price_data = function (product_id, callback){
     //update data
     Candle_stick.update_data(product_id, function(results){
         if (results == 1){
@@ -108,7 +108,7 @@ candleStickSchema.statics.last_price_data = function (product_id, callback){
 }
 
 //find the newest row and get its time
-candleStickSchema.statics.findNewest = function (product_id, callback) {
+orderBookSchema.statics.findNewest = function (product_id, callback) {
     var newest = [
         {$match: {product_id: product_id}},
         {$sort: {'time': -1}},
@@ -127,44 +127,5 @@ candleStickSchema.statics.findNewest = function (product_id, callback) {
     });
 };
 
-//find all the data and get its time, open, close, low, high
-candleStickSchema.statics.findAllData = function (product_id, callback) {
-    var data = [
-        {$match: {product_id: product_id}},
-        {$sort: {'time': 1}}
-    ];
-    this.aggregate(data, function(err, data){
-        if(err){
-            console.log("Query: findAllData Error!");
-        }else{
-            if(data.length > 0){
-                callback(data);
-            }else{
-                callback(null);
-            }
-        }
-    });
-};
-
-//find and get its close (last price)
-candleStickSchema.statics.findData = function (product_id, callback) {
-    var data = [
-        {$match: {product_id: product_id}},
-        {$sort: {'time': -1}},
-        {$limit: 1}
-    ];
-    this.aggregate(data, function(err, data){
-        if(err){
-            console.log("Query: findData Error!");
-        }else{
-            if(data.length > 0){
-                callback(data);
-            }else{
-                callback(null);
-            }
-        }
-    });
-};
-
-var Candle_stick = mongoose.model('Candle_stick', candleStickSchema, 'candle_stick');
-module.exports = Candle_stick;
+var Order_book = mongoose.model('Order_Book', orderBookSchema, 'order_book');
+module.exports = Order_book;
