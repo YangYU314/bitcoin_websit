@@ -1,7 +1,11 @@
 $(document).ready(function(){
+    var product_id = document.getElementById("preference").value;
+    alert(product_id);
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
+    var news_list = [];
+    news_request();
         $('#logout').click(function(){
             click_logout();
         });
@@ -35,7 +39,6 @@ function click_logout(){
         }
     })
 }
-
 function candle_chart_generate() {
     clearTimeout(worldmap_timer);
     candle_timer = setTimeout("candlestick_chart()",3000);
@@ -44,8 +47,6 @@ function world_chart_generate() {
     clearTimeout(candle_timer);
     worldmap_timer = setTimeout("map_exchange_distribution()",3000);
 }
-
-
 function candlestick_chart(product_id){
     //var t1 = window.setInterval("candlestick_chart('BTC-USD')",30000);
     $.ajax({
@@ -377,6 +378,7 @@ function map_exchange_distribution(){
     }
     )
 }
+//259.96 2个order
 function bid_ask_chart(){
     var t3 = window.setInterval("bid_ask_chart()",30000);
     $.ajax({
@@ -500,4 +502,15 @@ function bid_ask_chart(){
             }
         }
     )
+}
+function news_request(){
+    $.ajax({
+        url: "/news",
+        type: "GET",
+    success: function (data) {
+            if (data != null ){
+                news_list = data;
+            }
+        }
+})
 }
