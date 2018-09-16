@@ -1,5 +1,7 @@
 var candleStickModel = require('../models/candle_stick');
 var worldMapModel = require('../models/worldMap');
+var orderBookModel = require('../models/order_book');
+var newsModel = require('../models/news');
 
 module.exports.showMainPage = function(req, res){
     var sess = req.session;
@@ -33,6 +35,20 @@ module.exports.last_price = function(req, res){
 //world map
 module.exports.world_map = function(req, res){
     worldMapModel.world_map_data(function(result){
+        res.json(result);
+    });
+}
+
+//order book
+module.exports.order_book = function(req, res){
+    orderBookModel.order_book_data(function(result){
+        res.json(result);
+    });
+}
+
+//news
+module.exports.news = function(req, res){
+    newsModel.news_data(function(result){
         res.json(result);
     });
 }
