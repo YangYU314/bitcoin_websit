@@ -1,3 +1,4 @@
+@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600";
 .ui-dialog{
 		width: 450px;height: auto;display: none;
 		position: absolute;z-index: 90000;
