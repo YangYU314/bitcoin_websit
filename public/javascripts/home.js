@@ -14,23 +14,46 @@ $(document).ready(function(){
             success: function (data) {
                 if (data != null ){
                     news_list= data;
-                    console.log(news_list);
-                    for (var i=0; i<data.length; i++){
-                        var temp= [];
-                        //console.log(data[i]);
-                        //
-                        //need modify
-                        // temp[i].push(data[i].articleTitle);
-                        // temp[i].push(data[i].articleDescrption);
-                        // temp[i].push(data[i].articleImage);
-                        // temp[i].push(data[i].articleUrl);
-                    }
-                    // console.log(temp);
                 }
             }
         })
-        var last_price_show = document.getElementById("titlekk");
-        last_price_show.innerText = news_list[0].articleTitle;
+
+        $('#title0').append(news_list[0].articleTitle);
+        $('#title0').attr('href', news_list[0].articleUrl);
+        var image0 = document.getElementById("image0");
+        image0.src = news_list[0].articleImage;
+        var description0 = document.getElementById("description0");
+        description0.innerText = news_list[0].articleDescrption;
+
+        $('#title1').append(news_list[1].articleTitle);
+        $('#title1').attr('href', news_list[1].articleUrl);
+        var image1 = document.getElementById("image1");
+        image1.src = news_list[1].articleImage;
+        var description1 = document.getElementById("description1");
+        description1.innerText = news_list[1].articleDescrption;
+
+        $('#title2').append(news_list[2].articleTitle);
+        $('#title2').attr('href', news_list[2].articleUrl);
+        var image2 = document.getElementById("image2");
+        image2.src = news_list[2].articleImage;
+        var description2 = document.getElementById("description2");
+        description2.innerText = news_list[2].articleDescrption;
+
+        $('#title3').append(news_list[3].articleTitle);
+        $('#title3').attr('href', news_list[3].articleUrl);
+        var image3 = document.getElementById("image3");
+        image3.src = news_list[3].articleImage;
+        var description3 = document.getElementById("description3");
+        description3.innerText = news_list[3].articleDescrption;
+
+        $('#title4').append(news_list[4].articleTitle);
+        $('#title4').attr('href', news_list[4].articleUrl);
+        var image4 = document.getElementById("image4");
+        image4.src = news_list[4].articleImage;
+        var description4 = document.getElementById("description4");
+        description4.innerText = news_list[4].articleDescrption;
+
+
     });
     $('#logout').click(function(){
         click_logout();
