@@ -1,23 +1,27 @@
 $(document).ready(function(){
+    var product_id = document.getElementById("preference").value;
+    alert(product_id);
+    var candle_timer;
+    var worldmap_timer;
+    var askbid_timer;
+    var news_list = [];
+    news_request();
+        $('#logout').click(function(){
+            click_logout();
+        });
+        $('#candle_chart').click(function () {
+            clearTimeout(worldmap_timer);
+            candle_timer = setTimeout("candlestick_chart()",3000);
+        });
+        $('#map_chart').click(function () {
+            clearTimeout(candle_timer);
+            worldmap_timer = setTimeout("map_exchange_distribution()",3000);
 
-    $('#logout').click(function(){
-        click_logout();
-    });
-    $('#candle_chart').click(function () {
-        candlestick_chart();
-        var t1 = window.setInterval("candlestick_chart('BTC-USD')",30000);
-    });
-    $('#map_chart').click(function () {
-        map_exchange_distribution();
-        var t2 = window.setInterval("map_exchange_distribution()",30000);
-    });
-    $('#ask_bid_chart').click(function () {
-        bid_ask_chart();
-        var t3 = window.setInterval("bid_ask_chart()",30000);
-    });
-    var last_price;
-    candlestick_chart('BTC-USD');
-    var t1 = window.setInterval("candlestick_chart('BTC-USD')",3000);
+        });
+        $('#ask_bid_chart').click(function () {
+
+        });
+
     //alert(last_price);
 })
 //logout
@@ -27,7 +31,7 @@ function click_logout(){
         type: "GET",
         success: function (data) {
             if (data.result == 0){
-                window.location.href = "login";
+                window.location.href = "/";
             }
         },
         error: function () {
@@ -35,8 +39,16 @@ function click_logout(){
         }
     })
 }
-//data show
+function candle_chart_generate() {
+    clearTimeout(worldmap_timer);
+    candle_timer = setTimeout("candlestick_chart()",3000);
+}
+function world_chart_generate() {
+    clearTimeout(candle_timer);
+    worldmap_timer = setTimeout("map_exchange_distribution()",3000);
+}
 function candlestick_chart(product_id){
+    //var t1 = window.setInterval("candlestick_chart('BTC-USD')",30000);
     $.ajax({
         url: "/candle_stick",
         type: "POST",
@@ -47,12 +59,13 @@ function candlestick_chart(product_id){
                 // format：(open)，(close)，(lowest)，(highest)
                 //alert(data[0].time)
                 //var data0 = splitData(data.result);
-
+                product_id = data[0].product_id;
                 var myChart = echarts.init(document.getElementById('map'));
                 var upColor = '#ec0000';
                 var upBorderColor = '#8A0000';
                 var downColor = '#00da3c';
                 var downBorderColor = '#008F28';
+                var downColor='#6cc091';
                 var time = [];
                 var values = [];
                 var last_price_collection = [];
@@ -99,10 +112,10 @@ function candlestick_chart(product_id){
                     },
                     yAxis: {
                         type: 'value',
-                        max:6400,
+                        max:6600,
                         min:6100,
                         show:false,
-                        //boundaryGap: [0, '100%'],
+                        boundaryGap: [0, '100%'],
                         splitLine: {
                             show: false
                         }
@@ -152,7 +165,7 @@ function candlestick_chart(product_id){
                     return result;
                 }
                 var option = {
-                    backgroundColor: '#53565d',
+                    backgroundColor: '#2f323c',
                     legend: {
                         data: ['Daily', 'MA5', 'MA10', 'MA20', 'MA30'],
                         inactiveColor: '#777',
@@ -218,8 +231,8 @@ function candlestick_chart(product_id){
                             data: values,
                             itemStyle: {
                                 normal: {
-                                    color: '#777',
-                                    color0: '#777',
+                                    color: '#FD1050',
+                                    color0: '#6cc091',
                                     borderColor: '#FD1050',
                                     borderColor0: '#0CF49B'
                                 }
@@ -285,6 +298,7 @@ function candlestick_chart(product_id){
     })
 }
 function map_exchange_distribution(){
+    var t2 = window.setInterval("map_exchange_distribution()",30000);
     $.ajax({
         url: "/world_map",
         type: "GET",
@@ -364,12 +378,14 @@ function map_exchange_distribution(){
     }
     )
 }
+//259.96 2个order
 function bid_ask_chart(){
+    var t3 = window.setInterval("bid_ask_chart()",30000);
     $.ajax({
             url: "/ask_bid",
             type: "GET",
             success: function (data) {
-                var time = []
+                var time = ["01/09/2018","09/09/201"]
                 var ask = [];
                 var bid = [];
                 var spread = [];
@@ -486,4 +502,15 @@ function bid_ask_chart(){
             }
         }
     )
+}
+function news_request(){
+    $.ajax({
+        url: "/news",
+        type: "GET",
+    success: function (data) {
+            if (data != null ){
+                news_list = data;
+            }
+        }
+})
 }

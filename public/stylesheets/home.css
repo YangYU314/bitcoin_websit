@@ -901,16 +901,7 @@ row3{
     transition: width 0.2s ease-in;
     width: 100%;
 }
-/*.sidebar-nav .dropdown-menu {*/
-    /*background-color: #222222;*/
-    /*border-radius: 0;*/
-    /*border: none;*/
-    /*box-shadow: none;*/
-    /*margin: 0;*/
-    /*padding: 0;*/
-    /*position: relative;*/
-    /*width: 100%;*/
-/*}*/
+
 .sidebar-nav li a:hover,
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus,
@@ -1078,16 +1069,8 @@ td{
     overflow: hidden;
     align:left;
     width:100%;
-/*//超出部分显示省略号*/
-
-
 }
-/*.award-name #title{*/
-    /*height: 30%;*/
-    /*font-weight: 200;*/
-    /*font-size: 100px;*/
 
-/*}*/
 .tr1{
     height: 30px;
     font-size: 16px;
@@ -1100,9 +1083,6 @@ td{
     height: 70px;
     font-size: 12px;
 }
-
-/*.award-name #description{*/
-    /*height: 70%;*/
 
 /*}*/
 
