@@ -14,6 +14,7 @@ router.post('/register', controller.validation_register);
 //overall
 router.get('/home', home.showMainPage);
 router.post('/candle_stick', home.candle_stick);
+router.post('/last_price', home.last_price);
 router.get('/world_map', home.world_map);
 
 module.exports = router;

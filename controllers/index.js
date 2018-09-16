@@ -51,7 +51,6 @@ module.exports.validation_register = function(req, res) {
     var password = crypto.createHash('sha256').update(req.body.password, 'utf8').digest();
     var email = req.body.email;
     var preference = req.body.preference;
-    console.log(firstname, lastname, username, password, email, preference);
     usersModel.insert_register(firstname, lastname, username, password, email, preference, function (result) {
         res.json({result: result});
     })
