@@ -1,26 +1,30 @@
 $(document).ready(function(){
-    var product_id = document.getElementById("preference").value;
-    alert(product_id);
+    // var product_id = document.getElementById("preference").value;
+    // alert(product_id);
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
     var news_list = [];
-    news_request();
-        $('#logout').click(function(){
-            click_logout();
-        });
-        $('#candle_chart').click(function () {
-            clearTimeout(worldmap_timer);
-            candle_timer = setTimeout("candlestick_chart()",3000);
-        });
-        $('#map_chart').click(function () {
-            clearTimeout(candle_timer);
-            worldmap_timer = setTimeout("map_exchange_distribution()",3000);
 
-        });
-        $('#ask_bid_chart').click(function () {
+    $("#news").click(function(){
+        news_request();
+        console.log(news_list);
+    });
+    $('#logout').click(function(){
+        click_logout();
+    });
+    $('#candle_chart').click(function () {
+        clearTimeout(worldmap_timer);
+        candle_timer = setTimeout("candlestick_chart()",3000);
+    });
+    $('#map_chart').click(function () {
+        clearTimeout(candle_timer);
+        worldmap_timer = setTimeout("map_exchange_distribution()",3000);
 
-        });
+    });
+    $('#ask_bid_chart').click(function () {
+
+    });
 
     //alert(last_price);
 })
@@ -503,13 +507,23 @@ function bid_ask_chart(){
         }
     )
 }
+
 function news_request(){
     $.ajax({
         url: "/news",
         type: "GET",
-    success: function (data) {
+        success: function (data) {
             if (data != null ){
-                news_list = data;
+                for (var i=0; i<data.length; i++){
+                    var temp= [];
+
+                    //need modify
+                    temp.push(data[i].articleTitle);
+                    temp.push(data[i].articleDescrption);
+                    temp.push(data[i].articleImage);
+                    temp.push(data[i].articleUrl);
+                }
+                news_list.push(temp);
             }
         }
 })
