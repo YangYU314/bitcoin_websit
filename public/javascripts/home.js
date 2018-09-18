@@ -613,8 +613,8 @@ function order_chart(){
             for(i=0;i<50;i++){
                 price.push((data[0].bids[i])[0]);
                 price.push((data[0].asks[i])[0]);
-                order_number.push((data[0].bids[i])[2]);
-                order_number.push((data[0].asks[i])[2]);
+                order_number.push((data[0].bids[i])[1]);
+                order_number.push((data[0].asks[i])[1]);
             }
             console.log(price);
             console.log(order_number);
@@ -629,6 +629,9 @@ function order_chart(){
                         type: 'shadow'
                     }
                 },
+                legend:{
+
+                },
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
@@ -638,14 +641,25 @@ function order_chart(){
                 yAxis: {
                     type: 'value'
                 },
-                    series: [{
-                data: order_number,
-                type: 'bar',
-                        barCategoryGap:"1%",
-                        barGap: 1,
-                        areaStyle: {}
+                visualMap: {
+                    show: false,
+                    dimension: 0,
+                    pieces: [],  //pieces的值由动态数据决定
+                    outOfRange: {
+                        color: 'green'
+                    }
+                },
+                series: [{
+                    data: order_number,
+                    type: 'bar',
+                    barCategoryGap:"1%",
+                    barGap: 1,
+                    areaStyle: {}
                 }]
             };
+            for(let i = 0; i < 50; i++) {
+                option.visualMap.pieces[i] =  {gte:i,lte:i+1,color:'red'};
+            }
             myChart.setOption(option);
         }
 
