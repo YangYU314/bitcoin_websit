@@ -5,6 +5,7 @@ $(document).ready(function(){
     var worldmap_timer;
     var askbid_timer;
     var news_list;
+
     mini_price();
     candlestick_chart();
     $("#news").click(function(){
@@ -100,7 +101,7 @@ function click_logout(){
     })
 }
 function mini_price(){
-    var tt = window.setInterval("mini_price()",5000);
+    var tt = window.setInterval("mini_price()",60000);
     $.ajax({
         url:"/last_price",
         type:"POST",
@@ -143,13 +144,19 @@ function candlestick_chart(){
                     temp.push(data[i].high);
                     values.push(temp);
                 }
-                //last price
-                 last_price = data[data.length-1].close;
-                //alert("last price:"+last_price);
-
-
+                //get haed last_price and 24h volume
+                var last_price_show_head = document.getElementById("LastPrice");
+                var hvolume_show_head = document.getElementById("24hrVolume");
+                console.log(last_price_show_head);
+                //last price and volume of preference
+                last_price = data[data.length-1].close;
+                volume_24h = data[data.length-1].volume;
+                //alert("last price of preference:"+last_price);
+                //preference price
+                last_price_show_head.innerText= "Last Price: "+last_price+" USD";
+                hvolume_show_head.innerText = "24Ht Volume: "+volume_24h+" million USD";
                 //mini line chart of each coin
-                mini_last_price_collection = last_price_collection.slice(0,1000);
+                mini_last_price_collection = last_price_collection.slice(last_price_collection.length-100,last_price_collection.length-1);
                 //alert(mini_last_price_collection);
                 var my_miniChart = echarts.init(document.getElementById('volume'));
                 var mini_option = {
