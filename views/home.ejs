@@ -50,9 +50,9 @@
 
             <div class="preference">
                 <select type="text" name="preference" id="preference">
-                    <option>BTC-USD</option>
-                    <option>BTC-EUR</option>
-                    <option>BTC-GBP</option>
+                    <option value="BTC-USD">BTC-USD</option>
+                    <option value="BTC-EUR">BTC-EUR</option>
+                    <option value="BTC-GBP">BTC-GBP</option>
                 </select>
             </div>
 
@@ -197,7 +197,7 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div class="info-box">
-                        <h1>BITCOIN(BTC)</h1>
+                        <h1 id="home_head_h1">BITCOIN(BTC)</h1>
                     </div><!--/.info-box-->
                 </div><!--/.col-->
 
@@ -222,27 +222,27 @@
                         <div class="info-box">
                             <!--<i class="fa"><img src="images/coins.png"></i>-->
                             <div><img src="images/coins.png"></div>
-                            <div id="type">Bitcoin</div>
-                            <div id="price"></div>
-                            <div id="volume"></div>
+                            <div id="type">BTC-USD</div>
+                            <div id="price" name="price1">loading</div>
+                            <div id="volume1" name="volume1">loading</div>
                         </div><!--/.info-box-->
                     </div><!--/.col-->
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <div class="info-box">
                             <div><img src="images/coins.png"></div>
-                            <div id="type">Tether</div>
-                            <div id="price"></div>
-                            <div id="volume"></div>
+                            <div id="type">BTC-GBP</div>
+                            <div id="price" name="price2">loading</div>
+                            <div id="volume2" name="volume2">loading</div>
                         </div><!--/.info-box-->
                     </div><!--/.col-->
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <div class="info-box">
                             <div><img src="images/coins.png"></i>
-                                <div id="type">FLO</div>
-                                <div id="price">1233.00USD</div>
-                                <div id="volume">12</div>
+                                <div id="type">BTC-EUR</div>
+                                <div id="price" name="price3">loading</div>
+                                <div id="volume3" name="volume3">loading</div>
                             </div>
                         </div>
                     </div>
