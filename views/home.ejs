@@ -32,6 +32,7 @@
             <div class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle">
                     <span class="username"><%=user%></span>
+                    <input id="hidden_preference" name="hid" type="hidden" value="<%=preference %>" />
                 </a>
                 <ul class="dropdown-menu">
                     <div class="log-arrow-up"></div>
@@ -63,33 +64,7 @@
 
         </div>
 
-
-
     </header>
-    <!--header end-->
-
-
-    <!--<nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">-->
-        <!--<ul class="nav sidebar-nav">-->
-            <!--<li class="sidebar-brand">-->
-                <!--<a href="#">-->
-
-                <!--</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="#"><i class="fa fa-fw fa-home"></i> My Profile</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="#"><i class="fa fa-fw fa-folder"></i> News</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="#"><i class="fa fa-fw fa-file-o"></i> Setting</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="#"><i class="fa fa-fw fa-cog"></i> Log out</a>-->
-            <!--</li>-->
-        <!--</ul>-->
-    <!--</nav>-->
 
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
         <ul class="nav sidebar-nav">
@@ -218,7 +193,6 @@
     <section id="main-content">
         <section class="wrapper">
 
-
             <div class="banner_row1">
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -231,48 +205,49 @@
                     <div class="info-box" id="banner_md">
                         <h2 id="LastPrice">Last Price:</h2>
                         <h2 id="24hrVolume">24hr Volume:</h2>
-                    </div><!--/.info-box-->
-                </div><!--/.col-->
+                    </div>
+                </div>
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div class="info-box" id="bitlogo">
                         <img src="images/bitcoin.png" >
-                    </div><!--/.info-box-->
-                </div><!--/.col-->
-            </div>
-
-            <div class="banner_row2">
-                <h1>Know The Digital World</h1>
-            </div>
-
-            <div class="banner_row3">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="info-box">
-                        <i class="fa"><img src="images/coins.png"></i>
-                        <div class="type">Bitcoin</div>
-                        <div id="price"></div>
-                        <div id="volume">12</div>
-                    </div><!--/.info-box-->
-                </div><!--/.col-->
-
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="info-box">
-                        <i class="fa"><img src="images/coins.png"></i>
-                        <div class="type">Tether</div>
-                        <div id="price">1122.91USD</div>
-                        <div id="volume">12</div>
-                    </div><!--/.info-box-->
-                </div><!--/.col-->
-
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="info-box">
-                        <i class="fa"><img src="images/coins.png"></i>
-                        <div class="type">FLO</div>
-                        <div id="price">1233.00USD</div>
-                        <div id="volume">12</div>
                     </div>
                 </div>
             </div>
+
+            <div class="banner2">
+                <div class="banner_row3">
+                    <h1>Know The Digital World</h1>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="info-box">
+                            <!--<i class="fa"><img src="images/coins.png"></i>-->
+                            <div><img src="images/coins.png"></div>
+                            <div id="type">Bitcoin</div>
+                            <div id="price"></div>
+                            <div id="volume"></div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="info-box">
+                            <div><img src="images/coins.png"></div>
+                            <div id="type">Tether</div>
+                            <div id="price"></div>
+                            <div id="volume"></div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="info-box">
+                            <div><img src="images/coins.png"></i>
+                                <div id="type">FLO</div>
+                                <div id="price">1233.00USD</div>
+                                <div id="volume">12</div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
 
             <div class="row3">
                 <div class="col-lg-9 col-md-9">
