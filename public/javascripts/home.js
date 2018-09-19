@@ -5,6 +5,9 @@ $(document).ready(function(){
     var worldmap_timer;
     var askbid_timer;
     var news_list;
+    mini_chart2();
+    mini_chart3();
+
 
     //mini_price();
     candlestick_chart();
@@ -158,16 +161,16 @@ function candlestick_chart(){
                 volume_24h = data[data.length-1].volume;
                 //alert("last price of preference:"+last_price);
                 //preference price
-                last_price_show_head.innerText= "Last Price: "+last_price+preference;
-                hvolume_show_head.innerText = "24Ht Volume: "+volume_24h+" million " +preference;
+                last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
+                hvolume_show_head.innerText = "24Ht Volume: "+volume_24h+preference.toString().substring(0,3);
                 var last_price_show = document.getElementById("price");
-                last_price_show.innerText = last_price+ preference;
+                last_price_show.innerText = last_price+ preference.toString().substring(4,7);
                 //mini line chart of each coin
                 mini_last_price_collection = last_price_collection.slice(last_price_collection.length-100,last_price_collection.length-1);
                 //alert(mini_last_price_collection);
                 var my_miniChart = echarts.init(document.getElementById('volume'));
                 var mini_option = {
-                    backgroundColor: "#777",
+                    //backgroundColor: "#777",
                     tooltip: {
                         trigger: 'axis',
                         formatter: function (params) {
@@ -188,8 +191,9 @@ function candlestick_chart(){
                     },
                     yAxis: {
                         type: 'value',
-                        max:7000,
-                        min:6000,
+                        minInterval: 1,
+                        max:6500,
+                        min:6200,
                         show:false,
                         boundaryGap: [0, '100%'],
                         splitLine: {
@@ -692,5 +696,146 @@ function order_chart(){
             myChart.setOption(option);
         }
 
+    })
+}
+
+function mini_chart2(id){
+    //var t1 = window.setInterval("candlestick_chart('BTC-USD')",3000);
+    var id = "BTC-GBP";
+    $.ajax({
+        url: "/candle_stick",
+        type: "POST",
+        data:{product_id: id},
+        success: function (data) {
+            console.log(data)
+            if (data != null ){
+                //need modify
+                last_price = data[data.length-1].close;
+                var last_price_show2 = document.getElementById("price2");
+                last_price_show2.innerText = last_price+ "BGP";
+                //mini line chart of each coin
+                var last_price_collection = [];
+                for (var i=0; i<data.length; i++){
+                    last_price_collection.push(data[i].close);
+                }
+                mini_last_price_collection2 = last_price_collection.slice(last_price_collection.length-100,last_price_collection.length-1);
+                //alert(mini_last_price_collection);
+                var my_miniChart2 = echarts.init(document.getElementById('fa'));
+                var mini_option2 = {
+                    backgroundColor: "#777",
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: function (params) {
+                            params = params[0];
+                            var date = new Date(params.name);
+                            return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                        },
+                        axisPointer: {
+                            animation: false
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        show: false,
+                        splitLine: {
+                            show: false
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        minInterval: 1,
+                        // max:4900,
+                        // min:4,
+                        show:false,
+                        boundaryGap: [0, '100%'],
+                        splitLine: {
+                            show: false
+                        }
+                    },
+                    series: [{
+                        name: '模拟数据',
+                        type: 'line',
+                        showSymbol: false,
+                        hoverAnimation: false,
+                        data: mini_last_price_collection2
+                    }]
+
+                }
+                my_miniChart2.setOption(mini_option2);
+            }
+        },
+        error: function () {
+            alert("Fail to get firstChart data!");
+        }
+    })
+}
+function mini_chart3(id){
+    //var t1 = window.setInterval("candlestick_chart('BTC-USD')",3000);
+    var id = "BTC-EUR";
+    $.ajax({
+        url: "/candle_stick",
+        type: "POST",
+        data:{product_id: id},
+        success: function (data) {
+            console.log(data)
+            if (data != null ){
+                //need modify
+                last_price = data[data.length-1].close;
+                var last_price_show3 = document.getElementById("price3");
+                last_price_show3.innerText = last_price+ "EUR";
+                //mini line chart of each coin
+                var last_price_collection = [];
+                for (var i=0; i<data.length; i++){
+                    last_price_collection.push(data[i].close);
+                }
+                mini_last_price_collection3 = last_price_collection.slice(last_price_collection.length-100,last_price_collection.length-1);
+                //alert(mini_last_price_collection);
+                var my_miniChart3 = echarts.init(document.getElementById('fa'));
+                var mini_option3 = {
+                    backgroundColor: "#777",
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: function (params) {
+                            params = params[0];
+                            var date = new Date(params.name);
+                            return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+                        },
+                        axisPointer: {
+                            animation: false
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        show: false,
+                        splitLine: {
+                            show: false
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        minInterval: 1,
+                        // max:4900,
+                        // min:4,
+                        show:false,
+                        boundaryGap: [0, '100%'],
+                        splitLine: {
+                            show: false
+                        }
+                    },
+                    series: [{
+                        name: '模拟数据',
+                        type: 'line',
+                        showSymbol: false,
+                        hoverAnimation: false,
+                        data: mini_last_price_collection2
+                    }]
+
+                }
+                my_miniChart3.setOption(mini_option3);
+            }
+        },
+        error: function () {
+            alert("Fail to get firstChart data!");
+        }
     })
 }
