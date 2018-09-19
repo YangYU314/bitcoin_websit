@@ -6,7 +6,7 @@ $(document).ready(function(){
     var askbid_timer;
     var news_list;
 
-    mini_price();
+    //mini_price();
     candlestick_chart();
     $.ajaxSetup({ async :false});
     $("#news").click(function(){
@@ -106,14 +106,12 @@ function mini_price(){
     var preference = document.getElementById("hidden_preference").value;
     console.log(preference);
     $.ajax({
-
         url:"/last_price",
         type:"POST",
         data:{product_id: preference},
         success:function (data) {
             //setTimeout("mini_price()",3000);
-            var last_price_show = document.getElementById("price");
-            last_price_show.innerText = data.result+ preference;
+
             console.log()
         }
     })
@@ -162,11 +160,14 @@ function candlestick_chart(){
                 //preference price
                 last_price_show_head.innerText= "Last Price: "+last_price+preference;
                 hvolume_show_head.innerText = "24Ht Volume: "+volume_24h+" million " +preference;
+                var last_price_show = document.getElementById("price");
+                last_price_show.innerText = last_price+ preference;
                 //mini line chart of each coin
                 mini_last_price_collection = last_price_collection.slice(last_price_collection.length-100,last_price_collection.length-1);
                 //alert(mini_last_price_collection);
                 var my_miniChart = echarts.init(document.getElementById('volume'));
                 var mini_option = {
+                    backgroundColor: "#777",
                     tooltip: {
                         trigger: 'axis',
                         formatter: function (params) {
