@@ -4,8 +4,9 @@ $(document).ready(function(){
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
-    var news_list   ;
-
+    var news_list;
+    mini_price();
+    candlestick_chart();
     $("#news").click(function(){
         $.ajax({
             url: "/news",
@@ -62,7 +63,7 @@ $(document).ready(function(){
         clearTimeout(worldmap_timer);
         clearTimeout(candle_timer);
         clearTimeout(askbid_timer);
-        candlestick_chart("BTC-USD");
+        candlestick_chart();
 });
     $('#map_chart').click(function () {
         clearTimeout(candle_timer);
@@ -70,6 +71,7 @@ $(document).ready(function(){
         clearTimeout(worldmap_timer);
         // worldmap_timer = setTimeout("map_exchange_distribution()",3000);
         map_exchange_distribution();
+        mini_price();
     });
     $('#ask_bid_chart').click(function () {
         clearTimeout(candle_timer);
@@ -97,19 +99,27 @@ function click_logout(){
         }
     })
 }
-function candlestick_chart(product_id){
-    //var t1 = window.setInterval("candlestick_chart('BTC-USD')",30000);
+function mini_price(){
+    var tt = window.setInterval("mini_price()",5000);
+    $.ajax({
+        url:"/last_price",
+        type:"POST",
+        data:{product_id:"BTC-USD"},
+        success:function (data) {
+            setTimeout("mini_price()",3000);
+            var last_price_show = document.getElementById("price");
+            last_price_show.innerText = data.result+"USD";
+        }
+    })
+}
+function candlestick_chart(){
+    //var t1 = window.setInterval("candlestick_chart('BTC-USD')",3000);
     $.ajax({
         url: "/candle_stick",
         type: "POST",
-        data:{product_id: product_id},
+        data:{product_id: "BTC-USD"},
         success: function (data) {
             if (data != null ){
-                //data[0].low
-                // format：(open)，(close)，(lowest)，(highest)
-                //alert(data[0].time)
-                //var data0 = splitData(data.result);
-                product_id = data[0].product_id;
                 var myChart = echarts.init(document.getElementById('map'));
                 myChart.clear();
                 var upColor = '#ec0000';
@@ -136,8 +146,8 @@ function candlestick_chart(product_id){
                 //last price
                  last_price = data[data.length-1].close;
                 //alert("last price:"+last_price);
-                var last_price_show = document.getElementById("price");
-                last_price_show.innerText = last_price;
+
+
                 //mini line chart of each coin
                 mini_last_price_collection = last_price_collection.slice(0,1000);
                 //alert(mini_last_price_collection);
