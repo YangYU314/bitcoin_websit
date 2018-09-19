@@ -18,15 +18,12 @@ var candleStickSchema = new Schema({
 
 //update and get data from collection candle stick
 candleStickSchema.statics.candle_stick_data = function (product_id, callback){
-    //update data
-    Candle_stick.update_data(product_id, function(results){
-        if (results == 1){
-            //get data
-            Candle_stick.findAllData(product_id, function(result){
-                callback(result);
-            });
-        }
-    });
+    if (results == 1){
+        //get data
+        Candle_stick.findAllData(product_id, function(result){
+            callback(result);
+        });
+    }
 }
 
 //update data
@@ -52,20 +49,16 @@ candleStickSchema.statics.update_data = function (product_id, callback){
 
             publicClient.getProductHistoricRates(product_id, function (err, res, data) {
                 for (var i in data) {
-                    if (data[i][0] <= latestTime) {
-                        break;
-                    } else {
-                        var newData = new Candle_stick({
-                            product_id: product_id,
-                            time: data[i][0],
-                            open: data[i][3],
-                            close: data[i][4],
-                            low: data[i][1],
-                            high: data[i][2],
-                            volume: data[i][5]
-                        });
-                        newData.save();
-                    }
+                    var newData = new Candle_stick({
+                        product_id: product_id,
+                        time: data[i][0],
+                        open: data[i][3],
+                        close: data[i][4],
+                        low: data[i][1],
+                        high: data[i][2],
+                        volume: data[i][5]
+                    });
+                    newData.save();
                 }
                 callback(1);
             });
@@ -89,19 +82,6 @@ candleStickSchema.statics.update_data = function (product_id, callback){
                     }
                 }
                 callback(1);
-            });
-        }
-    });
-}
-
-//get last price from collection candle_stick
-candleStickSchema.statics.last_price_data = function (product_id, callback){
-    //update data
-    Candle_stick.update_data(product_id, function(results){
-        if (results == 1){
-            //get data
-            Candle_stick.findData(product_id, function(result){
-                callback(result);
             });
         }
     });
@@ -136,26 +116,6 @@ candleStickSchema.statics.findAllData = function (product_id, callback) {
     this.aggregate(data, function(err, data){
         if(err){
             console.log("Query: findAllData Error!");
-        }else{
-            if(data.length > 0){
-                callback(data);
-            }else{
-                callback(null);
-            }
-        }
-    });
-};
-
-//find and get its close (last price)
-candleStickSchema.statics.findData = function (product_id, callback) {
-    var data = [
-        {$match: {product_id: product_id}},
-        {$sort: {'time': -1}},
-        {$limit: 1}
-    ];
-    this.aggregate(data, function(err, data){
-        if(err){
-            console.log("Query: findData Error!");
         }else{
             if(data.length > 0){
                 callback(data);

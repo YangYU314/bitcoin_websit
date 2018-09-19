@@ -13,21 +13,21 @@ module.exports.showMainPage = function(req, res){
     }
 }
 
+//show setting
+module.exports.showSetting = function(req, res){
+    res.render('setting');
+}
+
+//set setting
+module.exports.validation_setting = function(req, res){
+    res.json({result: "success"});
+}
+
 //candle stick
 module.exports.candle_stick = function(req, res){
     var product_id = req.body.product_id;
     candleStickModel.candle_stick_data(product_id, function(result){
         res.json(result);
-    });
-}
-
-//last price
-module.exports.last_price = function(req, res){
-    var product_id = req.body.product_id;
-    candleStickModel.last_price_data(product_id, function(result){
-        if (result.length > 0){
-            res.json({result: result[0].close});
-        }
     });
 }
 
