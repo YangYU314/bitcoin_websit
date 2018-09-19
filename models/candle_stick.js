@@ -18,12 +18,14 @@ var candleStickSchema = new Schema({
 
 //update and get data from collection candle stick
 candleStickSchema.statics.candle_stick_data = function (product_id, callback){
-    if (results == 1){
-        //get data
-        Candle_stick.findAllData(product_id, function(result){
-            callback(result);
-        });
-    }
+    Candle_stick.update_data(product_id, function(results) {
+        if (results == 1) {
+            //get data
+            Candle_stick.findAllData(product_id, function (result) {
+                callback(result);
+            });
+        }
+    });
 }
 
 //update data
