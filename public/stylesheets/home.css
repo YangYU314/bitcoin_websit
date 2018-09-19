@@ -95,14 +95,19 @@ table tr th { color: #688a7e;}
 
 .navi {
     margin: 20px 0px 0px 150px;
-    vertical-align: bottom;
-    width: 80%;
+    position: absolute;
+    width: 380px;
 }
 
 .navi a{
     margin-left: 20px;
     text-decoration: none !important;
 }
+
+.nav_bar{
+    width: 30%;
+}
+
 
 
 /*#nav{*/
@@ -157,8 +162,14 @@ table tr th { color: #688a7e;}
 }
 
 .username{
-    margin-right: 100px;
+    margin-right: 30px;
     margin-bottom: 100px;
+    display: inline;
+}
+
+.preference{
+    display: inline;
+    margin-right: 60px;
 }
 
 .top-nav{
@@ -374,15 +385,8 @@ row3{
     margin-top: 0;
     -moz-box-shadow:3px 3px 6px grey;
     -webkit-box-shadow:3px 3px 6px grey;
-    box-shadow:3px 3px 6px grey;}
-
-.banner_row2{
-    background-color: grey !important;
-    width: 80%;
-    margin-right: auto;
-    margin-left: auto;
-
-    /*margin: 0px;*/
+    box-shadow:3px 3px 6px grey;
+    /*position: fixed;*/
 }
 
 .banner_row1 h1{
@@ -390,6 +394,36 @@ row3{
     text-align: center;
     vertical-align: center;
 }
+
+.banner_row2{
+    height: 150px;
+    width: auto;
+    text-align: center;
+    /*font-weight: 900;*/
+    /*font-size: 40px;*/
+}
+.banner_row2 h1{
+    margin-top: 100px;
+    text-align: center;
+    vertical-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    color: #3f444e;
+
+}
+
+
+.banner_row3{
+    background-color: grey !important;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    /*position: absolute;*/
+
+    /*margin: 0px;*/
+}
+
+
 
 /* .info-box
 =================================================================== */
@@ -421,8 +455,6 @@ row3{
     line-height: 15px;
     color: white;
     vertical-align: center;
-
-
 }
 
 .info-box i {
@@ -438,6 +470,8 @@ row3{
     color: rgba(255, 255, 255, 0.75);
     margin: 0px;
 }
+
+
 .info-box .type{
     /*margin-right: 0;*/
     font-size:1.3em;
@@ -468,6 +502,11 @@ row3{
     margin-top: 10px;
     font-size: 12px;
 }
+
+
+
+
+
 /*}*/
 /*----------------	color------------------------*/
 .dark-heading-bg {
@@ -1098,4 +1137,3 @@ td{
     horiz-align: center;
     margin-left: 10%;
 }
-/*<!--已改-->*/

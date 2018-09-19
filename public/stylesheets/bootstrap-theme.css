@@ -743,6 +743,7 @@ pre code {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  border: #3f444e 10px;
 }
 
 .col-lg-9,
@@ -4641,6 +4642,9 @@ body.modal-open,
 }
 .pull-right {
   float: right !important;
+  /*display: inline;*/
+  /*margin-right: 50px;*/
+  margin-top:20px;
 }
 .pull-left {
   float: left !important;
