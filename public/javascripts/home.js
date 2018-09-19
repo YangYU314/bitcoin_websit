@@ -8,6 +8,7 @@ $(document).ready(function(){
 
     mini_price();
     candlestick_chart();
+    $.ajaxSetup({ async :false});
     $("#news").click(function(){
         $.ajax({
             url: "/news",
@@ -102,23 +103,29 @@ function click_logout(){
 }
 function mini_price(){
     var tt = window.setInterval("mini_price()",60000);
+    var preference = document.getElementById("hidden_preference").value;
+    console.log(preference);
     $.ajax({
+
         url:"/last_price",
         type:"POST",
-        data:{product_id:"BTC-USD"},
+        data:{product_id: preference},
         success:function (data) {
-            setTimeout("mini_price()",3000);
+            //setTimeout("mini_price()",3000);
             var last_price_show = document.getElementById("price");
-            last_price_show.innerText = data.result+"USD";
+            last_price_show.innerText = data.result+ preference;
+            console.log()
         }
     })
 }
 function candlestick_chart(){
     //var t1 = window.setInterval("candlestick_chart('BTC-USD')",3000);
+    var preference = document.getElementById("hidden_preference").value;
+    console.log(preference);
     $.ajax({
         url: "/candle_stick",
         type: "POST",
-        data:{product_id: "BTC-USD"},
+        data:{product_id: preference},
         success: function (data) {
             if (data != null ){
                 var myChart = echarts.init(document.getElementById('map'));
@@ -147,14 +154,14 @@ function candlestick_chart(){
                 //get haed last_price and 24h volume
                 var last_price_show_head = document.getElementById("LastPrice");
                 var hvolume_show_head = document.getElementById("24hrVolume");
-                console.log(last_price_show_head);
+                //console.log(last_price_show_head);
                 //last price and volume of preference
                 last_price = data[data.length-1].close;
                 volume_24h = data[data.length-1].volume;
                 //alert("last price of preference:"+last_price);
                 //preference price
-                last_price_show_head.innerText= "Last Price: "+last_price+" USD";
-                hvolume_show_head.innerText = "24Ht Volume: "+volume_24h+" million USD";
+                last_price_show_head.innerText= "Last Price: "+last_price+preference;
+                hvolume_show_head.innerText = "24Ht Volume: "+volume_24h+" million " +preference;
                 //mini line chart of each coin
                 mini_last_price_collection = last_price_collection.slice(last_price_collection.length-100,last_price_collection.length-1);
                 //alert(mini_last_price_collection);
@@ -435,10 +442,11 @@ function map_exchange_distribution(){
     )
 }
 function bid_ask_chart(){
+    var preference = document.getElementById("hidden_preference").value;
     $.ajax({
             url: "/order_book",
             type: "POST",
-            data: {product_id: "BTC-USD"},
+            data: {product_id: preference},
             success: function (data) {
                 //console.log(data)
                 var myChart = echarts.init(document.getElementById('map'));
@@ -470,7 +478,9 @@ function bid_ask_chart(){
 
                 option = {
                     color: colors,
-
+                    title: {
+                        text:"ask/bid price of "+preference,
+                    },
                     tooltip: {
                         trigger: 'none',
                         axisPointer: {
@@ -574,8 +584,8 @@ function bid_ask_chart(){
                     ],
                     yAxis: [
                         {
-                            max: 6500,
-                            min: 6200,
+                            // max: 6500,
+                            // min: ,
                             type: 'value'
                         }
                     ],
@@ -618,10 +628,11 @@ function bid_ask_chart(){
     )
 }
 function order_chart(){
+    var preference = document.getElementById("hidden_preference").value;
     $.ajax({
         url:"/order_book",
         type:"POST",
-        data:{product_id:"BTC-USD"},
+        data:{product_id:preference},
         success: function (data) {
             var myChart = echarts.init(document.getElementById('map'));
             myChart.clear();
@@ -637,7 +648,7 @@ function order_chart(){
             console.log(order_number);
             option = {
                 title:{
-                    text: "order_book",
+                    text: "order_book of "+preference,
                     x:'center',
                 },
                 tooltip: {
