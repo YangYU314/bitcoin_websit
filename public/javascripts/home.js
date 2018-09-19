@@ -4,8 +4,11 @@ $(document).ready(function(){
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
-    var news_list   ;
+    var news_list;
 
+    mini_price();
+    candlestick_chart();
+    $.ajaxSetup({ async :false});
     $("#news").click(function(){
         $.ajax({
             url: "/news",
@@ -60,18 +63,28 @@ $(document).ready(function(){
     });
     $('#candle_chart').click(function () {
         clearTimeout(worldmap_timer);
-        candle_timer = setTimeout("candlestick_chart()",3000);
-    });
+        clearTimeout(candle_timer);
+        clearTimeout(askbid_timer);
+        candlestick_chart();
+});
     $('#map_chart').click(function () {
         clearTimeout(candle_timer);
-        worldmap_timer = setTimeout("map_exchange_distribution()",3000);
-
+        clearTimeout(askbid_timer);
+        clearTimeout(worldmap_timer);
+        // worldmap_timer = setTimeout("map_exchange_distribution()",3000);
+        map_exchange_distribution();
+        mini_price();
     });
     $('#ask_bid_chart').click(function () {
-
+        clearTimeout(candle_timer);
+        clearTimeout(worldmap_timer);
+        clearTimeout(askbid_timer);
+        // askbid_timer = setTimeout("bid_ask_chart()",3000);
+        bid_ask_chart();
     });
-
-    //alert(last_price);
+    $("#orderbook_chart").click(function () {
+        order_chart();
+    })
 })
 //logout
 function click_logout(){
@@ -88,28 +101,35 @@ function click_logout(){
         }
     })
 }
-function candle_chart_generate() {
-    clearTimeout(worldmap_timer);
-    candle_timer = setTimeout("candlestick_chart()",3000);
+function mini_price(){
+    var tt = window.setInterval("mini_price()",60000);
+    var preference = document.getElementById("hidden_preference").value;
+    console.log(preference);
+    $.ajax({
+
+        url:"/last_price",
+        type:"POST",
+        data:{product_id: preference},
+        success:function (data) {
+            //setTimeout("mini_price()",3000);
+            var last_price_show = document.getElementById("price");
+            last_price_show.innerText = data.result+ preference;
+            console.log()
+        }
+    })
 }
-function world_chart_generate() {
-    clearTimeout(candle_timer);
-    worldmap_timer = setTimeout("map_exchange_distribution()",3000);
-}
-function candlestick_chart(product_id){
-    //var t1 = window.setInterval("candlestick_chart('BTC-USD')",30000);
+function candlestick_chart(){
+    //var t1 = window.setInterval("candlestick_chart('BTC-USD')",3000);
+    var preference = document.getElementById("hidden_preference").value;
+    console.log(preference);
     $.ajax({
         url: "/candle_stick",
         type: "POST",
-        data:{product_id: product_id},
+        data:{product_id: preference},
         success: function (data) {
             if (data != null ){
-                //data[0].low
-                // format：(open)，(close)，(lowest)，(highest)
-                //alert(data[0].time)
-                //var data0 = splitData(data.result);
-                product_id = data[0].product_id;
                 var myChart = echarts.init(document.getElementById('map'));
+                myChart.clear();
                 var upColor = '#ec0000';
                 var upBorderColor = '#8A0000';
                 var downColor = '#00da3c';
@@ -131,13 +151,19 @@ function candlestick_chart(product_id){
                     temp.push(data[i].high);
                     values.push(temp);
                 }
-                //last price
-                 last_price = data[data.length-1].close;
-                //alert("last price:"+last_price);
-                var last_price_show = document.getElementById("price");
-                last_price_show.innerText = last_price;
+                //get haed last_price and 24h volume
+                var last_price_show_head = document.getElementById("LastPrice");
+                var hvolume_show_head = document.getElementById("24hrVolume");
+                //console.log(last_price_show_head);
+                //last price and volume of preference
+                last_price = data[data.length-1].close;
+                volume_24h = data[data.length-1].volume;
+                //alert("last price of preference:"+last_price);
+                //preference price
+                last_price_show_head.innerText= "Last Price: "+last_price+preference;
+                hvolume_show_head.innerText = "24Ht Volume: "+volume_24h+" million " +preference;
                 //mini line chart of each coin
-                mini_last_price_collection = last_price_collection.slice(0,1000);
+                mini_last_price_collection = last_price_collection.slice(last_price_collection.length-100,last_price_collection.length-1);
                 //alert(mini_last_price_collection);
                 var my_miniChart = echarts.init(document.getElementById('volume'));
                 var mini_option = {
@@ -161,8 +187,8 @@ function candlestick_chart(product_id){
                     },
                     yAxis: {
                         type: 'value',
-                        max:6600,
-                        min:6100,
+                        max:7000,
+                        min:6000,
                         show:false,
                         boundaryGap: [0, '100%'],
                         splitLine: {
@@ -178,19 +204,6 @@ function candlestick_chart(product_id){
                     }]
 
                 }
-                // setInterval(function () {
-                //
-                //     for (var i = 0; i < 5; i++) {
-                //         data.shift();
-                //         data.push(candlestick_chart('BTC-USD'));
-                //     }
-                //
-                //     myChart.setOption({
-                //         series: [{
-                //             data: data
-                //         }]
-                //     });
-                // }, 10000);
                 my_miniChart.setOption(mini_option);
                 function unixtime_exchange(time){
                     var unixTimestamp = new Date(time*1000);
@@ -347,7 +360,7 @@ function candlestick_chart(product_id){
     })
 }
 function map_exchange_distribution(){
-    var t2 = window.setInterval("map_exchange_distribution()",30000);
+    //var t2 = window.setInterval("map_exchange_distribution()",30000);
     $.ajax({
         url: "/world_map",
         type: "GET",
@@ -418,6 +431,7 @@ function map_exchange_distribution(){
                     ]
 
                 };
+                myChart.clear();
                 myChart.setOption(option);
 
         },
@@ -427,30 +441,46 @@ function map_exchange_distribution(){
     }
     )
 }
-//259.96 2个order
 function bid_ask_chart(){
-    var t3 = window.setInterval("bid_ask_chart()",30000);
+    var preference = document.getElementById("hidden_preference").value;
     $.ajax({
-            url: "/ask_bid",
-            type: "GET",
+            url: "/order_book",
+            type: "POST",
+            data: {product_id: preference},
             success: function (data) {
-                var time = ["01/09/2018","09/09/201"]
+                //console.log(data)
+                var myChart = echarts.init(document.getElementById('map'));
+                myChart.clear();
+                var time = []
                 var ask = [];
                 var bid = [];
                 var spread = [];
                 for (var i=0; i<data.length; i++){
-                    time.push(data[i].time);
+                    //console.log("ask price"+data[i].asks);
+                    var asks = data[i].asks;
+                    var bids = data[i].bids
+                    //console.log(temp[i+1][0]);
+                    //time.push(data[i].time);
                     //need modify
-                    ask.push(data[i].ask);
-                    bid.push(data[i].bid);
-                    spread.push(Number(data[i].ask)-Number(data[i].bid));
+                    for(var j=0;j<asks.length;){
+                        ask.push(asks[j][0]);
+                        bid.push(bids[j][0]);
+                        spread.push(asks[j][0]-bids[j][0]);
+                        j=j+3;
+                    };
                 }
+                console.log("ask:"+ask);
+                console.log("bid"+bid);
+                console.log("spread"+spread);
+
                 var colors = ['#5793f3', '#d14a61', '#675bba'];
 
 
                 option = {
                     color: colors,
-
+                    title: {
+                        text:"ask/bid price of "+preference,
+                    },
                     tooltip: {
                         trigger: 'none',
                         axisPointer: {
@@ -508,8 +538,54 @@ function bid_ask_chart(){
                             data: time,
                         }
                     ],
+                    xAxis: [
+                        {
+                            type: 'category',
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            axisLine: {
+                                onZero: false,
+                                lineStyle: {
+                                    color: colors[1]
+                                }
+                            },
+                            axisPointer: {
+                                label: {
+                                    formatter: function (params) {
+                                        return 'ask  ' + params.value
+                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                    }
+                                }
+                            },
+                            data: time,
+                        },
+                        {
+                            type: 'category',
+                            axisTick: {
+                                alignWithLabel: true
+                            },
+                            axisLine: {
+                                onZero: false,
+                                lineStyle: {
+                                    color: colors[0]
+                                }
+                            },
+                            axisPointer: {
+                                label: {
+                                    formatter: function (params) {
+                                        return 'bid  ' + params.value
+                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                    }
+                                }
+                            },
+                            data: time,
+                        }
+                    ],
                     yAxis: [
                         {
+                            // max: 6500,
+                            // min: ,
                             type: 'value'
                         }
                     ],
@@ -537,12 +613,11 @@ function bid_ask_chart(){
                                     position: 'inside'
                                 }
                             },
-                            data: spread,
+                            data: spread*10000,
 
                         }
                     ]
                 };
-                var myChart = echarts.init(document.getElementById('map'));
                 myChart.setOption(option);
 
             },
@@ -552,7 +627,69 @@ function bid_ask_chart(){
         }
     )
 }
+function order_chart(){
+    var preference = document.getElementById("hidden_preference").value;
+    $.ajax({
+        url:"/order_book",
+        type:"POST",
+        data:{product_id:preference},
+        success: function (data) {
+            var myChart = echarts.init(document.getElementById('map'));
+            myChart.clear();
+            var price = [];
+            var order_number =[];
+            for(i=0;i<50;i++){
+                price.push((data[0].bids[i])[0]);
+                price.push((data[0].asks[i])[0]);
+                order_number.push((data[0].bids[i])[1]);
+                order_number.push((data[0].asks[i])[1]);
+            }
+            console.log(price);
+            console.log(order_number);
+            option = {
+                title:{
+                    text: "order_book of "+preference,
+                    x:'center',
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend:{
 
-function news_request(){
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: price,
 
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                visualMap: {
+                    show: false,
+                    dimension: 0,
+                    pieces: [],  //pieces的值由动态数据决定
+                    outOfRange: {
+                        color: 'green'
+                    }
+                },
+                series: [{
+                    data: order_number,
+                    type: 'bar',
+                    barCategoryGap:"1%",
+                    barGap: 1,
+                    areaStyle: {}
+                }]
+            };
+            for(let i = 0; i < 50; i++) {
+                option.visualMap.pieces[i] =  {gte:i,lte:i+1,color:'red'};
+            }
+            myChart.setOption(option);
+        }
+
+    })
 }
