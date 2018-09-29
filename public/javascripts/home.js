@@ -170,12 +170,26 @@ function candlestick_chart(){
                 last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
                 hvolume_show_head.innerText = "24Hr Volume: "+volume_24h+preference.toString().substring(0,3);
 
-                function unixtime_exchange(time){
-                    var unixTimestamp = new Date(time*1000);
-                    var commonTime = unixTimestamp.toLocaleString()
-
-                    return commonTime;
+                function unixtime_exchange(time) {
+                    let unixtime = time
+                    let unixTimestamp = new Date(unixtime * 1000)
+                    let Y = unixTimestamp.getFullYear()
+                    let M = ((unixTimestamp.getMonth() + 1) > 10 ? (unixTimestamp.getMonth() + 1) : '0' + (unixTimestamp.getMonth() + 1))
+                    let D = (unixTimestamp.getDate() > 10 ? unixTimestamp.getDate() : '0' + unixTimestamp.getDate())
+                    let T = (unixTimestamp.getHours())
+                    let Min = (unixTimestamp.getMinutes())
+                    //let Sec = (unixTimestamp.getSeconds())
+                    let toDay = Y + '-' + M + '-' + D + '-' + T +":"+Min
+                    //console.log(toDay)
+                    return toDay
                 }
+
+                // function unixtime_exchange(time){
+                //     var unixTimestamp = new Date(time*1000);
+                //     var commonTime = unixTimestamp.toLocaleString()
+                //     console.log("commontime: "+commonTime);
+                //     return commonTime;
+                // }
                 function calculateMA(dayCount) {
                     var result = [];
                     for (var i = 0, len = data.values.length; i < len; i++) {
@@ -601,16 +615,18 @@ function order_chart(){
         success: function (data) {
             var myChart = echarts.init(document.getElementById('map'));
             myChart.clear();
+            var strike_price;
             var price = [];
             var order_number =[];
-            for(i=0;i<50;i++){
+            function find_max() {
+                
+            }
+            for(i=0;i<data[0].length;i++){
                 price.push((data[0].bids[i])[0]);
                 price.push((data[0].asks[i])[0]);
                 order_number.push((data[0].bids[i])[1]);
                 order_number.push((data[0].asks[i])[1]);
             }
-            console.log(price);
-            console.log(order_number);
             option = {
                 title:{
                     text: "order_book of "+preference,
