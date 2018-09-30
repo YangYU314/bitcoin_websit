@@ -510,7 +510,17 @@ row3{
     height: 10%;
     float: right;
 }
-.info-box #price {
+/*.info-box #price {*/
+    /*font-size: 1.5em;*/
+    /*font-weight: 500;*/
+    /*text-align: right;*/
+    /*color: #2E2E2E;*/
+    /*width: 80%;*/
+    /*height: 30%;*/
+    /*float: right;*/
+
+/*}*/
+.info-box .price {
     font-size: 1.5em;
     font-weight: 500;
     text-align: right;
@@ -520,18 +530,30 @@ row3{
     float: right;
 
 }
-.info-box #volume{
-    font-size: 1em;
-    font-weight: 200;
-    text-align: right;
-    color: #2E2E2E;
-    height: 2em;
-    horiz-align: right;
-    width: 80%;
-    height:60%;
-    float: right;
+/*.info-box #volume{*/
+    /*font-size: 1em;*/
+    /*font-weight: 200;*/
+    /*text-align: right;*/
+    /*color: #2E2E2E;*/
+    /*height: 2em;*/
+    /*horiz-align: right;*/
+    /*width: 80%;*/
+    /*height:60%;*/
+    /*float: right;*/
 
-}
+/*}*/
+.info-box .volume{
+     font-size: 1em;
+     font-weight: 200;
+     text-align: right;
+     color: #2E2E2E;
+     height: 2em;
+     horiz-align: right;
+     width: 80%;
+     height:60%;
+     float: right;
+
+ }
 .info-box .pricetitle {
     font-size: 12px;
     text-transform: uppercase;
