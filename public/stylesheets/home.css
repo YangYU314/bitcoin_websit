@@ -547,10 +547,11 @@ row3{
      font-weight: 200;
      text-align: right;
      color: #2E2E2E;
-     height: 2em;
+     height: 5em;
+     /*width: 253px ;*/
      horiz-align: right;
      width: 80%;
-     height:60%;
+     /*height:60%;*/
      float: right;
 
  }

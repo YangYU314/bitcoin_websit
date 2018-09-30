@@ -1,13 +1,15 @@
 $(document).ready(function(){
-    // var product_id = document.getElementById("preference").value;
-    // alert(product_id);
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
     var news_list;
-    mini_chart("BTC-USD","price1","volume1","0");
-    mini_chart("BTC-GBP","price2","volume2","1");
-    mini_chart("BTC-EUR","price3","volume3","2");
+    var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")",60000);
+    var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")",60000);
+    var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")",60000);
+
+    mini_chart("BTC-USD","price1","volume1");
+    mini_chart("BTC-GBP","price2","volume2");
+    mini_chart("BTC-EUR","price3","volume3");
     //mini_price();
     candlestick_chart();
     $.ajaxSetup({ async :false});
@@ -94,6 +96,65 @@ $(document).ready(function(){
     $("#orderbook_chart").click(function () {
         order_chart();
     });
+    // $("#test_chart").click(function(){
+    //     $.ajax({
+    //         url: "/candle_stick",
+    //         type: "POST",
+    //         data:{product_id: "BTC-USD"},
+    //         success: function (data) {
+    //             //console.log(id);
+    //             if (data != null ){
+    //                 //need modify
+    //                 last_price = data[data.length-1].close;
+    //                 //mini line chart of each type cryptocurrency
+    //                 var last_price_collection = [];
+    //                 for (var i=0; i<data.length; i++){
+    //                     last_price_collection.push(data[i].close);
+    //                 }
+    //                 mini_last_price_collection = last_price_collection.slice(last_price_collection.length-1000,last_price_collection.length-1);
+    //
+    //                 var my_miniChart = echarts.init(document.getElementById("map"));
+    //                 var mini_option = {
+    //                     xAxis: {
+    //                         type: 'category',
+    //                         show: false,
+    //                         splitLine: {
+    //                             show: false
+    //                         }
+    //                     },
+    //                     yAxis: {
+    //                         axisLine:{
+    //                             lineStyle:{
+    //                                 color:'#4A5675',
+    //                                 // width:2  
+    //                             }
+    //                         },
+    //                         name: '百分比',
+    //                         type: 'value',
+    //                         splitLine: {
+    //                             show: false
+    //                         },
+    //                         show: false,
+    //                         scale:true,
+    //                     },
+    //                     series: [{
+    //                         name: 'Last Price',
+    //                         type: 'line',
+    //                         showSymbol: false,
+    //                         hoverAnimation: false,
+    //                         data: mini_last_price_collection
+    //                     }]
+    //
+    //                 }
+    //                 my_miniChart.clear();
+    //                 my_miniChart.setOption(mini_option);
+    //             }
+    //         },
+    //         error: function () {
+    //             alert("Fail to get firstChart data!");
+    //         }
+    //     })
+    // });
 })
 //logout
 function click_logout(){
@@ -107,20 +168,6 @@ function click_logout(){
         },
         error: function () {
             alert("Connection failed!");
-        }
-    })
-}
-function mini_price(){
-    var tt = window.setInterval("mini_price()",60000);
-    var preference = document.getElementById("hidden_preference").value;
-    $.ajax({
-        url:"/last_price",
-        type:"POST",
-        data:{product_id: preference},
-        success:function (data) {
-            //setTimeout("mini_price()",3000);
-
-            console.log()
         }
     })
 }
@@ -184,22 +231,17 @@ function candlestick_chart(){
                     return toDay
                 }
 
-                // function unixtime_exchange(time){
-                //     var unixTimestamp = new Date(time*1000);
-                //     var commonTime = unixTimestamp.toLocaleString()
-                //     console.log("commontime: "+commonTime);
-                //     return commonTime;
-                // }
-                function calculateMA(dayCount) {
+                var data_MA = values;
+                function calculateMA(dayCount,data) {
                     var result = [];
-                    for (var i = 0, len = data.values.length; i < len; i++) {
+                    for (var i = 0, len = data.length; i < len; i++) {
                         if (i < dayCount) {
                             result.push('-');
                             continue;
                         }
                         var sum = 0;
                         for (var j = 0; j < dayCount; j++) {
-                            sum += data0.values[i - j][1];
+                            sum += data[i - j][1];
                         }
                         result.push(sum / dayCount);
                     }
@@ -283,7 +325,7 @@ function candlestick_chart(){
                         {
                             name: 'MA5',
                             type: 'line',
-                            data: calculateMA(5, data),
+                            data: calculateMA(5, data_MA),
                             smooth: true,
                             showSymbol: false,
                             lineStyle: {
@@ -295,7 +337,7 @@ function candlestick_chart(){
                         {
                             name: 'MA10',
                             type: 'line',
-                            data: calculateMA(10, data),
+                            data: calculateMA(10, data_MA),
                             smooth: true,
                             showSymbol: false,
                             lineStyle: {
@@ -307,7 +349,7 @@ function candlestick_chart(){
                         {
                             name: 'MA20',
                             type: 'line',
-                            data: calculateMA(20, data),
+                            data: calculateMA(20, data_MA),
                             smooth: true,
                             showSymbol: false,
                             lineStyle: {
@@ -319,7 +361,7 @@ function candlestick_chart(){
                         {
                             name: 'MA30',
                             type: 'line',
-                            data: calculateMA(30, data),
+                            data: calculateMA(30, data_MA),
                             smooth: true,
                             showSymbol: false,
                             lineStyle: {
@@ -436,12 +478,8 @@ function bid_ask_chart(){
                 var bid = [];
                 var spread = [];
                 for (var i=0; i<data.length; i++){
-                    //console.log("ask price"+data[i].asks);
                     var asks = data[i].asks;
-                    var bids = data[i].bids
-                    //console.log(temp[i+1][0]);
-                    //time.push(data[i].time);
-                    //need modify
+                    var bids = data[i].bids;
                     for(var j=0;j<asks.length;){
                         ask.push(asks[j][0]);
                         bid.push(bids[j][0]);
@@ -452,10 +490,7 @@ function bid_ask_chart(){
                 console.log("ask:"+ask);
                 console.log("bid"+bid);
                 console.log("spread"+spread);
-
                 var colors = ['#5793f3', '#d14a61', '#675bba'];
-
-
                 option = {
                     color: colors,
                     title: {
@@ -476,6 +511,7 @@ function bid_ask_chart(){
                     },
                     xAxis: [
                         {
+                            show:false,
                             type: 'category',
                             axisTick: {
                                 alignWithLabel: true
@@ -518,58 +554,21 @@ function bid_ask_chart(){
                             data: time,
                         }
                     ],
-                    xAxis: [
-                        {
-                            type: 'category',
-                            axisTick: {
-                                alignWithLabel: true
-                            },
-                            axisLine: {
-                                onZero: false,
-                                lineStyle: {
-                                    color: colors[1]
-                                }
-                            },
-                            axisPointer: {
-                                label: {
-                                    formatter: function (params) {
-                                        return 'ask  ' + params.value
-                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
-                                    }
-                                }
-                            },
-                            data: time,
+
+                    yAxis: {
+                        axisLine:{
+                            lineStyle:{
+                                color:'#4A5675',
+                                // width:2  
+                            }
                         },
-                        {
-                            type: 'category',
-                            axisTick: {
-                                alignWithLabel: true
-                            },
-                            axisLine: {
-                                onZero: false,
-                                lineStyle: {
-                                    color: colors[0]
-                                }
-                            },
-                            axisPointer: {
-                                label: {
-                                    formatter: function (params) {
-                                        return 'bid  ' + params.value
-                                            + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
-                                    }
-                                }
-                            },
-                            data: time,
-                        }
-                    ],
-                    yAxis: [
-                        {
-                            // // max: 6500,
-                            // // min: ,
-                            // type: 'value',
-                            // splitNumber:10
-                        }
-                    ],
+                        name: preference.substring(4,7),
+                        type: 'value',
+                        splitLine: {
+                            show: false
+                        },
+                        scale:true,
+                    },
                     series: [
                         {
                             name:'ask',
@@ -584,19 +583,6 @@ function bid_ask_chart(){
                             smooth: true,
                             data: bid,
                         },
-                        {
-                            name:'spread',
-                            type: 'bar',
-                            xAxisIndex: 1,
-                            label: {
-                                normal: {
-                                    show: true,
-                                    position: 'inside'
-                                }
-                            },
-                            data: spread*10000,
-
-                        }
                     ]
                 };
                 myChart.setOption(option);
@@ -615,19 +601,32 @@ function order_chart(){
         type:"POST",
         data:{product_id:preference},
         success: function (data) {
+            console.log(data);
             var myChart = echarts.init(document.getElementById('map'));
             myChart.clear();
-            var strike_price;
             var price = [];
-            var order_number =[];
-            function find_max() {
-                
-            }
-            for(i=0;i<data[0].length;i++){
-                price.push((data[0].bids[i])[0]);
-                price.push((data[0].asks[i])[0]);
-                order_number.push((data[0].bids[i])[1]);
-                order_number.push((data[0].asks[i])[1]);
+
+            var volume = [];
+            // var strike_price;
+            // var bid_price = [];
+            // var bid_order_number =[];
+            // var ask_price = [];
+            // var ask_order_volume = [];
+
+            // for(var i=0;i<data[0].bids.length;i++){
+            //     bid_price.push((data[0].bids[i])[0]);
+            //     bid_order_number.push((data[0].bids[i])[1]);
+            // }
+            // for(var j=0;j<data[0].asks.length;j++){
+            //     ask_price.push((data[0].asks[j])[0]);
+            //     ask_order_volume.push((data[0].asks[j])[1]);
+            // }
+            // console.log(bid_price.length);
+            for(var i=0;i<50;i++){
+                price.push(data[0].asks[i][0]);
+                price.push(data[0].bids[i][0]);
+                volume.push(data[0].asks[i][1]);
+                volume.push(data[0].bids[i][1]);
             }
             option = {
                 title:{
@@ -661,8 +660,8 @@ function order_chart(){
                     }
                 },
                 series: [{
-                    data: order_number,
-                    type: 'bar',
+                    data: volume,
+                    type: 'line',
                     barCategoryGap:"1%",
                     barGap: 1,
                     areaStyle: {}
@@ -676,7 +675,7 @@ function order_chart(){
 
     })
 }
-function mini_chart(id,element_price_id,element_mini_chart_id,No){
+function mini_chart(id,element_price_id,element_mini_chart_id){
         $.ajax({
             url: "/candle_stick",
             type: "POST",
@@ -698,6 +697,7 @@ function mini_chart(id,element_price_id,element_mini_chart_id,No){
                     // var my_miniChart = echarts.init((document.getElementsByName(element_mini_chart_id))[0]);
                     var my_miniChart = echarts.init(document.getElementById(element_mini_chart_id));
                     var mini_option = {
+
                         tooltip: {
                             trigger: 'axis',
                             formatter: function (params) {
@@ -717,16 +717,19 @@ function mini_chart(id,element_price_id,element_mini_chart_id,No){
                             }
                         },
                         yAxis: {
+                            axisLine:{
+                                lineStyle:{
+                                    color:'#4A5675',
+                                    // width:2  
+                                }
+                            },
+                            name: '百分比',
                             type: 'value',
-                            minInterval: 1,
-                            // max:4900,
-                            // min:4,
-                            show:false,
-                            boundaryGap: [0, '100%'],
                             splitLine: {
                                 show: false
                             },
-                            splitNumber:10
+                            show: false,
+                            scale:true,
                         },
                         series: [{
                             name: '模拟数据',
