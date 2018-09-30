@@ -234,7 +234,8 @@ function candlestick_chart(){
                     yAxis: {
                         scale: true,
                         axisLine: { lineStyle: { color: '#8392A5' } },
-                        splitLine: { show: false }
+                        splitLine: { show: false },
+                        splitNumber:10
                     },
                     grid: {
                         bottom: 80
@@ -563,9 +564,10 @@ function bid_ask_chart(){
                     ],
                     yAxis: [
                         {
-                            // max: 6500,
-                            // min: ,
-                            type: 'value'
+                            // // max: 6500,
+                            // // min: ,
+                            // type: 'value',
+                            // splitNumber:10
                         }
                     ],
                     series: [
@@ -684,7 +686,7 @@ function mini_chart(id,element_price_id,element_mini_chart_id,No){
                 if (data != null ){
                     //need modify
                     last_price = data[data.length-1].close;
-                    var last_price_show = ((document.getElementsByName(element_price_id))[0]);
+                    var last_price_show = ((document.getElementById(element_price_id)));
                     last_price_show.innerText = last_price+ id.substring(4,7);
                     //mini line chart of each type cryptocurrency
                     var last_price_collection = [];
@@ -723,7 +725,8 @@ function mini_chart(id,element_price_id,element_mini_chart_id,No){
                             boundaryGap: [0, '100%'],
                             splitLine: {
                                 show: false
-                            }
+                            },
+                            splitNumber:10
                         },
                         series: [{
                             name: '模拟数据',
