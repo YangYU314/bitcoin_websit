@@ -13,6 +13,9 @@ $(document).ready(function(){
     mini_chart("BTC-USD","price1","volume1");
     mini_chart("BTC-GBP","price2","volume2");
     mini_chart("BTC-EUR","price3","volume3");
+    mini_chart("ETC-EUR","price4","volume4");
+    mini_chart("BCH-USD","price5","volume5");
+    mini_chart("ETH-BTC","price6","volume6");
     //mini_price();
     candlestick_chart();
     $.ajaxSetup({ async :false});
