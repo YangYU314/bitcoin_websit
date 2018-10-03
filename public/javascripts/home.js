@@ -6,6 +6,9 @@ $(document).ready(function(){
     var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")",60000);
     var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")",60000);
     var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")",60000);
+    var t4 = window.setInterval("mini_chart(\"ETC-EUR\",\"price4\",\"volume4\")",60000);
+    var t5 = window.setInterval("mini_chart(\"BCH-USD\",\"price5\",\"volume5\")",60000);
+    var t6 = window.setInterval("mini_chart(\"ETH-BTC\",\"price6\",\"volume6\")",60000);
 
     mini_chart("BTC-USD","price1","volume1");
     mini_chart("BTC-GBP","price2","volume2");
@@ -72,6 +75,9 @@ $(document).ready(function(){
     $('#logout').click(function(){
         click_logout();
     });
+    $("#setting").click(function () {
+        click_setting();
+    })
     $('#candle_chart').click(function () {
         clearTimeout(worldmap_timer);
         clearTimeout(candle_timer);
@@ -157,6 +163,18 @@ $(document).ready(function(){
     // });
 })
 //logout
+function click_setting(){
+    $.ajax({
+        url: "/setting",
+        type: "GET",
+        success: function () {
+            window.location.href = "/setting";
+        },
+        error: function () {
+            alert ("redirect to setting error, try again later");
+        }
+    })
+}
 function click_logout(){
     $.ajax({
         url: "/logout",
