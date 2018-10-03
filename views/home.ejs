@@ -23,9 +23,7 @@
 
         <div class="navi">
             <a href="home">Home</a>
-            <a href="home.ejs">Market</a>
-            <a href="person.ejs">Personal</a>
-            <a id="worldMap">World Map</a>
+            <a id="worldMap" href="#map">Charts</a>
         </div>
 
         <div class="pull-right">
@@ -36,9 +34,9 @@
                 </a>
                 <ul class="dropdown-menu">
                     <div class="log-arrow-up"></div>
-                    <li class="eborder-top">
-                        <a id="profile">My Profile</a>
-                    </li>
+                    <!--<li class="eborder-top">-->
+                        <!--<a id="profile">My Profile</a>-->
+                    <!--</li>-->
                     <li>
                         <a id="setting">Setting</a>
                     </li>
@@ -190,6 +188,7 @@
         </ul>
     </nav>
 
+
     <section id="main-content">
         <section class="wrapper">
 
@@ -210,7 +209,7 @@
 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div class="info-box" id="bitlogo">
-                        <img src="images/bitcoin.png" >
+                        <img class="img1" src="images/bitcoin.png" >
                     </div>
                 </div>
             </div>
@@ -221,7 +220,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <div class="info-box">
                             <!--<i class="fa"><img src="images/coins.png"></i>-->
-                            <div><img src="images/coins.png"></div>
+                            <div><img class="img2" src="images/coins.png"></div>
                             <div id="type">BTC-USD</div>
                             <div id="price1" class="price">loading</div>
                             <div id="volume1" class="volume">loading</div>
@@ -230,7 +229,7 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <div class="info-box">
-                            <div><img src="images/coins.png"></div>
+                            <div><img class="img2" src="images/coins.png"></div>
                             <div id="type">BTC-GBP</div>
                             <div id="price2" class="price">loading</div>
                             <div id="volume2" class="volume">loading</div>
@@ -239,13 +238,43 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                         <div class="info-box">
-                            <div><img src="images/coins.png"></i>
+                            <div><img class="img2" src="images/coins.png"></i>
                                 <div id="type">BTC-EUR</div>
                                 <div id="price3" class="price">loading</div>
                                 <div id="volume3" class="volume">loading</div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="info-box">
+                            <!--<i class="fa"><img src="images/coins.png"></i>-->
+                            <div><img class="img2" src="images/coins.png"></div>
+                            <div id="type">BTC-USD</div>
+                            <div id="price4" class="price">loading</div>
+                            <div id="volume4" class="volume">loading</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="info-box">
+                            <div><img class="img2" src="images/coins.png"></div>
+                            <div id="type">BTC-GBP</div>
+                            <div id="price5" class="price">loading</div>
+                            <div id="volume5" class="volume">loading</div>
+                        </div><!--/.info-box-->
+                    </div><!--/.col-->
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="info-box">
+                            <div><img class="img2" src="images/coins.png"></i>
+                                <div id="type">BTC-EUR</div>
+                                <div id="price6" class="price">loading</div>
+                                <div id="volume6" class="volume">loading</div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
             </div>
 
 
@@ -273,8 +302,7 @@
                     </div>
                 </div>
             </div>
-
-        </section>
+            </section>
     </section>
 </section>
 
