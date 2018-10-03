@@ -9,7 +9,7 @@ module.exports.showMainPage = function(req, res){
         res.render('home', {user: sess.username, preference: sess.preference});
     }else{
         res.render('home', {user: "Shenghui Wu", preference: "BTC-USD"});
-        //res.render('login');
+        //res.render('index');
     }
 }
 
@@ -20,7 +20,7 @@ module.exports.showSetting = function(req, res){
         res.render('setting', {user: sess.username});
     }else{
         //res.render('setting', {user: "Shenghui Wu"});
-        res.render('login');
+        res.render('index');
     }
 }
 
