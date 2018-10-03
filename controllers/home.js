@@ -8,19 +8,20 @@ module.exports.showMainPage = function(req, res){
     if ("username" in sess && sess.username != null){
         res.render('home', {user: sess.username, preference: sess.preference});
     }else{
-        res.render('home', {user: "Shenghui wu", preference: "BTC-USD"});
+        res.render('home', {user: "Shenghui Wu", preference: "BTC-USD"});
         //res.render('login');
     }
 }
 
 //show setting
 module.exports.showSetting = function(req, res){
-    res.render('setting');
-}
-
-//set setting
-module.exports.validation_setting = function(req, res){
-    res.json({result: "success"});
+    var sess = req.session;
+    if ("username" in sess && sess.username != null){
+        res.render('setting', {user: sess.username});
+    }else{
+        //res.render('setting', {user: "Shenghui Wu"});
+        res.render('login');
+    }
 }
 
 //candle stick

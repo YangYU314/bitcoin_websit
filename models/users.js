@@ -51,10 +51,56 @@ userSchema.statics.insert_register = function(firstname, lastname, username, pas
     });
 }
 
+userSchema.statics.setting = function(username, firstname, lastname, old_password, new_password, email, preference, callback){
+    users.updateOne({username: username}, {$set:{firstname: firstname, lastname: lastname, email: email}}, function(err, data){
+        if(err){
+            console.log("Query: Update Error!");
+        }else{
+            if (old_password == null){
+                callback("Modify Success!");
+            }else{
+                var password = "";
+                users.person_password(username, function(err, res){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        password = res[0].password;
+                        if(password == old_password){
+                            users.updateOne({username: username}, {$set:{password: new_password}}, function(err, data){
+                                if(err){
+                                    console.log("Query: Update Error!");
+                                }else{
+                                    callback("Modify Success!");
+                                }
+                            });
+                        }else{
+                            callback("Wrong old password!");
+                        }
+                    }
+                });
+            }
+        }
+    });
+}
+
 userSchema.statics.find_username = function(username, callback){
     return this
         .find({username: username})
         .select({username:1})
+        .exec(callback)
+}
+
+userSchema.statics.person_information = function(username, callback){
+    return this
+        .find({username: username})
+        .select({username:1, firstname:1, lastname:1, email:1})
+        .exec(callback)
+}
+
+userSchema.statics.person_password = function(username, callback){
+    return this
+        .find({username: username})
+        .select({password:1})
         .exec(callback)
 }
 
