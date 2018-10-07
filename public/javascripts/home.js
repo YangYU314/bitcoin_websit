@@ -93,7 +93,6 @@ $(document).ready(function(){
         clearTimeout(worldmap_timer);
         // worldmap_timer = setTimeout("map_exchange_distribution()",3000);
         map_exchange_distribution();
-        mini_price();
     });
     $('#ask_bid_chart').click(function () {
         clearTimeout(candle_timer);
@@ -197,6 +196,9 @@ function candlestick_chart(){
     var preference = document.getElementById("hidden_preference").value;
     var home_head_h1_show= document.getElementById("home_head_h1");
     home_head_h1_show.innerText = preference;
+    var myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    myChart.showLoading();
     $.ajax({
         url: "/candle_stick",
         type: "POST",
@@ -232,7 +234,7 @@ function candlestick_chart(){
                 //console.log(last_price_show_head);
                 //last price and volume of preference
                 last_price = data[data.length-1].close;
-                volume_24h = data[data.length-1].volume;
+                volume_24h = (data[data.length-1].volume).toString().substring(0,7);
                 //alert("last price of preference:"+last_price);
                 //preference price
                 last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
@@ -393,6 +395,7 @@ function candlestick_chart(){
                         }
                     ]
                 };
+                myChart.hideLoading();
                 myChart.setOption(option);
 
             }
@@ -403,11 +406,16 @@ function candlestick_chart(){
     })
 }
 function map_exchange_distribution(){
+    var myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    myChart.showLoading();
     //var t2 = window.setInterval("map_exchange_distribution()",30000);
     $.ajax({
         url: "/world_map",
         type: "GET",
         success: function (data) {
+            var myChart = echarts.init(document.getElementById('map'));
+            myChart.clear();
             var coord = [];
             for (var i=0; i<data.length; i++){
                 var temp= [];
@@ -418,10 +426,15 @@ function map_exchange_distribution(){
                 coord.push(temp);
             }
                 //var data = [[116.4,39.9],[]];
-                var myChart = echarts.init(document.getElementById('map'));
 
                 option = {
                     backgroundColor: '#404a59',
+                    tooltip: {
+                        /*返回需要的信息*/
+                        formatter: function() {
+                            return name;
+                        }
+                    },
                     title: {
                         text: 'Cocurrency-exhange Distribution',
                         x:'center',
@@ -474,8 +487,9 @@ function map_exchange_distribution(){
                     ]
 
                 };
-                myChart.clear();
-                myChart.setOption(option);
+            setTimeout( "window.opener=null;window.close() ",5000);
+            myChart.hideLoading();
+            myChart.setOption(option);
 
         },
             error: function () {
@@ -667,10 +681,23 @@ function order_chart(){
                     type: 'category',
                     boundaryGap: false,
                     data: price,
-
+                    name:'Order Price',
+                    nameLocation:'middle',
+                    nameTextStyle:{
+                        color:"black",
+                        fontSize:16,
+                        padding:10
+                    }
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name:'Order Volume',
+                    nameLocation:'middle',
+                    nameTextStyle:{
+                        color:"black",
+                        fontSize:16,
+                        padding:10
+                    }
                 },
                 visualMap: {
                     show: false,
