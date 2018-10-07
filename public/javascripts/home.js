@@ -428,13 +428,12 @@ function map_exchange_distribution(){
                 //var data = [[116.4,39.9],[]];
 
                 option = {
-                    backgroundColor: '#404a59',
-                    tooltip: {
-                        /*返回需要的信息*/
-                        formatter: function() {
-                            return name;
-                        }
+                    tooltip:{
+                        trigger:'item',
+                        formatter: '{c}',
                     },
+                    backgroundColor: '#404a59',
+
                     title: {
                         text: 'Cocurrency-exhange Distribution',
                         x:'center',
@@ -455,32 +454,31 @@ function map_exchange_distribution(){
                                 borderColor: '#111'
                             },
                             emphasis: {
-                                color: 'gold',
-                                areaColor: '#2a333d'
+                                show:false,
                             }
                         }
                     },
                     series: [
                         {
-                            name: 'pm2.5',
+                            name: 'node',
                             type: 'scatter',
                             coordinateSystem: 'geo',
                             data: coord,
                             symbolSize: 3,
                             label: {
                                 normal: {
-                                    show: false
+                                    show:false,
                                 },
                                 emphasis: {
-                                    show: false
+                                    show:false,
                                 }
                             },
                             itemStyle: {
                                 color: 'gold',
                                 emphasis: {
-
+                                    color:'red',
                                     borderColor: 'gold',
-                                    borderWidth: 1
+                                    borderWidth: 0.5
                                 }
                             }
                         }
@@ -665,23 +663,20 @@ function order_chart(){
             }
             option = {
                 title:{
-                    text: "order_book of "+preference,
+                    text: "Order Book of "+preference,
                     x:'center',
                 },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
-                    }
-                },
-                legend:{
-
+                    },
                 },
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
                     data: price,
-                    name:'Order Price',
+                    name:'Order Price/'+preference.substring(4,7),
                     nameLocation:'middle',
                     nameTextStyle:{
                         color:"black",
@@ -691,7 +686,7 @@ function order_chart(){
                 },
                 yAxis: {
                     type: 'value',
-                    name:'Order Volume',
+                    name:'Order Volume/'+preference.substring(0,3),
                     nameLocation:'middle',
                     nameTextStyle:{
                         color:"black",
@@ -708,6 +703,7 @@ function order_chart(){
                     }
                 },
                 series: [{
+                    name:'Volume',
                     data: volume,
                     type: 'line',
                     barCategoryGap:"1%",
