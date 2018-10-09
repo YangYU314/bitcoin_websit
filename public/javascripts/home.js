@@ -3,6 +3,7 @@ $(document).ready(function(){
     var worldmap_timer;
     var askbid_timer;
     var news_list;
+    var chart_id;
     var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")",60000);
     var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")",60000);
     var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")",60000);
@@ -23,8 +24,24 @@ $(document).ready(function(){
     $("#preference").change(function(){
         var selected=$(this).children('option:selected').val();
         document.getElementById("hidden_preference").value = selected;
+        if(chart_id=='c'){
+            console.log("now is candle");
+            candlestick_chart();
+        }
+        if(chart_id == 'm'){
+            console.log('now is map');
+            map_exchange_distribution();
+        }
+        if(chart_id == "b"){
+            console.log("now is bid&ask");
+            bid_ask_chart();
+        }
+        if(chart_id == "o"){
+            console.log("now is orderbook")
+            order_chart();
+        }
         
-        candlestick_chart();
+
     });
     $("#news").click(function(){
         $.ajax({
@@ -82,12 +99,14 @@ $(document).ready(function(){
         click_setting();
     })
     $('#candle_chart').click(function () {
+        chart_id = "c";
         clearTimeout(worldmap_timer);
         clearTimeout(candle_timer);
         clearTimeout(askbid_timer);
         candlestick_chart();
 });
     $('#map_chart').click(function () {
+        chart_id = 'm';
         clearTimeout(candle_timer);
         clearTimeout(askbid_timer);
         clearTimeout(worldmap_timer);
@@ -95,6 +114,7 @@ $(document).ready(function(){
         map_exchange_distribution();
     });
     $('#ask_bid_chart').click(function () {
+        chart_id = "b";
         clearTimeout(candle_timer);
         clearTimeout(worldmap_timer);
         clearTimeout(askbid_timer);
@@ -102,6 +122,7 @@ $(document).ready(function(){
         bid_ask_chart();
     });
     $("#orderbook_chart").click(function () {
+        chart_id = "o";
         order_chart();
     });
     // $("#test_chart").click(function(){
@@ -334,7 +355,7 @@ function candlestick_chart(){
                     series: [
                         {
                             type: 'candlestick',
-                            name: 'Daily',
+                            name: '1min',
                             data: values,
                             itemStyle: {
                                 normal: {
@@ -428,13 +449,12 @@ function map_exchange_distribution(){
                 //var data = [[116.4,39.9],[]];
 
                 option = {
-                    backgroundColor: '#404a59',
-                    tooltip: {
-                        /*返回需要的信息*/
-                        formatter: function() {
-                            return name;
-                        }
+                    tooltip:{
+                        trigger:'item',
+                        formatter: '{c}',
                     },
+                    backgroundColor: '#404a59',
+
                     title: {
                         text: 'Cocurrency-exhange Distribution',
                         x:'center',
@@ -455,32 +475,31 @@ function map_exchange_distribution(){
                                 borderColor: '#111'
                             },
                             emphasis: {
-                                color: 'gold',
-                                areaColor: '#2a333d'
+                                show:false,
                             }
                         }
                     },
                     series: [
                         {
-                            name: 'pm2.5',
+                            name: 'node',
                             type: 'scatter',
                             coordinateSystem: 'geo',
                             data: coord,
                             symbolSize: 3,
                             label: {
                                 normal: {
-                                    show: false
+                                    show:false,
                                 },
                                 emphasis: {
-                                    show: false
+                                    show:false,
                                 }
                             },
                             itemStyle: {
                                 color: 'gold',
                                 emphasis: {
-
+                                    color:'red',
                                     borderColor: 'gold',
-                                    borderWidth: 1
+                                    borderWidth: 0.5
                                 }
                             }
                         }
@@ -527,9 +546,13 @@ function bid_ask_chart(){
                 console.log("spread"+spread);
                 var colors = ['#5793f3', '#d14a61', '#675bba'];
                 option = {
+                    backgroundColor: '#2f323c',
                     color: colors,
                     title: {
                         text:"ask/bid price of "+preference,
+                        textStyle:{
+                            color:"#ffffff",
+                        },
                     },
                     tooltip: {
                         trigger: 'none',
@@ -538,6 +561,10 @@ function bid_ask_chart(){
                         }
                     },
                     legend: {
+                        textStyle:{//图例文字的样式
+                            color:'#ffffff',
+                            fontSize:16
+                        },
                         data:['ask', 'bid','spread']
                     },
                     grid: {
@@ -664,37 +691,39 @@ function order_chart(){
                 volume.push(data[0].bids[i][1]);
             }
             option = {
+                backgroundColor: '#2f323c',
                 title:{
-                    text: "order_book of "+preference,
+                    text: "Order Book of "+preference,
                     x:'center',
+                    textStyle:{
+                        color:"#ffffff",
+                    },
                 },
+
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
-                    }
-                },
-                legend:{
-
+                    },
                 },
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
                     data: price,
-                    name:'Order Price',
+                    name:'Order Price/'+preference.substring(4,7),
                     nameLocation:'middle',
                     nameTextStyle:{
-                        color:"black",
+                        color:"#ffffff",
                         fontSize:16,
                         padding:10
                     }
                 },
                 yAxis: {
                     type: 'value',
-                    name:'Order Volume',
+                    name:'Order Volume/'+preference.substring(0,3),
                     nameLocation:'middle',
                     nameTextStyle:{
-                        color:"black",
+                        color:"#ffffff",
                         fontSize:16,
                         padding:10
                     }
@@ -708,6 +737,7 @@ function order_chart(){
                     }
                 },
                 series: [{
+                    name:'Volume',
                     data: volume,
                     type: 'line',
                     barCategoryGap:"1%",
