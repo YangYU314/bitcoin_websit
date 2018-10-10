@@ -3,22 +3,24 @@ $(document).ready(function(){
     var worldmap_timer;
     var askbid_timer;
     var news_list;
-    var chart_id;
+    var chart_id = "BTC-USD";
     var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")",60000);
     var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")",60000);
     var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")",60000);
-    var t4 = window.setInterval("mini_chart(\"ETC-EUR\",\"price4\",\"volume4\")",60000);
-    var t5 = window.setInterval("mini_chart(\"BCH-USD\",\"price5\",\"volume5\")",60000);
-    var t6 = window.setInterval("mini_chart(\"ETH-BTC\",\"price6\",\"volume6\")",60000);
+    var t4 = window.setInterval("mini_chart(\"ETC-USD\",\"price4\",\"volume4\")",60000);
+    var t5 = window.setInterval("mini_chart(\"ETC-GBP\",\"price5\",\"volume5\")",60000);
+    var t6 = window.setInterval("mini_chart(\"ETC-EUR\",\"price6\",\"volume6\")",60000);
 
     mini_chart("BTC-USD","price1","volume1");
     mini_chart("BTC-GBP","price2","volume2");
     mini_chart("BTC-EUR","price3","volume3");
-    mini_chart("ETC-EUR","price4","volume4");
-    mini_chart("BCH-USD","price5","volume5");
-    mini_chart("ETH-BTC","price6","volume6");
-    //mini_price();
+    mini_chart("ETC-USD","price4","volume4");
+    mini_chart("ETC-GBP","price5","volume5");
+    mini_chart("ETC-EUR","price6","volume6");
+
     candlestick_chart();
+    refresh_controller(chart_id);
+    var controller_timer = window.setInterval("refresh_controller(chart_id)",60000);
     $.ajaxSetup({ async :false});
 
     $("#preference").change(function(){
@@ -40,9 +42,8 @@ $(document).ready(function(){
             console.log("now is orderbook")
             order_chart();
         }
-        
-
     });
+
     $("#news").click(function(){
         $.ajax({
             url: "/news",
@@ -113,14 +114,14 @@ $(document).ready(function(){
         // worldmap_timer = setTimeout("map_exchange_distribution()",3000);
         map_exchange_distribution();
     });
-    $('#ask_bid_chart').click(function () {
-        chart_id = "b";
-        clearTimeout(candle_timer);
-        clearTimeout(worldmap_timer);
-        clearTimeout(askbid_timer);
-        // askbid_timer = setTimeout("bid_ask_chart()",3000);
-        bid_ask_chart();
-    });
+    // $('#ask_bid_chart').click(function () {
+    //     chart_id = "b";
+    //     clearTimeout(candle_timer);
+    //     clearTimeout(worldmap_timer);
+    //     clearTimeout(askbid_timer);
+    //     // askbid_timer = setTimeout("bid_ask_chart()",3000);
+    //     bid_ask_chart();
+    // });
     $("#orderbook_chart").click(function () {
         chart_id = "o";
         order_chart();
@@ -294,7 +295,7 @@ function candlestick_chart(){
                 var option = {
                     backgroundColor: '#2f323c',
                     legend: {
-                        data: ['Daily', 'MA5', 'MA10', 'MA20', 'MA30'],
+                        data: ['1min', 'MA5', 'MA10', 'MA20', 'MA30'],
                         inactiveColor: '#777',
                         textStyle: {
                             color: '#777'
@@ -826,3 +827,22 @@ function mini_chart(id,element_price_id,element_mini_chart_id){
             }
         })
     }
+function refresh_controller(chart_id){
+    if(chart_id=='c'){
+        console.log("now is candle refresh");
+        candlestick_chart();
+    }
+    if(chart_id == 'm'){
+        console.log('now is map refresh');
+        map_exchange_distribution();
+    }
+    // if(chart_id == "b"){
+    //     console.log("now is bid&ask refresh");
+    //     bid_ask_chart();
+    // }
+    if(chart_id == "o"){
+        console.log("now is order book refresh")
+        order_chart();
+    }
+
+}
