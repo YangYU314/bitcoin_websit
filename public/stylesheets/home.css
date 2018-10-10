@@ -172,14 +172,24 @@ table tr th { color: #688a7e;}
 .preference{
     display: inline;
     margin-right: 60px;
-
 }
-
 #preference{
-    background-color: transparent;
-    color: #ffffff;
+    color: white;
+    background: #434954;
     border: none;
 }
+
+/*.preference{*/
+    /*display: inline;*/
+    /*margin-right: 60px;*/
+
+/*}*/
+
+/*#preference{*/
+    /*background-color: transparent;*/
+    /*color: #ffffff;*/
+    /*border: none;*/
+/*}*/
 
 #preference:hover{
     color: #fabb3d;
