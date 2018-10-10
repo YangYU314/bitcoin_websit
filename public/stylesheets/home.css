@@ -169,16 +169,25 @@ table tr th { color: #688a7e;}
     margin-bottom: 100px;
     display: inline;
     text-decoration: none;
+    cursor: pointer;
 }
 
-.preference{
-    display: inline;
-    margin-right: 60px;
+.preference:hover{
+    color: #fabb3d;
+    cursor: pointer;
 }
-#preference{
-    color: white;
-    background: transparent;
+
+.preference .a{
+    background-color: transparent;
+    color: #ffffff;
     border: none;
+}
+
+.preference .b{
+    background-color: white;
+    color: #3f444e;
+    -webkit-border-radius: 5px;
+    border-color: black;
 }
 
 .sidebar-wrapper {
@@ -187,11 +196,12 @@ table tr th { color: #688a7e;}
     overflow: auto;
 }
 
-/*.preference{*/
-    /*display: inline;*/
-    /*margin-right: 60px;*/
+.preference{
+    display: inline;
+    margin-right: 60px;
+    cursor: pointer;
+}
 
-/*}*/
 
 /*#preference{*/
     /*background-color: transparent;*/
@@ -257,6 +267,30 @@ row3{
     color: white;
     text-align: center;
     vertical-align: center;
+    padding-top: 30px;
+}
+
+.banner_row1 h3{
+    text-align: left;
+    font-weight: 300;
+    font-size: 1.5em;
+    line-height: 20px;
+    color: white;
+    vertical-align: center;
+    overflow: hidden;
+    white-space:nowrap;
+}
+
+.banner_row1 h2{
+    text-align: left;
+    font-weight: 300;
+    font-size: 1.5em;
+    line-height: 20px;
+    color: white;
+    vertical-align: center;
+    overflow: hidden;
+    white-space:nowrap;
+    padding-top: 30px;
 }
 
 /*.banner_row2{*/
