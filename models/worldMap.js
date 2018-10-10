@@ -21,10 +21,10 @@ worldMapSchema.statics.world_map_data = function(callback){
             var temp = new Array();
             var nodeData = result.nodes;
             var list;
-            var latitude;
+            /*var latitude;
             var longitude;
-            // var city;
-            // var countryCode;
+            var city;
+            var countryCode;*/
 
             for (const key in nodeData) {
                 //filter specific elements
@@ -49,10 +49,11 @@ worldMapSchema.statics.world_map_data = function(callback){
                 var mapArray = {};
                 mapArray["latitude"] = list[8];
                 mapArray["longitude"] = list[9];
+                mapArray["city"] = list[6];
                 temp.push(mapArray);
             }
             //console.log(temp);
-             callback(temp);
+            callback(temp);
         }
     });
 }
