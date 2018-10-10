@@ -13,9 +13,8 @@
     <script src="/javascripts/echarts.js" type="text/javascript"></script>
     <script src="/javascripts/world.js" type="text/javascript"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/simpler-sidebar.min.js"></script>
@@ -24,6 +23,25 @@
 </head>
 
 <body>
+
+<!--<div class="txt">-->
+<!--<p class="btn">-->
+<!--<span id="toggle-sidebar">NEWS</span>-->
+<!--</p>-->
+<!--</div>-->
+
+<!--<div class="sidebar" id="dowebok">-->
+<!--<div class="sidebar-wrapper" id="sidebar-wrapper">-->
+<!--<ul class="nav">-->
+<!--<li><a href="http://www.dowebok.com/">dowebok</a></li>-->
+<!--<li><a href="http://www.dowebok.com/code">代码</a></li>-->
+<!--<li><a href="http://www.dowebok.com/material">素材</a></li>-->
+<!--<li><a href="http://www.dowebok.com/template">模板</a></li>-->
+<!--<li><a href="http://www.dowebok.com/contact">联系</a></li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+
 <section id="container" >
     <header class="header dark-bg">
 
@@ -51,42 +69,30 @@
             </div>
 
             <div class="preference">
-                <select type="text" name="preference" id="preference">
+                <select type="text" name="preference" id="preference" class="a">
                     <option value="BTC-USD">BTC-USD</option>
                     <option value="BTC-EUR">BTC-EUR</option>
                     <option value="BTC-GBP">BTC-GBP</option>
                     <option value="ETC-EUR">ETC-EUR</option>
                     <option value="BCH-USD">BCH-USD</option>
                     <option value="ETH-BTC">ETH-BTC</option>
-
                 </select>
             </div>
 
-            <button class="btn">
-                <span id="toggle-sidebar">NEWS</span>
-            </button>
+
+
 
             <!--<button type="button" class="hamburger is-closed animated fadeInLeft" id="news" data-toggle="offcanvas">-->
-                <!--<span class="hamb-top"></span>-->
-                <!--<span class="hamb-middle"></span>-->
-                <!--<span class="hamb-bottom"></span>-->
+            <!--<span class="hamb-top"></span>-->
+            <!--<span class="hamb-middle"></span>-->
+            <!--<span class="hamb-bottom"></span>-->
             <!--</button>-->
 
         </div>
 
     </header>
 
-    <div class="sidebar" id="dowebok">
-        <div class="sidebar-wrapper" id="sidebar-wrapper">
-            <ul class="nav">
-                <li><a href="http://www.dowebok.com/">dowebok</a></li>
-                <li><a href="http://www.dowebok.com/code">代码</a></li>
-                <li><a href="http://www.dowebok.com/material">素材</a></li>
-                <li><a href="http://www.dowebok.com/template">模板</a></li>
-                <li><a href="http://www.dowebok.com/contact">联系</a></li>
-            </ul>
-        </div>
-    </div>
+
 
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
         <ul class="nav sidebar-nav">
@@ -97,26 +103,26 @@
             </li>
             <li>
                 <a>
-                <!--<a href="#"><i class="fa fa-fw fa-cog"></i>-->
-                <!--<div class = "box">-->
-                <table class = "tab">
-                    <tr class="tr1">
-                        <td id="co1" rowspan = "2">
-                            <a>
-                                <img id="image0" />
-                            </a>
-                        </td>
-                        <td class="award-name">
-                            <a href="" id="title0">
+                    <!--<a href="#"><i class="fa fa-fw fa-cog"></i>-->
+                    <!--<div class = "box">-->
+                    <table class = "tab">
+                        <tr class="tr1">
+                            <td id="co1" rowspan = "2">
+                                <a>
+                                    <img id="image0" />
+                                </a>
+                            </td>
+                            <td class="award-name">
+                                <a href="" id="title0">
 
-                            </a>
-                        </td>
-                    </tr>
+                                </a>
+                            </td>
+                        </tr>
 
-                    <tr class="tr2">
-                        <td class="award-name" id="description0" ></td>
-                    </tr>
-                </table>
+                        <tr class="tr2">
+                            <td class="award-name" id="description0" ></td>
+                        </tr>
+                    </table>
                 </a>
                 <!--</div>-->
                 <!--</a>-->
@@ -230,7 +236,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div class="info-box" id="banner_md">
                         <h2 id="LastPrice">Last Price:</h2>
-                        <h2 id="24hrVolume">24hr Volume:</h2>
+                        <h3 id="24hrVolume">24hr Volume:</h3>
                     </div>
                 </div>
 
@@ -309,9 +315,6 @@
                                 </div>
                             </div>
 
-
-
-
                         </div>
                         <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
                         <a data-slide="next" href="#media" class="right carousel-control">›</a>
@@ -322,84 +325,32 @@
                 </div>
 
                 <div class="row3">
-                <div class="col-lg-9 col-md-9">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h2><i class="fa fa-map-marker red"></i><strong>Charts</strong></h2>
-                            <button id="candle_chart" input class="flag but1" type="submit" onclick="dj(this);">Candle</button>
-                            <button id="map_chart" input class="flag but2" type="submit" onclick="dj(this);">World Map</button>
-                            <button id = "ask_bid_chart" input class="flag but3" type="submit" onclick="dj(this);">ask/bid</button>
-                            <button id = "orderbook_chart" input class="flag but4" type="submit" onclick="dj(this);">order</button>
-                            <!--<button id = "test_chart">TEST</button>-->
-                            <!--<div class="panel-actions">-->
-                            <!--<a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>-->
-                            <!--<a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>-->
-                            <!--<a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>-->
-                            <!--</div>-->
-                        </div>
-                        <!--charts-->
-                        <div class="panel-body-map">
-                            <div id="map"></div>
-                        </div>
+                    <div class="col-lg-9 col-md-9">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2><i class="fa fa-map-marker red"></i><strong>Charts</strong></h2>
+                                <button id="candle_chart" input class="flag but1" type="submit" onclick="dj(this);">Candle</button>
+                                <button id="map_chart" input class="flag but2" type="submit" onclick="dj(this);">World Map</button>
+                                <button id = "ask_bid_chart" input class="flag but3" type="submit" onclick="dj(this);">ask/bid</button>
+                                <button id = "orderbook_chart" input class="flag but4" type="submit" onclick="dj(this);">order</button>
+                                <!--<button id = "test_chart">TEST</button>-->
+                                <!--<div class="panel-actions">-->
+                                <!--<a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>-->
+                                <!--<a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>-->
+                                <!--<a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>-->
+                                <!--</div>-->
+                            </div>
+                            <!--charts-->
+                            <div class="panel-body-map">
+                                <div id="map"></div>
+                            </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
-            </section>
+        </section>
     </section>
-
-    <!-- Footer -->
-    <section id="footer">
-        <div class="row text-center text-xs-center text-sm-left text-md-left">
-            <div class="col-xs-12 col-sm-5 col-md-3">
-                <ul class="list-unstyled quick-links">
-                    <div class="w-25">
-                        <input type="text" class="form-control rounded-0 bg-dark ser-input" id="ser-input" placeholder="Search...">
-                        <div class="search-full-view">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search...">
-                            </div>
-                            <button class="btn btn-close" id="search-close"> <img src="http://d9hhrg4mnvzow.cloudfront.net/www2.iweb.com/windows-server-2016/ed5b870c-clear-close-cancel-white.png"></button>
-                        </div>
-                    </div>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-5 col-md-3">
-                <ul class="list-unstyled quick-links">
-                    <li><a href="/home"><i class="fa fa-angle-double-right"></i>Home</a></li>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-5 col-md-3">
-                <ul class="list-unstyled quick-links">
-                    <li><a href="https://github.sydney.edu.au/shwu6127/COMP5703_22_3"><i class="fa fa-angle-double-right"></i>Github</a></li>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-5 col-md-3">
-                <ul class="list-unstyled quick-links">
-                    <li><a href="https://sydney.edu.au/maps/campuses/?area=CAMDAR"><i class="fa fa-angle-double-right"></i>Locations</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
-                <ul class="list-unstyled list-inline social text-center">
-                    <li class="list-inline-item"><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="https://plus.google.com/discover"><i class="fa fa-google-plus"></i></a></li>
-                    <li class="list-inline-item"><a href="https://www.google.com/gmail" target="_blank"><i class="fa fa-envelope"></i></a></li>
-                </ul>
-            </div>
-            </hr>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-                <p class="h6">&copy All right Reversed.<a class="text-green ml-2" href="https://sydney.edu.au/" target="_blank">The university of sydney</a></p>
-            </div>
-        </div>
-    </section>
-    <!-- ./Footer -->
 </section>
 
 <script type="text/javascript">
@@ -423,34 +374,34 @@
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        var trigger = $('.hamburger'),
-            overlay = $('.overlay'),
-            isClosed = false;
-
-        trigger.click(function () {
-            hamburger_cross();
-        });
-
-        function hamburger_cross() {
-
-            if (isClosed == true) {
-                overlay.hide();
-                trigger.removeClass('is-open');
-                trigger.addClass('is-closed');
-                isClosed = false;
-            } else {
-                overlay.show();
-                trigger.removeClass('is-closed');
-                trigger.addClass('is-open');
-                isClosed = true;
-            }
-        }
-
-        $('[data-toggle="offcanvas"]').click(function () {
-            $('#container').toggleClass('toggled');
-        });
-    });
+    // $(document).ready(function () {
+    //     var trigger = $('.hamburger'),
+    //         overlay = $('.overlay'),
+    //         isClosed = false;
+    //
+    //     trigger.click(function () {
+    //         hamburger_cross();
+    //     });
+    //
+    //     function hamburger_cross() {
+    //
+    //         if (isClosed == true) {
+    //             overlay.hide();
+    //             trigger.removeClass('is-open');
+    //             trigger.addClass('is-closed');
+    //             isClosed = false;
+    //         } else {
+    //             overlay.show();
+    //             trigger.removeClass('is-closed');
+    //             trigger.addClass('is-open');
+    //             isClosed = true;
+    //         }
+    //     }
+    //
+    //     $('[data-toggle="offcanvas"]').click(function () {
+    //         $('#container').toggleClass('toggled');
+    //     });
+    // });
 
     $(document).ready(function() {
         $('#media').carousel({
@@ -466,15 +417,6 @@
                 align: 'left',
                 width: 250
             }
-        });
-    });
-
-    $(document).ready(function() {
-        $("#ser-input").focus(function() {
-            $('.search-full-view').addClass("search-normal-screen");
-        });
-        $("#search-close").click(function() {
-            $('.search-full-view').removeClass("search-normal-screen");
         });
     });
 
