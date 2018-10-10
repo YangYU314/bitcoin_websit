@@ -24,7 +24,7 @@ $(document).ready(function(){
 
     var controller_timer = window.setInterval(function(){
         refresh_controller(chart_id);
-    },6000);
+    },60000);
     $.ajaxSetup({ async :false});
 
     $("#preference").change(function(){
