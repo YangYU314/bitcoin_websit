@@ -13,8 +13,9 @@
     <script src="/javascripts/echarts.js" type="text/javascript"></script>
     <script src="/javascripts/world.js" type="text/javascript"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/simpler-sidebar.min.js"></script>
@@ -351,6 +352,58 @@
             </div>
             </section>
     </section>
+
+    <!-- Footer -->
+    <section id="footer">
+        <div class="row text-center text-xs-center text-sm-left text-md-left">
+            <div class="col-xs-12 col-sm-5 col-md-3">
+                <ul class="list-unstyled quick-links">
+                    <div class="w-25">
+                        <input type="text" class="form-control rounded-0 bg-dark ser-input" id="ser-input" placeholder="Search...">
+                        <div class="search-full-view">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search...">
+                            </div>
+                            <button class="btn btn-close" id="search-close"> <img src="http://d9hhrg4mnvzow.cloudfront.net/www2.iweb.com/windows-server-2016/ed5b870c-clear-close-cancel-white.png"></button>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-3">
+                <ul class="list-unstyled quick-links">
+                    <li><a href="/home"><i class="fa fa-angle-double-right"></i>Home</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-3">
+                <ul class="list-unstyled quick-links">
+                    <li><a href="https://github.sydney.edu.au/shwu6127/COMP5703_22_3"><i class="fa fa-angle-double-right"></i>Github</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-md-3">
+                <ul class="list-unstyled quick-links">
+                    <li><a href="https://sydney.edu.au/maps/campuses/?area=CAMDAR"><i class="fa fa-angle-double-right"></i>Locations</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                <ul class="list-unstyled list-inline social text-center">
+                    <li class="list-inline-item"><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
+                    <li class="list-inline-item"><a href="https://plus.google.com/discover"><i class="fa fa-google-plus"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.google.com/gmail" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                </ul>
+            </div>
+            </hr>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
+                <p class="h6">&copy All right Reversed.<a class="text-green ml-2" href="https://sydney.edu.au/" target="_blank">The university of sydney</a></p>
+            </div>
+        </div>
+    </section>
+    <!-- ./Footer -->
 </section>
 
 <script type="text/javascript">
@@ -417,6 +470,15 @@
                 align: 'left',
                 width: 250
             }
+        });
+    });
+
+    $(document).ready(function() {
+        $("#ser-input").focus(function() {
+            $('.search-full-view').addClass("search-normal-screen");
+        });
+        $("#search-close").click(function() {
+            $('.search-full-view').removeClass("search-normal-screen");
         });
     });
 
