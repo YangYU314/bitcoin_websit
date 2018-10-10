@@ -23,6 +23,25 @@
 </head>
 
 <body>
+
+<div class="txt">
+    <p class="btn">
+        <span id="toggle-sidebar">NEWS</span>
+    </p>
+</div>
+
+<div class="sidebar" id="dowebok">
+    <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <ul class="nav">
+            <li><a href="http://www.dowebok.com/">dowebok</a></li>
+            <li><a href="http://www.dowebok.com/code">代码</a></li>
+            <li><a href="http://www.dowebok.com/material">素材</a></li>
+            <li><a href="http://www.dowebok.com/template">模板</a></li>
+            <li><a href="http://www.dowebok.com/contact">联系</a></li>
+        </ul>
+    </div>
+</div>
+
 <section id="container" >
     <header class="header dark-bg">
 
@@ -57,13 +76,11 @@
                     <option value="ETC-EUR">ETC-EUR</option>
                     <option value="BCH-USD">BCH-USD</option>
                     <option value="ETH-BTC">ETH-BTC</option>
-
                 </select>
             </div>
 
-            <button class="btn">
-                <span id="toggle-sidebar">NEWS</span>
-            </button>
+
+
 
             <!--<button type="button" class="hamburger is-closed animated fadeInLeft" id="news" data-toggle="offcanvas">-->
                 <!--<span class="hamb-top"></span>-->
@@ -75,17 +92,7 @@
 
     </header>
 
-    <div class="sidebar" id="dowebok">
-        <div class="sidebar-wrapper" id="sidebar-wrapper">
-            <ul class="nav">
-                <li><a href="http://www.dowebok.com/">dowebok</a></li>
-                <li><a href="http://www.dowebok.com/code">代码</a></li>
-                <li><a href="http://www.dowebok.com/material">素材</a></li>
-                <li><a href="http://www.dowebok.com/template">模板</a></li>
-                <li><a href="http://www.dowebok.com/contact">联系</a></li>
-            </ul>
-        </div>
-    </div>
+
 
     <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
         <ul class="nav sidebar-nav">
@@ -308,9 +315,6 @@
                                 </div>
                             </div>
 
-
-
-
                         </div>
                         <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
                         <a data-slide="next" href="#media" class="right carousel-control">›</a>
@@ -370,34 +374,34 @@
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        var trigger = $('.hamburger'),
-            overlay = $('.overlay'),
-            isClosed = false;
-
-        trigger.click(function () {
-            hamburger_cross();
-        });
-
-        function hamburger_cross() {
-
-            if (isClosed == true) {
-                overlay.hide();
-                trigger.removeClass('is-open');
-                trigger.addClass('is-closed');
-                isClosed = false;
-            } else {
-                overlay.show();
-                trigger.removeClass('is-closed');
-                trigger.addClass('is-open');
-                isClosed = true;
-            }
-        }
-
-        $('[data-toggle="offcanvas"]').click(function () {
-            $('#container').toggleClass('toggled');
-        });
-    });
+    // $(document).ready(function () {
+    //     var trigger = $('.hamburger'),
+    //         overlay = $('.overlay'),
+    //         isClosed = false;
+    //
+    //     trigger.click(function () {
+    //         hamburger_cross();
+    //     });
+    //
+    //     function hamburger_cross() {
+    //
+    //         if (isClosed == true) {
+    //             overlay.hide();
+    //             trigger.removeClass('is-open');
+    //             trigger.addClass('is-closed');
+    //             isClosed = false;
+    //         } else {
+    //             overlay.show();
+    //             trigger.removeClass('is-closed');
+    //             trigger.addClass('is-open');
+    //             isClosed = true;
+    //         }
+    //     }
+    //
+    //     $('[data-toggle="offcanvas"]').click(function () {
+    //         $('#container').toggleClass('toggled');
+    //     });
+    // });
 
     $(document).ready(function() {
         $('#media').carousel({
