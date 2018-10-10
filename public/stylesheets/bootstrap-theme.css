@@ -2228,6 +2228,7 @@ input[type="button"].btn-block {
   line-height: 1.428571429;
   color: #ffffff;
   white-space: nowrap;
+  cursor: pointer;
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {

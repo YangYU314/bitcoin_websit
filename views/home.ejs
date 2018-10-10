@@ -83,11 +83,11 @@
 
 
 
-            <!--<button type="button" class="hamburger is-closed animated fadeInLeft" id="news" data-toggle="offcanvas">-->
-            <!--<span class="hamb-top"></span>-->
-            <!--<span class="hamb-middle"></span>-->
-            <!--<span class="hamb-bottom"></span>-->
-            <!--</button>-->
+            <button type="button" class="hamburger is-closed animated fadeInLeft" id="news" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+            </button>
 
         </div>
 
@@ -332,7 +332,6 @@
                                 <h2><i class="fa fa-map-marker red"></i><strong>Charts</strong></h2>
                                 <button id="candle_chart" input class="flag but1" type="submit" onclick="dj(this);">Candle</button>
                                 <button id="map_chart" input class="flag but2" type="submit" onclick="dj(this);">World Map</button>
-                                <button id = "ask_bid_chart" input class="flag but3" type="submit" onclick="dj(this);">ask/bid</button>
                                 <button id = "orderbook_chart" input class="flag but4" type="submit" onclick="dj(this);">order</button>
                                 <!--<button id = "test_chart">TEST</button>-->
                                 <!--<div class="panel-actions">-->
@@ -427,34 +426,34 @@
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
 <script type="text/javascript">
-    // $(document).ready(function () {
-    //     var trigger = $('.hamburger'),
-    //         overlay = $('.overlay'),
-    //         isClosed = false;
-    //
-    //     trigger.click(function () {
-    //         hamburger_cross();
-    //     });
-    //
-    //     function hamburger_cross() {
-    //
-    //         if (isClosed == true) {
-    //             overlay.hide();
-    //             trigger.removeClass('is-open');
-    //             trigger.addClass('is-closed');
-    //             isClosed = false;
-    //         } else {
-    //             overlay.show();
-    //             trigger.removeClass('is-closed');
-    //             trigger.addClass('is-open');
-    //             isClosed = true;
-    //         }
-    //     }
-    //
-    //     $('[data-toggle="offcanvas"]').click(function () {
-    //         $('#container').toggleClass('toggled');
-    //     });
-    // });
+    $(document).ready(function () {
+        var trigger = $('.hamburger'),
+            overlay = $('.overlay'),
+            isClosed = false;
+
+        trigger.click(function () {
+            hamburger_cross();
+        });
+
+        function hamburger_cross() {
+
+            if (isClosed == true) {
+                overlay.hide();
+                trigger.removeClass('is-open');
+                trigger.addClass('is-closed');
+                isClosed = false;
+            } else {
+                overlay.show();
+                trigger.removeClass('is-closed');
+                trigger.addClass('is-open');
+                isClosed = true;
+            }
+        }
+
+        $('[data-toggle="offcanvas"]').click(function () {
+            $('#container').toggleClass('toggled');
+        });
+    });
 
     $(document).ready(function() {
         $('#media').carousel({
