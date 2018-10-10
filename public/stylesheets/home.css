@@ -1103,4 +1103,25 @@ td{
 {
     background: #333333;
 }
+
+.but1:hover, .but2:hover, .but3:hover, .but4:hover
+{
+    color: #fff;
+    border-color: #b1b0b0;
+    background: #b1b0b0;
+    border: none;
+}
+
+.start
+{
+    cursor: pointer;
+}
+
+.end
+{
+    cursor: pointer;
+    color: #fff;
+    background: #b1b0b0;
+    border: none;
+}
 /* End carousel */

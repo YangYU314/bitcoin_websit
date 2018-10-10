@@ -302,10 +302,10 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h2><i class="fa fa-map-marker red"></i><strong>Charts</strong></h2>
-                            <button id="candle_chart">Candle</button>
-                            <button id="map_chart">World Map</button>
-                            <button id = "ask_bid_chart">ask/bid</button>
-                            <button id = "orderbook_chart">order</button>
+                            <button id="candle_chart" input class="flag but1" type="submit" onclick="dj(this);">Candle</button>
+                            <button id="map_chart" input class="flag but2" type="submit" onclick="dj(this);">World Map</button>
+                            <button id = "ask_bid_chart" input class="flag but3" type="submit" onclick="dj(this);">ask/bid</button>
+                            <button id = "orderbook_chart" input class="flag but4" type="submit" onclick="dj(this);">order</button>
                             <!--<button id = "test_chart">TEST</button>-->
                             <!--<div class="panel-actions">-->
                             <!--<a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>-->
@@ -325,6 +325,24 @@
             </section>
     </section>
 </section>
+
+<script type="text/javascript">
+    $(function () {
+        var collection = $(".flag");
+        $.each(collection, function () {
+            $(this).addClass("start");
+        });
+    });
+    function dj(dom) {
+        var collection = $(".flag");
+        $.each(collection, function () {
+            $(this).removeClass("end");
+            $(this).addClass("start");
+        });
+        $(dom).removeClass("start");
+        $(dom).addClass("end");
+    }
+</script>
 
 <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 <script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
