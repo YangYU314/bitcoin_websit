@@ -1188,18 +1188,21 @@ td{
     padding: 10px 0;
 }
 
-#footer a {
+#footer h2 {
     color: #ffffff;
     text-decoration: none !important;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
 }
 #footer p {
-    color: #ffffff;
+    color: #b1b0b0;
+    font-size: 150%;
+    text-indent: 5%;
     text-decoration: none !important;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
 }
+
 #footer ul.social li{
     padding: 3px 5px;
 }
@@ -1267,14 +1270,16 @@ i{
     opacity: 1;
     z-index: 1;
     transform: scale(1);
+    margin-top: 60px;
 }
 
 .search-full-view .input-group {
-    width: 80%;
+    width: 75%;
     margin: 0 auto;
-    top: 40%;
+    top: 20%;
     height: 100px;
 }
+
 .search-full-view .input-group .form-control {
     background: transparent;
     border-bottom: 2px solid #fff;
