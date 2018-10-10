@@ -3,7 +3,8 @@ $(document).ready(function(){
     var worldmap_timer;
     var askbid_timer;
     var news_list;
-    var chart_id = "BTC-USD";
+    var chart_id = 1;
+    console.log(chart_id==1);
     var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")",60000);
     var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")",60000);
     var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")",60000);
@@ -20,25 +21,29 @@ $(document).ready(function(){
 
     candlestick_chart();
     refresh_controller(chart_id);
-    var controller_timer = window.setInterval("refresh_controller(chart_id)",60000);
+
+    var controller_timer = window.setInterval(function(){
+        refresh_controller(chart_id);
+    },6000);
     $.ajaxSetup({ async :false});
 
     $("#preference").change(function(){
         var selected=$(this).children('option:selected').val();
         document.getElementById("hidden_preference").value = selected;
-        if(chart_id=='c'){
+        head_price_volume();
+        if(chart_id==1){
             console.log("now is candle");
             candlestick_chart();
         }
-        if(chart_id == 'm'){
+        if(chart_id == 2){
             console.log('now is map');
             map_exchange_distribution();
         }
-        if(chart_id == "b"){
+        if(chart_id == 3){
             console.log("now is bid&ask");
             bid_ask_chart();
         }
-        if(chart_id == "o"){
+        if(chart_id == 4){
             console.log("now is orderbook")
             order_chart();
         }
@@ -100,14 +105,14 @@ $(document).ready(function(){
         click_setting();
     })
     $('#candle_chart').click(function () {
-        chart_id = "c";
+        chart_id = 1;
         clearTimeout(worldmap_timer);
         clearTimeout(candle_timer);
         clearTimeout(askbid_timer);
         candlestick_chart();
 });
     $('#map_chart').click(function () {
-        chart_id = 'm';
+        chart_id = 2;
         clearTimeout(candle_timer);
         clearTimeout(askbid_timer);
         clearTimeout(worldmap_timer);
@@ -115,7 +120,7 @@ $(document).ready(function(){
         map_exchange_distribution();
     });
     // $('#ask_bid_chart').click(function () {
-    //     chart_id = "b";
+    //     chart_id = 3;
     //     clearTimeout(candle_timer);
     //     clearTimeout(worldmap_timer);
     //     clearTimeout(askbid_timer);
@@ -123,7 +128,8 @@ $(document).ready(function(){
     //     bid_ask_chart();
     // });
     $("#orderbook_chart").click(function () {
-        chart_id = "o";
+        chart_id = 4;
+        console.log(chart_id)
         order_chart();
     });
     // $("#test_chart").click(function(){
@@ -186,6 +192,33 @@ $(document).ready(function(){
     //     })
     // });
 })
+function head_price_volume() {
+    var preference = document.getElementById("hidden_preference").value;
+    $.ajax({
+            url: "/candle_stick",
+            type: "POST",
+            data: {product_id: preference},
+            success: function (data) {
+                if (data != null) {
+
+                    var home_head_h1_show= document.getElementById("home_head_h1");
+                    home_head_h1_show.innerText = preference;
+                    var last_price_show_head = document.getElementById("LastPrice");
+                    var hvolume_show_head = document.getElementById("24hrVolume");
+                    //console.log(last_price_show_head);
+                    //last price and volume of preference
+                    last_price = data[data.length-1].close;
+                    volume_24h = (data[data.length-1].volume).toString().substring(0,7);
+                    //alert("last price of preference:"+last_price);
+                    //preference price
+                    last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
+                    hvolume_show_head.innerText = "24Hr Volume: "+volume_24h+preference.toString().substring(0,3);
+                }
+                }
+            })
+        }
+
+
 //logout
 function click_setting(){
     $.ajax({
@@ -266,8 +299,8 @@ function candlestick_chart(){
                     let unixtime = time
                     let unixTimestamp = new Date(unixtime * 1000)
                     let Y = unixTimestamp.getFullYear()
-                    let M = ((unixTimestamp.getMonth() + 1) > 10 ? (unixTimestamp.getMonth() + 1) : '0' + (unixTimestamp.getMonth() + 1))
-                    let D = (unixTimestamp.getDate() > 10 ? unixTimestamp.getDate() : '0' + unixTimestamp.getDate())
+                    let M = ((unixTimestamp.getMonth() + 1) > 10 ? (unixTimestamp.getMonth() + 1) : + (unixTimestamp.getMonth() + 1))
+                    let D = (unixTimestamp.getDate() > 10 ? unixTimestamp.getDate() :  + unixTimestamp.getDate())
                     let T = (unixTimestamp.getHours())
                     let Min = (unixTimestamp.getMinutes())
                     //let Sec = (unixTimestamp.getSeconds())
@@ -828,19 +861,20 @@ function mini_chart(id,element_price_id,element_mini_chart_id){
         })
     }
 function refresh_controller(chart_id){
-    if(chart_id=='c'){
+    console.log("chartid:"+chart_id);
+    if(chart_id==1){
         console.log("now is candle refresh");
         candlestick_chart();
     }
-    if(chart_id == 'm'){
+    if(chart_id == 2){
         console.log('now is map refresh');
         map_exchange_distribution();
     }
-    // if(chart_id == "b"){
+    // if(chart_id == 3){
     //     console.log("now is bid&ask refresh");
     //     bid_ask_chart();
     // }
-    if(chart_id == "o"){
+    if(chart_id == 4){
         console.log("now is order book refresh")
         order_chart();
     }
