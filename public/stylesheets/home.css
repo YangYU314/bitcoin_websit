@@ -1156,12 +1156,30 @@ td{
     background: #333333;
 }
 
+.tu{
+    margin: 0 10px;
+    width: 28px;
+}
+.but1, .but2, .but3, .but4{
+    border-color: transparent;
+    background: transparent;
+    margin-top: 5px;
+    margin-left: 30px;
+    text-align: center;
+    vertical-align: center;
+    width: 10%;
+
+}
+
 .but1:hover, .but2:hover, .but3:hover, .but4:hover
 {
     color: #fff;
-    border-color: #b1b0b0;
-    background: #b1b0b0;
+    border-color: rgba(63,68,78,0.8);
+    background: rgba(63,68,78,0.8);
     border: none;
+    -webkit-border-radius: 5px;
+    height: 36px;
+
 }
 
 .start
@@ -1173,8 +1191,12 @@ td{
 {
     cursor: pointer;
     color: #fff;
-    background: #b1b0b0;
+    border-color: rgba(63,68,78,0.8);
+    background: rgba(63,68,78,0.8);
     border: none;
+    -webkit-border-radius: 5px;
+    height: 36px;
+
 }
 /* End carousel */
 
