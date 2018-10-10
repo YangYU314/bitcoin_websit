@@ -175,8 +175,14 @@ table tr th { color: #688a7e;}
 }
 #preference{
     color: white;
-    background: #434954;
+    background: transparent;
     border: none;
+}
+
+.sidebar-wrapper {
+    position: relative;
+    height: 100%;
+    overflow: auto;
 }
 
 /*.preference{*/
@@ -191,9 +197,9 @@ table tr th { color: #688a7e;}
     /*border: none;*/
 /*}*/
 
-#preference:hover{
-    color: #fabb3d;
-}
+/*#preference:hover{*/
+    /*color: #fabb3d;*/
+/*}*/
 
 .top-nav{
     margin-top: 0px !important;
