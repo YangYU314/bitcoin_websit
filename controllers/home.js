@@ -8,8 +8,8 @@ module.exports.showMainPage = function(req, res){
     if ("username" in sess && sess.username != null){
         res.render('home', {user: sess.username, preference: sess.preference});
     }else{
-        res.render('home', {user: "Shenghui Wu", preference: "BTC-USD"});
-        //res.render('index');
+        //res.render('home', {user: "Shenghui Wu", preference: "BTC-USD"});
+        res.render('index');
     }
 }
 
