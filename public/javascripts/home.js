@@ -1,62 +1,62 @@
-$(document).ready(function(){
+$(document).ready(function() {
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
     var news_list;
     var chart_id = 1;
-    console.log(chart_id==1);
-    var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")",60000);
-    var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")",60000);
-    var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")",60000);
-    var t4 = window.setInterval("mini_chart(\"ETC-USD\",\"price4\",\"volume4\")",60000);
-    var t5 = window.setInterval("mini_chart(\"ETC-GBP\",\"price5\",\"volume5\")",60000);
-    var t6 = window.setInterval("mini_chart(\"ETC-EUR\",\"price6\",\"volume6\")",60000);
+    console.log(chart_id == 1);
+    var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")", 60000);
+    var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")", 60000);
+    var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")", 60000);
+    var t4 = window.setInterval("mini_chart(\"ETC-USD\",\"price4\",\"volume4\")", 60000);
+    var t5 = window.setInterval("mini_chart(\"ETC-GBP\",\"price5\",\"volume5\")", 60000);
+    var t6 = window.setInterval("mini_chart(\"ETC-EUR\",\"price6\",\"volume6\")", 60000);
 
-    mini_chart("BTC-USD","price1","volume1");
-    mini_chart("BTC-GBP","price2","volume2");
-    mini_chart("BTC-EUR","price3","volume3");
-    mini_chart("ETC-USD","price4","volume4");
-    mini_chart("ETC-GBP","price5","volume5");
-    mini_chart("ETC-EUR","price6","volume6");
+    mini_chart("BTC-USD", "price1", "volume1");
+    mini_chart("BTC-GBP", "price2", "volume2");
+    mini_chart("BTC-EUR", "price3", "volume3");
+    mini_chart("ETC-USD", "price4", "volume4");
+    mini_chart("ETC-GBP", "price5", "volume5");
+    mini_chart("ETC-EUR", "price6", "volume6");
 
     candlestick_chart();
     refresh_controller(chart_id);
 
-    var controller_timer = window.setInterval(function(){
+    var controller_timer = window.setInterval(function () {
         refresh_controller(chart_id);
-    },60000);
-    $.ajaxSetup({ async :false});
+    }, 60000);
+    $.ajaxSetup({async: false});
 
-    $("#preference").change(function(){
-        var selected=$(this).children('option:selected').val();
+    $("#preference").change(function () {
+        var selected = $(this).children('option:selected').val();
         document.getElementById("hidden_preference").value = selected;
         head_price_volume();
-        if(chart_id==1){
+        if (chart_id == 1) {
             console.log("now is candle");
             candlestick_chart();
         }
-        if(chart_id == 2){
+        if (chart_id == 2) {
             console.log('now is map');
             map_exchange_distribution();
         }
-        if(chart_id == 3){
+        if (chart_id == 3) {
             console.log("now is bid&ask");
             bid_ask_chart();
         }
-        if(chart_id == 4){
+        if (chart_id == 4) {
             console.log("now is orderbook")
             order_chart();
         }
     });
 
-    $("#news").click(function(){
+    $("#news").click(function () {
         $.ajax({
             url: "/news",
             type: "GET",
             async: false,
             success: function (data) {
-                if (data != null ){
-                    news_list= data;
+                if (data != null) {
+                    news_list = data;
                 }
             }
         })
@@ -98,7 +98,7 @@ $(document).ready(function(){
 
 
     });
-    $('#logout').click(function(){
+    $('#logout').click(function () {
         click_logout();
     });
     $("#setting").click(function () {
@@ -106,91 +106,20 @@ $(document).ready(function(){
     })
     $('#candle_chart').click(function () {
         chart_id = 1;
-        clearTimeout(worldmap_timer);
-        clearTimeout(candle_timer);
-        clearTimeout(askbid_timer);
         candlestick_chart();
-});
+    });
     $('#map_chart').click(function () {
         chart_id = 2;
-        clearTimeout(candle_timer);
-        clearTimeout(askbid_timer);
-        clearTimeout(worldmap_timer);
-        // worldmap_timer = setTimeout("map_exchange_distribution()",3000);
         map_exchange_distribution();
     });
-    // $('#ask_bid_chart').click(function () {
-    //     chart_id = 3;
-    //     clearTimeout(candle_timer);
-    //     clearTimeout(worldmap_timer);
-    //     clearTimeout(askbid_timer);
-    //     // askbid_timer = setTimeout("bid_ask_chart()",3000);
-    //     bid_ask_chart();
-    // });
     $("#orderbook_chart").click(function () {
         chart_id = 4;
-        console.log(chart_id)
         order_chart();
     });
-    // $("#test_chart").click(function(){
-    //     $.ajax({
-    //         url: "/candle_stick",
-    //         type: "POST",
-    //         data:{product_id: "BTC-USD"},
-    //         success: function (data) {
-    //             //console.log(id);
-    //             if (data != null ){
-    //                 //need modify
-    //                 last_price = data[data.length-1].close;
-    //                 //mini line chart of each type cryptocurrency
-    //                 var last_price_collection = [];
-    //                 for (var i=0; i<data.length; i++){
-    //                     last_price_collection.push(data[i].close);
-    //                 }
-    //                 mini_last_price_collection = last_price_collection.slice(last_price_collection.length-1000,last_price_collection.length-1);
-    //
-    //                 var my_miniChart = echarts.init(document.getElementById("map"));
-    //                 var mini_option = {
-    //                     xAxis: {
-    //                         type: 'category',
-    //                         show: false,
-    //                         splitLine: {
-    //                             show: false
-    //                         }
-    //                     },
-    //                     yAxis: {
-    //                         axisLine:{
-    //                             lineStyle:{
-    //                                 color:'#4A5675',
-    //                                 // width:2  
-    //                             }
-    //                         },
-    //                         name: '百分比',
-    //                         type: 'value',
-    //                         splitLine: {
-    //                             show: false
-    //                         },
-    //                         show: false,
-    //                         scale:true,
-    //                     },
-    //                     series: [{
-    //                         name: 'Last Price',
-    //                         type: 'line',
-    //                         showSymbol: false,
-    //                         hoverAnimation: false,
-    //                         data: mini_last_price_collection
-    //                     }]
-    //
-    //                 }
-    //                 my_miniChart.clear();
-    //                 my_miniChart.setOption(mini_option);
-    //             }
-    //         },
-    //         error: function () {
-    //             alert("Fail to get firstChart data!");
-    //         }
-    //     })
-    // });
+    $("#test_world").click(function () {
+        chart_id = 5;
+        bitcoin_network();
+    })
 })
 function head_price_volume() {
     var preference = document.getElementById("hidden_preference").value;
@@ -217,9 +146,6 @@ function head_price_volume() {
                 }
             })
         }
-
-
-//logout
 function click_setting(){
     $.ajax({
         url: "/setting",
@@ -469,6 +395,7 @@ function map_exchange_distribution(){
         url: "/world_map",
         type: "GET",
         success: function (data) {
+            console.log("map data:"+data[0].city)
             var myChart = echarts.init(document.getElementById('map'));
             myChart.clear();
             var coord = [];
@@ -481,7 +408,7 @@ function map_exchange_distribution(){
                 coord.push(temp);
             }
                 //var data = [[116.4,39.9],[]];
-
+                console.log(coord);
                 option = {
                     tooltip:{
                         trigger:'item',
@@ -879,4 +806,93 @@ function refresh_controller(chart_id){
         order_chart();
     }
 
+}
+function bitcoin_network() {
+    var myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    option = {
+        title: {
+            text: "bitcoin network",
+        },
+        geo: {
+            map: "world",
+        },
+        // series:[
+        //     {
+        //         name:"Live map of reachable nodes in the Bitcoin network being crawled by the Bitnodes crawler.",
+        //         type:"scatter",
+        //         coordinateSystem: 'geo',
+        //     }
+        // ]
+    }
+    myChart.setOption(option);
+    setTimeout(network(),2000);
+    function network() {
+        var ws = new WebSocket("wss://bitnodes.earn.com/ws-nodes/nodes");
+
+        ws.onmessage = function (data) {
+            var fuck_data = data.data;
+            var raw_data = fuck_data.toString();
+            raw_data = raw_data.replace(/\[|]/g,"");
+            raw_data = raw_data.replace(/\"/g,"");
+            var raw_data_collection = raw_data.split(",");
+            console.log(raw_data_collection);
+            var coord = [];
+            for (var i=5; i<raw_data_collection.length; i+=7){
+                var temp= [];
+                //need modify
+                temp.push(parseFloat(raw_data_collection[i+1]));
+                console.log(parseFloat(raw_data_collection[i+1]));
+                temp.push(parseFloat(raw_data_collection[i]));
+                console.log(parseFloat(raw_data_collection[i]));
+                coord.push(temp);
+            }
+            console.log("coord:"+coord);
+            for (var i=5; i<raw_data_collection.length; i+=7) {
+                options = {
+
+                    tooltip: {
+                        formatter: '{c}'+raw_data_collection[i-2],
+                        hideDelay: 20000,
+                    },
+                    series: [
+                        {
+                            name: 'node',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: coord,
+                            symbolSize: 10,
+                            label: {
+                                normal: {
+                                    show: false,
+                                },
+                                emphasis: {
+                                    show: false,
+                                }
+                            },
+                            itemStyle: {
+                                color: 'red',
+                                emphasis: {
+                                    color: 'red',
+                                    borderColor: 'red',
+                                    borderWidth: 0.5
+                                }
+                            }
+                        }
+                    ],
+                }
+            }
+            setInterval(function () {
+
+                myChart.dispatchAction({
+                    type: 'showTip',
+                    seriesIndex:0 ,//第几条series
+                    dataIndex: 0,//第几个tooltip
+                });
+            },500);
+            myChart.setOption(options);
+
+
+        }
+    }
 }
