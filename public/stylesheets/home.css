@@ -173,21 +173,21 @@ table tr th { color: #688a7e;}
 }
 
 .preference:hover{
-    color: #fabb3d;
+    /*color: #fabb3d;*/
     cursor: pointer;
 }
 
-.preference .a{
-    background-color: transparent;
+.preference .aaa{
+    background-color: rgba(0,0,0,0.15);
     color: #ffffff;
     border: none;
 }
 
-.preference .b{
+.preference .bbb{
     background-color: white;
-    color: #3f444e;
+    color:grey;
     -webkit-border-radius: 5px;
-    border-color: black;
+    border-color:black;
 }
 
 .sidebar-wrapper {
@@ -846,6 +846,8 @@ row3{
     top: 0;
     width: 300px;
     z-index: 10001;
+    /*background-color: #646872;*/
+    height: 100%;
 }
 
 .sidebar-nav li {
@@ -871,36 +873,36 @@ row3{
     color: #ffffff;
 }
 .sidebar-nav li:nth-child(2):before {
-    background-color: #434954;
+    background-color: rgba(0,0,0,0.15);
 }
 .sidebar-nav li:nth-child(3):before {
-    background-color: #434954;
+    background-color: rgba(0,0,0,0.15);
 }
 .sidebar-nav li:nth-child(4):before {
-    background-color: #434954;
+    background-color: rgba(0,0,0,0.15);
 }
 .sidebar-nav li:nth-child(5):before {
-    background-color: #434954;
+    background-color: rgba(0,0,0,0.15);
 }
 .sidebar-nav li:nth-child(6):before {
-    background-color: #434954;
+    background-color: rgba(0,0,0,0.15);
 }
-.sidebar-nav li:nth-child(7):before {
-    background-color: #434954;
-}
-.sidebar-nav li:nth-child(8):before {
-    background-color: #434954;
-}
-.sidebar-nav li:nth-child(9):before {
-    background-color: #434954;
-}
+/*.sidebar-nav li:nth-child(7):before {*/
+    /*background-color: #434954;*/
+/*}*/
+/*.sidebar-nav li:nth-child(8):before {*/
+    /*background-color: #434954;*/
+/*}*/
+/*.sidebar-nav li:nth-child(9):before {*/
+    /*background-color: #434954;*/
+/*}*/
 .sidebar-nav li:hover:before {
     -webkit-transition: width 0.2s ease-in;
     transition: width 0.2s ease-in;
     width: 100%;
 }
 .sidebar-nav li a {
-    color: #1a1a1a;
+    color: #48515b;
     display: block;
     /*padding: 10px 15px 10px 30px;*/
     text-decoration: none;
@@ -918,7 +920,8 @@ row3{
 .sidebar-nav li.open a:active,
 .sidebar-nav li.open a:focus {
     background-color: transparent;
-    color: #ffffff;
+    /*color: #ffffff;*/
+    color: black;
     text-decoration: none;
 }
 .sidebar-nav > .sidebar-brand {
@@ -1106,6 +1109,10 @@ td{
     /*margin-right: auto;*/
     horiz-align: center;
     margin-left: 10%;
+}
+
+#title0, #title1, #title2, #title3, #title4{
+    padding-top: 10px;
 }
 /* carousel */
 .media-carousel
