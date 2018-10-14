@@ -1,12 +1,11 @@
 $(document).ready(function() {
-    //compare_price_chart();
     var myChart;
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
     var news_list;
     var chart_id = 1;
-    console.log(chart_id == 1);
+    check_preference_appear();
     var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")", 60000);
     var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")", 60000);
     var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")", 60000);
@@ -28,7 +27,6 @@ $(document).ready(function() {
         refresh_controller(chart_id);
     }, 60000);
     $.ajaxSetup({async: false});
-
     $("#preference").change(function () {
         var selected = $(this).children('option:selected').val();
         document.getElementById("hidden_preference").value = selected;
@@ -54,7 +52,6 @@ $(document).ready(function() {
             compare_price_chart();
         }
     });
-
     $("#news").click(function () {
         $.ajax({
             url: "/news",
@@ -1291,4 +1288,8 @@ function compare_price_chart(){
             myChart.setOption(option);
         }
     })
+}
+function check_preference_appear() {
+    var preference = document.getElementById("hidden_preference").value;
+    document.getElementById('preference').value = preference;
 }
