@@ -53,8 +53,8 @@ worldMapSchema.statics.world_map_data = function(callback){
                 mapArray["longitude"] = list[9];
                 temp.push(mapArray);
             }
-            console.log(temp);
-            //callback(temp);
+            //console.log(temp);
+            callback(temp);
         }
     });
 }
