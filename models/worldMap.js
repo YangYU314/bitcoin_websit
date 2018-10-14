@@ -47,13 +47,14 @@ worldMapSchema.statics.world_map_data = function(callback){
 
                 //save jason into the array
                 var mapArray = {};
+                mapArray["IP"] = key;
+                mapArray["city"] = list[6];
                 mapArray["latitude"] = list[8];
                 mapArray["longitude"] = list[9];
-                mapArray["city"] = list[6];
                 temp.push(mapArray);
             }
-            //console.log(temp);
-            callback(temp);
+            console.log(temp);
+            //callback(temp);
         }
     });
 }
