@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    var myChart;
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
@@ -37,7 +38,7 @@ $(document).ready(function() {
         }
         if (chart_id == 2) {
             console.log('now is map');
-            map_exchange_distribution();
+            new_worldmap_node();
         }
         if (chart_id == 3) {
             console.log("now is bid&ask");
@@ -110,7 +111,7 @@ $(document).ready(function() {
     });
     $('#map_chart').click(function () {
         chart_id = 2;
-        map_exchange_distribution();
+        new_worldmap_node();
     });
     $("#orderbook_chart").click(function () {
         chart_id = 4;
@@ -118,7 +119,10 @@ $(document).ready(function() {
     });
     $("#test_world").click(function () {
         chart_id = 5;
-        bitcoin_network();
+        //world_map_draw();
+        //node_draw();
+        //bitcoin_network();
+        test_draw();
     })
 })
 function head_price_volume() {
@@ -390,29 +394,40 @@ function map_exchange_distribution(){
     var myChart = echarts.init(document.getElementById('map'));
     myChart.clear();
     myChart.showLoading();
-    //var t2 = window.setInterval("map_exchange_distribution()",30000);
     $.ajax({
         url: "/world_map",
         type: "GET",
         success: function (data) {
-            console.log("map data:"+data[0].city)
+            //console.log("map data:"+data[0].city)
             var myChart = echarts.init(document.getElementById('map'));
             myChart.clear();
-            var coord = [];
-            for (var i=0; i<data.length; i++){
-                var temp= [];
-
-                //need modify
-                temp.push(data[i].longitude);
-                temp.push(data[i].latitude);
-                coord.push(temp);
+            var resultList = [];
+            for (var i in data) {
+                var city = data[i].city;
+                var coord = [];
+                coord.push(data[i].longitude);
+                coord.push(data[i].latitude);
+                var item = {
+                    name: city,
+                    value: coord,
+                };
+                resultList.push(item);
             }
-                //var data = [[116.4,39.9],[]];
-                console.log(coord);
+            console.log('world_map_1list:'+resultList[0].name+resultList[0].value)
+            // for (var i=0; i<data.length; i++){
+            //     var temp= [];
+            //     //need modify
+            //     temp.push(data[i].longitude);
+            //     temp.push(data[i].latitude);
+            //     temp.push(data[i].city);
+            //     coord.push(temp);
+            //
+            // }
+                //console.log(coord);
                 option = {
                     tooltip:{
                         trigger:'item',
-                        formatter: '{c}',
+                        formatter: '{c}'+resultList.name,
                     },
                     backgroundColor: '#404a59',
 
@@ -445,7 +460,7 @@ function map_exchange_distribution(){
                             name: 'node',
                             type: 'scatter',
                             coordinateSystem: 'geo',
-                            data: coord,
+                            data: resultList.value,
                             symbolSize: 3,
                             label: {
                                 normal: {
@@ -795,7 +810,7 @@ function refresh_controller(chart_id){
     }
     if(chart_id == 2){
         console.log('now is map refresh');
-        map_exchange_distribution();
+        new_worldmap_node();
     }
     // if(chart_id == 3){
     //     console.log("now is bid&ask refresh");
@@ -804,6 +819,12 @@ function refresh_controller(chart_id){
     if(chart_id == 4){
         console.log("now is order book refresh")
         order_chart();
+    }
+    if(chart_id == 5){
+        console.log("now is network refresh")
+        //bitcoin_network();
+        //test_draw();
+
     }
 
 }
@@ -817,43 +838,25 @@ function bitcoin_network() {
         geo: {
             map: "world",
         },
-        // series:[
-        //     {
-        //         name:"Live map of reachable nodes in the Bitcoin network being crawled by the Bitnodes crawler.",
-        //         type:"scatter",
-        //         coordinateSystem: 'geo',
-        //     }
-        // ]
     }
     myChart.setOption(option);
     setTimeout(network(),2000);
     function network() {
         var ws = new WebSocket("wss://bitnodes.earn.com/ws-nodes/nodes");
-
-        ws.onmessage = function (data) {
-            var fuck_data = data.data;
-            var raw_data = fuck_data.toString();
-            raw_data = raw_data.replace(/\[|]/g,"");
-            raw_data = raw_data.replace(/\"/g,"");
-            var raw_data_collection = raw_data.split(",");
-            console.log(raw_data_collection);
+        ws.onmessage = evt =>{
+            let str = eval("("+evt.data+")");
             var coord = [];
-            for (var i=5; i<raw_data_collection.length; i+=7){
-                var temp= [];
-                //need modify
-                temp.push(parseFloat(raw_data_collection[i+1]));
-                console.log(parseFloat(raw_data_collection[i+1]));
-                temp.push(parseFloat(raw_data_collection[i]));
-                console.log(parseFloat(raw_data_collection[i]));
-                coord.push(temp);
-            }
-            console.log("coord:"+coord);
-            for (var i=5; i<raw_data_collection.length; i+=7) {
-                options = {
+            var info;
+            for(var i=0;i<1;i++){
 
+                var temp = [];
+                temp.push(str[i][6]);
+                temp.push(str[i][5])
+                coord.push(temp);
+                info =  str[i][1]+":"+str[i][2]+ "|"+str[i][3];
+                options = {
                     tooltip: {
-                        formatter: '{c}'+raw_data_collection[i-2],
-                        hideDelay: 20000,
+                        formatter:'{c}'+ info,
                     },
                     series: [
                         {
@@ -875,24 +878,225 @@ function bitcoin_network() {
                                 emphasis: {
                                     color: 'red',
                                     borderColor: 'red',
-                                    borderWidth: 0.5
+                                    borderWidth: 0.5,
+                                    normal: {label : {show: true}}
                                 }
                             }
                         }
                     ],
                 }
-            }
-            setInterval(function () {
 
+                myChart.setOption(options);
                 myChart.dispatchAction({
                     type: 'showTip',
                     seriesIndex:0 ,//第几条series
                     dataIndex: 0,//第几个tooltip
                 });
-            },500);
-            myChart.setOption(options);
+
+            }
+            ws.close();
 
 
+
+            // myChart.dispatchAction({
+            //     type: 'showTip',
+            //     seriesIndex:1 ,//第几条series
+            //     dataIndex: 1,//第几个tooltip
+            // });
+            }
+        }
+        // ws.onmessage = function (data) {
+        //     var fuck_data = data.data;
+        //     var raw_data = fuck_data.toString();
+        //     console.log(raw_data);
+        //     raw_data = raw_data.replace(/\[|]/g,"");
+        //     raw_data = raw_data.replace(/\"/g,"");
+        //     var raw_data_collection = raw_data.split(",");
+        //     console.log(raw_data_collection);
+        //     var coord = [];
+        //     for (var i=5; i<raw_data_collection.length; i+=7){
+        //         var temp= [];
+        //         //need modify
+        //         temp.push(parseFloat(raw_data_collection[i+1]));
+        //         console.log(parseFloat(raw_data_collection[i+1]));
+        //         temp.push(parseFloat(raw_data_collection[i]));
+        //         console.log(parseFloat(raw_data_collection[i]));
+        //         coord.push(temp);
+        //     }
+        //     console.log("coord:"+coord);
+        //     for (var i=5; i<raw_data_collection.length; i+=7) {
+        //         options = {
+        //
+        //             tooltip: {
+        //                 formatter: '{c}'+raw_data_collection[i-2],
+        //                 hideDelay: 20000,
+        //             },
+        //             series: [
+        //                 {
+        //                     name: 'node',
+        //                     type: 'scatter',
+        //                     coordinateSystem: 'geo',
+        //                     data: coord,
+        //                     symbolSize: 10,
+        //                     label: {
+        //                         normal: {
+        //                             show: false,
+        //                         },
+        //                         emphasis: {
+        //                             show: false,
+        //                         }
+        //                     },
+        //                     itemStyle: {
+        //                         color: 'red',
+        //                         emphasis: {
+        //                             color: 'red',
+        //                             borderColor: 'red',
+        //                             borderWidth: 0.5
+        //                         }
+        //                     }
+        //                 }
+        //             ],
+        //         }
+        //     }
+        //     setInterval(function () {
+        //
+        //         myChart.dispatchAction({
+        //             type: 'showTip',
+        //             seriesIndex:0 ,//第几条series
+        //             dataIndex: 0,//第几个tooltip
+        //         });
+        //     },500);
+        //     myChart.setOption(options);
+        //
+        //
+        // }
+    //}
+}
+function world_map_draw(){
+    myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    option = {
+        title: {
+            text: "bitcoin network",
+        },
+        geo: {
+            map: "world",
         }
     }
+    myChart.setOption(option);
+}
+function node_draw(){
+    var ws = new WebSocket("wss://bitnodes.earn.com/ws-nodes/nodes");
+    ws.onmessage = evt => {
+        let str = eval("(" + evt.data + ")");
+        var coord = [];
+        var info;
+        for (var i = 0; i < 1; i++) {
+            var temp = [];
+            temp.push(str[i][6]);
+            temp.push(str[i][5])
+            coord.push(temp);
+            info = str[i][1]+":"+str[i][2]+"["+str[i][3]+"-"+str[i][4]+"]";
+            console.log("coord:"+coord);
+            console.log("info:"+info);
+            option = {
+                tooltip:{
+                    show:true,
+                    formatter:str[i][1]+":"+str[i][2]+"["+str[i][3]+"-"+str[i][4]+"]",
+                },
+                series: [
+                    {
+                        name: info,
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: coord,
+                        symbolSize: 10,
+                        itemStyle: {
+                            color: 'red',
+                        }
+                    }
+                ],
+            }
+            myChart = echarts.init(document.getElementById('map'));
+            myChart.setOption(option);
+            myChart.dispatchAction({
+                type: 'showTip',
+                seriesIndex:1 ,//第几条series
+                dataIndex: 1,//第几个tooltip
+            });
+        }
+        ws.close();
+    }
+
+}
+function bitcoin_node_data_getter() {
+    var ws = new WebSocket("wss://bitnodes.earn.com/ws-nodes/nodes");
+    ws.onmessage = evt => {
+        let str = eval("(" + evt.data + ")");
+
+        var coord = [];
+        for (var i = 0; i < 1; i++) {
+            var temp = [];
+            let info = str[i][1]+":"+str[i][2]+"["+str[i][3]+"-"+str[i][4]+"]";
+            temp.push(str[i][6]);
+            temp.push(str[i][5])
+            coord.push(temp);
+            var myData=[{name:info,value:coord}]
+        }
+
+        return myData;
+    }
+}
+function new_worldmap_node(){
+    var myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    $.ajax({
+            url: "/world_map",
+            type: "GET",
+            success: function (data) {
+                //console.log("map data:"+data[0].city)
+                var myChart = echarts.init(document.getElementById('map'));
+                myChart.clear();
+                var resultList = [];
+                for (var i in data) {
+                    var city = data[i].IP+"=>"+data[i].city;
+                    var coord = [];
+                    coord.push(data[i].longitude);
+                    coord.push(data[i].latitude);
+                    var item = {
+                        name: city,
+                        value: coord,
+                    };
+                    resultList.push(item);
+                }
+                var option = {
+                    tooltip:{
+                        show:true,
+                        formatter:'{b}:{c}',
+                    },
+
+                    geo:{
+                        map:"world",
+                    },
+                    series: [
+                        {
+                            name: '',
+                            type: 'scatter',
+                            coordinateSystem: "geo",
+                            data: resultList,
+                            symbolSize: 3.5,
+                        }
+                    ]
+                }
+                myChart = echarts.init(document.getElementById('map'));
+                myChart.clear();
+                myChart.setOption(option);
+            },
+            error: function () {
+                alert("Fail to get firstChart data!");
+            }
+        }
+    )
+
+
 }
