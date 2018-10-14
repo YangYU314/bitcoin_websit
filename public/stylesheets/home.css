@@ -1167,7 +1167,8 @@ td{
     margin: 0 10px;
     width: 28px;
 }
-.but1, .but2, .but3, .but4{
+
+.but{
     border-color: transparent;
     background: transparent;
     margin-top: 5px;
@@ -1178,7 +1179,7 @@ td{
 
 }
 
-.but1:hover, .but2:hover, .but3:hover, .but4:hover
+.but:hover
 {
     color: #fff;
     border-color: rgba(63,68,78,0.8);
@@ -1355,7 +1356,7 @@ i{
 
 .container_dad:before {
     content: '';
-    background: rgba(75, 75, 93, 0.4);
+    background: rgba(75, 75, 93, 0.3);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -1373,8 +1374,6 @@ i{
     display: inline-block;
     padding: 15px;
     width: 250px;
-    /*border-left: 1px solid #fcfcfc;*/
-    /*border-right: 1px solid #fcfcfc;*/
     -webkit-transition: all 1s ease;
     transition: all 1s ease;
 }
@@ -1382,8 +1381,7 @@ i{
 .fig:hover {
     border-radius: 0px;
     color: #333;
-    background: #fcfcfc;
+    background: #fff;
     cursor: pointer;
     text-decoration: none;
 }
-
