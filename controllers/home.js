@@ -2,6 +2,7 @@ var candleStickModel = require('../models/candle_stick');
 var worldMapModel = require('../models/worldMap');
 var orderBookModel = require('../models/order_book');
 var newsModel = require('../models/news');
+var ComparePriceModel = require('../models/compare_price');
 
 module.exports.showMainPage = function(req, res){
     var sess = req.session;
@@ -22,6 +23,13 @@ module.exports.showSetting = function(req, res){
         //res.render('setting', {user: "Shenghui Wu"});
         res.render('index');
     }
+}
+
+//compare price
+module.exports.showComparePrice = function(req, res){
+    ComparePriceModel.compare_price_data(function(result){
+        res.json(result);
+    })
 }
 
 //candle stick

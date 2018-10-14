@@ -34,7 +34,7 @@ worldMapSchema.statics.world_map_data = function(callback){
                 latitude = list[8];
                 longitude = list[9];
 
-                save in database
+                //save in database
                 var newMap = new worldMap(
                     {
                         city: city,
