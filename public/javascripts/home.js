@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    //compare_price_chart();
     var myChart;
     var candle_timer;
     var worldmap_timer;
@@ -47,6 +48,10 @@ $(document).ready(function() {
         if (chart_id == 4) {
             console.log("now is orderbook")
             order_chart();
+        }
+        if (chart_id == 5) {
+            console.log("now is compare")
+            compare_price_chart();
         }
     });
 
@@ -122,7 +127,8 @@ $(document).ready(function() {
         //world_map_draw();
         //node_draw();
         //bitcoin_network();
-        test_draw();
+        //test_draw();
+        compare_price_chart();
     })
 })
 function head_price_volume() {
@@ -1054,7 +1060,7 @@ function new_worldmap_node(){
             url: "/world_map",
             type: "GET",
             success: function (data) {
-                //console.log("map data:"+data[0].city)
+                console.log("mapdata:"+data[0].IP);
                 var myChart = echarts.init(document.getElementById('map'));
                 myChart.clear();
                 var resultList = [];
@@ -1099,4 +1105,190 @@ function new_worldmap_node(){
     )
 
 
+}
+function compare_price_chart(){
+    $.ajax({
+        url:"/compare_price",
+        type:"GET",
+        success:function (data) {
+            myChart = echarts.init(document.getElementById('map'));
+            myChart.clear();
+            myChart.showLoading();
+            var gdax_time_scale=[];
+            var gemini_time_scale=[];
+            var bitfinex_time_scale=[];
+            var kraken_time_scale=[];
+            var gdax_data=[];
+            var gemini_data=[];
+            var bitfinex_data=[];
+            var kraken_data=[];
+            for(var i in data){
+                //console.log("compare time:"+data[i].timestamp)
+                //console.log("compare data:"+data[i].exchange+data[i].quote+data[i].price+data[i].timestamp);
+                if(data[i].exchange == "gdax"){
+                    gdax_time_scale.push(data[i].timestamp);
+                    gdax_data.push(data[i].price);
+                }
+                if(data[i].exchange == "bitfinex"){
+                    bitfinex_time_scale.push(data[i].timestamp);
+                    bitfinex_data.push(data[i].price);
+                }
+                if(data[i].exchange == "gemini"){
+                    gemini_time_scale.push(data[i].timestamp);
+                    gemini_data.push(data[i].price);
+                }
+                if(data[i].exchange == "kraken"){
+                    kraken_data.push(data[i].price);
+                    kraken_time_scale.push(data[i].timestamp);
+                }
+            }
+
+
+            var colors = ['#5793f3', '#d14a61', '#ba1c94','#00FF00'];
+
+
+            option = {
+                color: colors,
+
+                tooltip: {
+                    trigger: 'item',
+
+                },
+                legend: {
+                    data:['gdax', 'bitfinex','gemini','kraken']
+                },
+                grid: {
+                    top: 70,
+                    bottom: 50
+                },
+                xAxis: [
+                    {
+                        name: "TIME",
+                        type: 'category',
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLine: {
+                            onZero: false,
+                            lineStyle: {
+                                color: colors[1]
+                            }
+                        },
+                        axisPointer: {
+                            label: {
+                                formatter: function (params) {
+                                    return 'gdax price  ' + params.value
+                                        + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                }
+                            }
+                        },
+                        data: gdax_time_scale,
+                    },
+                    {
+                        type: 'category',
+                        show: false,
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLine: {
+                            onZero: false,
+                            lineStyle: {
+                                color: colors[0]
+                            }
+                        },
+                        axisPointer: {
+                            label: {
+                                formatter: function (params) {
+                                    return 'bitfinex price  ' + params.value
+                                        + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                }
+                            }
+                        },
+                        data:bitfinex_time_scale,
+                    },
+                    {
+                        type: 'category',
+                        show: false,
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLine: {
+                            onZero: false,
+                            lineStyle: {
+                                color: colors[2]
+                            }
+                        },
+                        axisPointer: {
+                            label: {
+                                formatter: function (params) {
+                                    return 'gemini price  ' + params.value
+                                        + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                }
+                            }
+                        },
+                        data:gemini_time_scale,
+                    },
+                    {
+                        type: 'category',
+                        show: false,
+                        axisTick: {
+                            alignWithLabel: true
+                        },
+                        axisLine: {
+                            onZero: false,
+                            lineStyle: {
+                                color: colors[3],
+                            }
+                        },
+                        axisPointer: {
+                            label: {
+                                formatter: function (params) {
+                                    return 'kraken price  ' + params.value
+                                        + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                                }
+                            }
+                        },
+                        data:kraken_time_scale,
+                    },
+                ],
+                yAxis: [
+                    {
+                        name: "LAST_PRICE",
+                        type: 'value',
+                        scale:true,
+                    }
+                ],
+                series: [
+                    {
+                        name:'gdax',
+                        type:'line',
+                        xAxisIndex: 1,
+                        smooth: true,
+                        data: gdax_data,
+                    },
+                    {
+                        name:'bitfinex',
+                        type:'line',
+                        smooth: true,
+                        data: bitfinex_data,
+                    },
+                    {
+                        name:'gemini',
+                        type:'line',
+                        smooth: true,
+                        data: gemini_data,
+                    },
+                    {
+                        name:'kraken',
+                        type:'line',
+                        smooth: true,
+                        data: kraken_data,
+                    },
+
+                ]
+            };
+            myChart.hideLoading();
+            myChart.setOption(option);
+        }
+    })
 }
