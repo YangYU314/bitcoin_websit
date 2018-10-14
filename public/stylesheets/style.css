@@ -1066,10 +1066,10 @@ button:active,
 
 
 #banner {
-  padding: 8em 9em 9em 9em;
-  background-image: url(../../images/banner.jpg);
+  /*padding: 8em 9em 9em 9em;*/
+  background-image: url(../../images/mapB.gif);
   background-size: cover;
-  background-position: bottom;
+  /*background-position: bottom;*/
   background-attachment: fixed;
   background-repeat: no-repeat;
   text-align: center;
@@ -1081,7 +1081,7 @@ button:active,
 
 #banner:before {
   content: '';
-  background: rgba(75, 75, 93, 0.85);
+  background: rgba(75, 75, 93, 0.55);
   position: absolute;
 
   width: 100%;
