@@ -20,5 +20,6 @@ router.get('/world_map', home.world_map);
 router.post('/order_book', home.order_book);
 router.get('/news', home.news);
 router.get('/setting', home.showSetting);
+router.get('/compare_price', home.showComparePrice);
 
 module.exports = router;
