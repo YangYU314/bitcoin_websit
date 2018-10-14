@@ -1077,6 +1077,7 @@ button:active,
   height: 100%;
   padding-top: auto;
   padding-bottom: auto;
+  margin: 0;
 }
 
 #banner:before {
@@ -1088,6 +1089,7 @@ button:active,
   height: 100%;
   top: 0;
   left: 0;
+  margin: 0;
 }
 
 #banner .inner {
