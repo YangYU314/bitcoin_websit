@@ -1082,7 +1082,7 @@ button:active,
 
 #banner:before {
   content: '';
-  background: rgba(75, 75, 93, 0.55);
+  background: rgba(75, 75, 93, 0.3);
   position: absolute;
 
   width: 100%;
