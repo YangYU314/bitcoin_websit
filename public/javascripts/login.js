@@ -75,6 +75,11 @@ function showDialog(){
     g('mask').style.display = 'block';
     autoCenter( g('dialogMove') );
     fillToBody( g('mask') );
+    $(document).keypress(function(e) {
+        if((e.keyCode || e.which) == 13) {
+            $("#submit").click();
+        }
+    });
 }
 
 

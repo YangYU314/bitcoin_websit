@@ -7,24 +7,14 @@
     <link rel='stylesheet' href='/stylesheets/css-2.css' />
     <script src="http://code.jquery.com/jquery-1.9.1.min.js" type="text/javascript"></script>
     <script src="/javascripts/login.js"></script>
-    <script>
-        $(document).keypress(function(e) {        
-            if((e.keyCode || e.which)==13) {            
-                $("#submit").click();      
-            }    
-        });
-    </script>
-
 </head>
 
 <body>
-
 <header id="header">
     <div class="inner">
-        <a href="" class="logo"><img src="images/logo.png" width="120"/></a>
+        <img src="images/logo.png" width="120" class="logo"/>
     </div>
 </header>
-
 
 <div class="ui-mask" id="mask" onselectstart="return false"></div>
 <div class="ui-dialog" id="dialogMove" onselectstart='return false;'>
@@ -56,13 +46,12 @@
             <a type="submit" class="button" id="submit" >Log in!</a>
         </form>
     </div>
-
 </div>
 
 <section id="banner">
     <div class="inner">
         <header>
-            <a href="index.html" class="logo1">
+            <a href="/" class="logo1">
                 <img src="images/logo.png" height="100"/></a>
         </header>
         <footer>
@@ -71,9 +60,5 @@
         </footer>
     </div>
 </section>
-
-
-
-
 </body>
 </html>
