@@ -1214,6 +1214,7 @@ td{
 
 #footer {
     background: #434954 !important;
+    margin-top: 40px;
     padding: 10px 0;
 }
 
@@ -1223,13 +1224,14 @@ td{
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
 }
-#footer p {
-    color: #b1b0b0;
-    font-size: 150%;
-    text-indent: 5%;
-    text-decoration: none !important;
-    background-color: transparent;
-    -webkit-text-decoration-skip: objects;
+#footer p a{
+    color: #c0c0c0 !important;
+    /*text-indent: 5%;*/
+}
+
+#footer p{
+    color: #c0c0c0;
+    font-size: 100%;
 }
 
 #footer ul.social li{
