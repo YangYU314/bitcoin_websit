@@ -1,12 +1,11 @@
 $(document).ready(function() {
-    //compare_price_chart();
     var myChart;
     var candle_timer;
     var worldmap_timer;
     var askbid_timer;
     var news_list;
     var chart_id = 1;
-    console.log(chart_id == 1);
+    check_preference_appear();
     var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")", 60000);
     var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")", 60000);
     var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")", 60000);
@@ -28,7 +27,6 @@ $(document).ready(function() {
         refresh_controller(chart_id);
     }, 60000);
     $.ajaxSetup({async: false});
-
     $("#preference").change(function () {
         var selected = $(this).children('option:selected').val();
         document.getElementById("hidden_preference").value = selected;
@@ -54,7 +52,6 @@ $(document).ready(function() {
             compare_price_chart();
         }
     });
-
     $("#news").click(function () {
         $.ajax({
             url: "/news",
@@ -646,6 +643,7 @@ function order_chart(){
         data:{product_id:preference},
         success: function (data) {
             console.log(data);
+            console.log(data[0]);
             var myChart = echarts.init(document.getElementById('map'));
             myChart.clear();
             var price = [];
@@ -666,7 +664,13 @@ function order_chart(){
             //     ask_order_volume.push((data[0].asks[j])[1]);
             // }
             // console.log(bid_price.length);
-            for(var i=0;i<50;i++){
+            var order_length = 0;
+            if(data[0].asks.length<data[0].bids.length){
+                order_length = data[0].bids.length;
+            }else{
+                order_length = data[0].asks.length;
+            }
+            for(var i=0;i<order_length;i++){
                 price.push(data[0].asks[i][0]);
                 price.push(data[0].bids[i][0]);
                 volume.push(data[0].asks[i][1]);
@@ -1061,42 +1065,69 @@ function new_worldmap_node(){
             type: "GET",
             success: function (data) {
                 console.log("mapdata:"+data[0].IP);
-                var myChart = echarts.init(document.getElementById('map'));
-                myChart.clear();
-                var resultList = [];
-                for (var i in data) {
-                    var city = data[i].IP+"=>"+data[i].city;
-                    var coord = [];
-                    coord.push(data[i].longitude);
-                    coord.push(data[i].latitude);
-                    var item = {
-                        name: city,
-                        value: coord,
-                    };
-                    resultList.push(item);
-                }
-                var option = {
-                    tooltip:{
-                        show:true,
-                        formatter:'{b}:{c}',
-                    },
+                var world_node_timer = window.setInterval(function () {
+                    draw_world_node();
+                }, 3000);
 
-                    geo:{
-                        map:"world",
-                    },
-                    series: [
-                        {
-                            name: '',
-                            type: 'scatter',
-                            coordinateSystem: "geo",
-                            data: resultList,
-                            symbolSize: 3.5,
-                        }
-                    ]
+                function draw_world_node() {
+                    var myChart = echarts.init(document.getElementById('map'));
+                    myChart.clear();
+                    var resultList = [];
+                    var randomList = [];
+                    //devide into 10 parts to display
+                    for(var k=0;k<((data.length)*0.001);k++){
+                        var random_num = Math.floor(Math.random()*(data.length-0+1)+0);
+
+                        randomList.push(random_num);
+                    }
+                    console.log(randomList);
+                    for (var i=0;i<randomList.length;i++) {
+                        console.log("i=="+randomList[i]);
+                        var index=randomList[i];
+                        var city = data[index].IP+">"+data[index].city;
+                        var coord = [];
+                        coord.push(data[index].longitude);
+                        coord.push(data[index].latitude);
+                        var item = {
+                            name: city,
+                            value: coord,
+                        };
+                        resultList.push(item);
+                    }
+                    var option = {
+                        tooltip:{
+
+                            formatter:'{b}:{c}',
+                            itemStyle : { normal: {label : {show: true, position: 'top'}}},
+                        },
+
+                        geo:{
+                            map:"world",
+                        },
+
+                        series: [
+                            {
+                                name: '',
+                                type: 'scatter',
+                                coordinateSystem: "geo",
+                                data: resultList,
+                                symbolSize: 3,
+                                itemStyle : {
+                                    normal: {
+                                        label : {
+                                            fontSize: 8,
+                                            show: true,
+                                            position: 'top',
+                                            formatter:'{b}:{c}',
+                                }}},
+                            }
+                        ],
+
+                    }
+                    myChart = echarts.init(document.getElementById('map'));
+                    myChart.clear();
+                    myChart.setOption(option);
                 }
-                myChart = echarts.init(document.getElementById('map'));
-                myChart.clear();
-                myChart.setOption(option);
             },
             error: function () {
                 alert("Fail to get firstChart data!");
@@ -1144,7 +1175,7 @@ function compare_price_chart(){
             }
 
 
-            var colors = ['#5793f3', '#d14a61', '#ba1c94','#00FF00'];
+            var colors = ['#5793f3', '#000000', '#ba1c94','#00FF00'];
 
 
             option = {
@@ -1262,7 +1293,6 @@ function compare_price_chart(){
                     {
                         name:'gdax',
                         type:'line',
-                        xAxisIndex: 1,
                         smooth: true,
                         data: gdax_data,
                     },
@@ -1285,10 +1315,17 @@ function compare_price_chart(){
                         data: kraken_data,
                     },
 
-                ]
+                ],
+                dataZoom:[{
+                     　type:"inside",
+            　　}],
             };
             myChart.hideLoading();
             myChart.setOption(option);
         }
     })
+}
+function check_preference_appear() {
+    var preference = document.getElementById("hidden_preference").value;
+    document.getElementById('preference').value = preference;
 }
