@@ -35,13 +35,13 @@ $(document).ready(function(){
     }
 
     function isUsername(){
-        var reg = new RegExp("^[A-Za-z0-9]{8,60}$");
+        var reg = new RegExp("^[A-Za-z0-9]{6,20}$");
         var obj = document.getElementById("username");
         if(obj.value === ""){
             alert("Username cannot be empty!");
             return false;
         }else if(!reg.test(obj.value)){
-            alert("Username must be 8-60 numbers or letters!");
+            alert("Username must be 6-20 numbers or letters!");
             return false;
         }else{
             return true;
