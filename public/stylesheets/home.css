@@ -273,18 +273,19 @@ row3{
 .banner_row1 h3{
     text-align: left;
     font-weight: 300;
-    font-size: 1.5em;
+    font-size: 1.5vw;
     line-height: 20px;
     color: white;
     vertical-align: center;
     overflow: hidden;
     white-space:nowrap;
+    padding-top: 20px;
 }
 
 .banner_row1 h2{
     text-align: left;
     font-weight: 300;
-    font-size: 1.5em;
+    font-size: 2vw;
     line-height: 20px;
     color: white;
     vertical-align: center;
@@ -844,7 +845,7 @@ row3{
     padding: 0;
     position: absolute;
     top: 0;
-    width: 300px;
+    /*width: 300px;*/
     z-index: 10001;
     /*background-color: #646872;*/
     height: 100%;
@@ -1215,7 +1216,7 @@ td{
 
 #footer {
     background: #434954 !important;
-    margin-top: 40px;
+    margin-top: 60px;
     padding: 10px 0;
 }
 
@@ -1239,7 +1240,7 @@ td{
     padding: 3px 5px;
 }
 #footer ul.social li a i {
-    margin-right: 5px;
+    margin-right: 10px;
     font-size:25px;
     -webkit-transition: .5s all ease;
     -moz-transition: .5s all ease;
@@ -1252,12 +1253,14 @@ td{
 #footer ul.social li a,
 #footer ul.quick-links li a{
     color:#ffffff;
+    font-size:120%;
+
 }
 #footer ul.social li a:hover{
     color:#eeeeee;
 }
 #footer ul.quick-links li{
-    padding: 3px 0;
+    padding: 10px 0;
     -webkit-transition: .5s all ease;
     -moz-transition: .5s all ease;
     transition: .5s all ease;
