@@ -5,6 +5,12 @@ $(document).ready(function() {
     var askbid_timer;
     var news_list;
     var chart_id = 1;
+    var chart_update_fruquency = 60000;
+    var last_price_card = 1024;
+    var volume_card;
+    var ask_card;
+    var bid_card;
+    //card_setter();
     check_preference_appear();
     var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")", 60000);
     var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")", 60000);
@@ -25,7 +31,7 @@ $(document).ready(function() {
 
     var controller_timer = window.setInterval(function () {
         refresh_controller(chart_id);
-    }, 60000);
+    }, chart_update_fruquency);
     $.ajaxSetup({async: false});
     $("#preference").change(function () {
         var selected = $(this).children('option:selected').val();
@@ -109,18 +115,22 @@ $(document).ready(function() {
     })
     $('#candle_chart').click(function () {
         chart_id = 1;
+        chart_update_fruquency = 60000;
         candlestick_chart();
     });
     $('#map_chart').click(function () {
         chart_id = 2;
+        chart_update_fruquency = 3000;
         new_worldmap_node();
     });
     $("#orderbook_chart").click(function () {
         chart_id = 4;
+        chart_update_fruquency = 60000;
         order_chart();
     });
-    $("#test_world").click(function () {
+    $("#compare_price").click(function () {
         chart_id = 5;
+        chart_update_fruquency = 60000;
         //world_map_draw();
         //node_draw();
         //bitcoin_network();
@@ -149,6 +159,7 @@ function head_price_volume() {
                     //preference price
                     last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
                     hvolume_show_head.innerText = "24Hr Volume: "+volume_24h+preference.toString().substring(0,3);
+
                 }
                 }
             })
@@ -227,6 +238,7 @@ function candlestick_chart(){
                 //preference price
                 last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
                 hvolume_show_head.innerText = "24Hr Volume: "+volume_24h+preference.toString().substring(0,3);
+
 
                 function unixtime_exchange(time) {
                     let unixtime = time
@@ -647,28 +659,12 @@ function order_chart(){
             var myChart = echarts.init(document.getElementById('map'));
             myChart.clear();
             var price = [];
-
             var volume = [];
-            // var strike_price;
-            // var bid_price = [];
-            // var bid_order_number =[];
-            // var ask_price = [];
-            // var ask_order_volume = [];
-
-            // for(var i=0;i<data[0].bids.length;i++){
-            //     bid_price.push((data[0].bids[i])[0]);
-            //     bid_order_number.push((data[0].bids[i])[1]);
-            // }
-            // for(var j=0;j<data[0].asks.length;j++){
-            //     ask_price.push((data[0].asks[j])[0]);
-            //     ask_order_volume.push((data[0].asks[j])[1]);
-            // }
-            // console.log(bid_price.length);
             var order_length = 0;
             if(data[0].asks.length<data[0].bids.length){
-                order_length = data[0].bids.length;
-            }else{
                 order_length = data[0].asks.length;
+            }else{
+                order_length = data[0].bids.length;
             }
             for(var i=0;i<order_length;i++){
                 price.push(data[0].asks[i][0]);
@@ -1065,10 +1061,10 @@ function new_worldmap_node(){
             type: "GET",
             success: function (data) {
                 console.log("mapdata:"+data[0].IP);
-                var world_node_timer = window.setInterval(function () {
-                    draw_world_node();
-                }, 3000);
-
+                // var world_node_timer = window.setInterval(function () {
+                //     draw_world_node();
+                // }, 3000);
+                draw_world_node();
                 function draw_world_node() {
                     var myChart = echarts.init(document.getElementById('map'));
                     myChart.clear();
@@ -1328,4 +1324,15 @@ function compare_price_chart(){
 function check_preference_appear() {
     var preference = document.getElementById("hidden_preference").value;
     document.getElementById('preference').value = preference;
+}
+function card_of_askbid_setter() {
+    var preference = document.getElementById("hidden_preference").value;
+    $.ajax({
+        url:"/order_book",
+        type:"POST",
+        data:{product_id:preference},
+        success: function (data) {
+
+        }
+    })
 }
