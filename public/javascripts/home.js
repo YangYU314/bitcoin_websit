@@ -1,17 +1,9 @@
 $(document).ready(function() {
-    var myChart;
-    var candle_timer;
-    var worldmap_timer;
-    var askbid_timer;
+    var controller;
     var news_list;
-    var chart_id = 1;
+    var chart_id = "candle";
     var chart_update_fruquency = 60000;
-    var last_price_card = 1024;
-    var volume_card;
-    var ask_card;
-    var bid_card;
-    var node_original_data;
-    //card_setter();
+
     check_preference_appear();
     var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")", 60000);
     var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")", 60000);
@@ -26,36 +18,30 @@ $(document).ready(function() {
     mini_chart("ETC-USD", "price4", "volume4");
     mini_chart("ETC-GBP", "price5", "volume5");
     mini_chart("ETC-EUR", "price6", "volume6");
-
     candlestick_chart();
-    refresh_controller(chart_id,chart_update_fruquency);
 
+    //auto-updating, failure in design and implement!
     var controller_timer = window.setInterval(function () {
         refresh_controller(chart_id);
     }, chart_update_fruquency);
 
-    $.ajaxSetup({async: false});
     $("#preference").change(function () {
         var selected = $(this).children('option:selected').val();
         document.getElementById("hidden_preference").value = selected;
         head_price_volume();
-        if (chart_id == 1) {
+        if (chart_id == "candle") {
             console.log("now is candle");
             candlestick_chart();
         }
-        if (chart_id == 2) {
+        if (chart_id == "map") {
             console.log('now is map');
             new_worldmap_node();
         }
-        if (chart_id == 3) {
-            console.log("now is bid&ask");
-            bid_ask_chart();
-        }
-        if (chart_id == 4) {
+        if (chart_id == "order") {
             console.log("now is orderbook")
             order_chart();
         }
-        if (chart_id == 5) {
+        if (chart_id == "compare") {
             console.log("now is compare")
             compare_price_chart();
         }
@@ -116,29 +102,46 @@ $(document).ready(function() {
         click_setting();
     })
     $('#candle_chart').click(function () {
-        chart_id = 1;
+        clearInterval(controller_timer);
+        chart_id = "candle";
         chart_update_fruquency = 60000;
         candlestick_chart();
+        clearInterval(controller_timer);
+        controller_timer = window.setInterval(function () {
+            refresh_controller(chart_id);
+        }, chart_update_fruquency);
+
     });
     $('#map_chart').click(function () {
-        chart_id = 2;
-        chart_update_fruquency = 3000;
-        console.log("fruquency:"+chart_update_fruquency)
+        clearInterval(controller_timer);
+        chart_id="map"
+        chart_update_fruquency=5000;
+        draw_worldmap();
         new_worldmap_node();
+
+        controller_timer = window.setInterval(function () {
+            refresh_controller(chart_id);
+        }, chart_update_fruquency);
     });
     $("#orderbook_chart").click(function () {
-        chart_id = 4;
-        chart_update_fruquency = 60000;
+        clearInterval(controller_timer);
+        chart_id="order"
+        chart_update_fruquency=60000;
         order_chart();
+        clearInterval(controller_timer);
+        controller_timer = window.setInterval(function () {
+            refresh_controller(chart_id);
+        }, chart_update_fruquency);
     });
     $("#compare_price").click(function () {
-        chart_id = 5;
-        chart_update_fruquency = 60000;
-        //world_map_draw();
-        //node_draw();
-        //bitcoin_network();
-        //test_draw();
+        clearInterval(controller_timer);
+        chart_id="compare";
+        chart_update_fruquency=60000;
         compare_price_chart();
+        clearInterval(controller_timer);
+        controller_timer = window.setInterval(function () {
+            refresh_controller(chart_id);
+        }, chart_update_fruquency);
     })
 })
 function head_price_volume() {
@@ -274,13 +277,32 @@ function candlestick_chart(){
                     return result;
                 }
                 var option = {
+                    title:{
+                        text:'EXCHANGE K LINE GRAPH OF:'+preference.substring(4,7)+"(DATA FROM COINBASE.COM)-Live K Line",
+                        left:'left',
+                        textStyle:{
+                            //文字颜色
+                            color:'#ccc',
+                            //字体风格,'normal','italic','oblique'
+                            fontStyle:'normal',
+                            //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+                            fontWeight:'bold',
+                            //字体系列
+                            fontFamily:'sans-serif',
+                            //字体大小
+                            fontSize:18
+                        },
+                        subtext:'TIME:'+current_time_getter(),
+                    },
                     backgroundColor: '#2f323c',
                     legend: {
-                        data: ['1min', 'MA5', 'MA10', 'MA20', 'MA30'],
+                        data: ['1min', 'MA5min', 'MA10min', 'MA20min', 'MA30min'],
                         inactiveColor: '#777',
                         textStyle: {
                             color: '#777'
-                        }
+                        },
+                        x:"right",
+                        orient:'vertical',
                     },
                     tooltip: {
                         trigger: 'axis',
@@ -349,7 +371,7 @@ function candlestick_chart(){
                             }
                         },
                         {
-                            name: 'MA5',
+                            name: 'MA5min',
                             type: 'line',
                             data: calculateMA(5, data_MA),
                             smooth: true,
@@ -361,7 +383,7 @@ function candlestick_chart(){
                             }
                         },
                         {
-                            name: 'MA10',
+                            name: 'MA10min',
                             type: 'line',
                             data: calculateMA(10, data_MA),
                             smooth: true,
@@ -373,7 +395,7 @@ function candlestick_chart(){
                             }
                         },
                         {
-                            name: 'MA20',
+                            name: 'MA20min',
                             type: 'line',
                             data: calculateMA(20, data_MA),
                             smooth: true,
@@ -385,7 +407,7 @@ function candlestick_chart(){
                             }
                         },
                         {
-                            name: 'MA30',
+                            name: 'MA30min',
                             type: 'line',
                             data: calculateMA(30, data_MA),
                             smooth: true,
@@ -651,7 +673,10 @@ function bid_ask_chart(){
     )
 }
 function order_chart(){
+    var myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
     var preference = document.getElementById("hidden_preference").value;
+    myChart.showLoading();
     $.ajax({
         url:"/order_book",
         type:"POST",
@@ -659,8 +684,7 @@ function order_chart(){
         success: function (data) {
             console.log(data);
             console.log(data[0]);
-            var myChart = echarts.init(document.getElementById('map'));
-            myChart.clear();
+
             var price = [];
             var volume = [];
             var order_length = 0;
@@ -677,16 +701,34 @@ function order_chart(){
             }
             option = {
                 backgroundColor: '#2f323c',
+                legend:{
+                    data: ['RED:bids; GREEN:asks'],
+                    inactiveColor: '#777',
+                    textStyle: {
+                        color: '#777'
+                    },
+                    x:"right",
+
+                },
                 title:{
-                    text: "Order Book of "+preference,
-                    x:'center',
+                    text: "ORDERBOOK OF "+preference+"(DATA FROM COINBASE.COM)-Live Order",
+                    x:'left',
                     textStyle:{
                         color:"#ffffff",
                     },
+                    subtext:'TIME:'+current_time_getter(),
                 },
 
                 tooltip: {
                     trigger: 'axis',
+                    formatter: function(params) {
+                        var result = '';
+                        params.forEach(function (item) {
+                            result += item.marker + " " + item.seriesName + " [PRICE: " +item.name+ "  VOLUME:"+item.value +"]</br>";
+                        });
+                        return result;
+                    },
+                    //formatter:"item{a0},PRICE:{b0},VOLUME:+{c0}",
                     axisPointer: {
                         type: 'shadow'
                     },
@@ -701,9 +743,11 @@ function order_chart(){
                         color:"#ffffff",
                         fontSize:16,
                         padding:10
-                    }
+                    },
+                    show:true,
                 },
                 yAxis: {
+                    show:true,
                     type: 'value',
                     name:'Order Volume/'+preference.substring(0,3),
                     nameLocation:'middle',
@@ -722,7 +766,7 @@ function order_chart(){
                     }
                 },
                 series: [{
-                    name:'Volume',
+                    name:'RED:bids; GREEN:asks',
                     data: volume,
                     type: 'line',
                     barCategoryGap:"1%",
@@ -730,9 +774,10 @@ function order_chart(){
                     areaStyle: {}
                 }]
             };
-            for(let i = 0; i < 50; i++) {
+            for(let i = 0; i < order_length; i++) {
                 option.visualMap.pieces[i] =  {gte:i,lte:i+1,color:'red'};
             }
+            myChart.hideLoading();
             myChart.setOption(option);
         }
 
@@ -813,26 +858,25 @@ function mini_chart(id,element_price_id,element_mini_chart_id){
     }
 function refresh_controller(chart_id){
     var myChart = echarts.init(document.getElementById('map'));
-    myChart.clear();
-    myChart.showLoading();
     console.log("chartid:"+chart_id);
     //console.log("fruency:"+chart_update_fruquency);
-    if(chart_id == 1){
+    if(chart_id == "candle"){
         console.log("now is candle refresh");
         candlestick_chart();
     }
-    if(chart_id == 2){
+    if(chart_id == "map"){
+        console.log("now is map");
         new_worldmap_node();
     }
     // if(chart_id == 3){
     //     console.log("now is bid&ask refresh");
     //     bid_ask_chart();
     // }
-    if(chart_id == 4){
+    if(chart_id == "order"){
         console.log("now is order book refresh")
         order_chart();
     }
-    if(chart_id == 5){
+    if(chart_id == "compare"){
         console.log("now is network refresh")
         //bitcoin_network();
         //test_draw();
@@ -1061,7 +1105,8 @@ function bitcoin_node_data_getter() {
 }
 function new_worldmap_node(){
     var myChart = echarts.init(document.getElementById('map'));
-    myChart.clear();
+    // myChart.clear();
+    // myChart.showLoading();
     $.ajax({
             url: "/world_map",
             type: "GET",
@@ -1070,7 +1115,19 @@ function new_worldmap_node(){
                 // var world_node_timer = window.setInterval(function () {
                 //     draw_world_node();
                 // }, 3000);
+                myChart.hideLoading();
+                // var option = {
+                //     backgroundColor: '#404a59',
+                //     geo:{
+                //         map:"world",
+                //     },
+                // }
+                // myChart.setOption(option);
+                // var controller_timer = window.setInterval(function () {
+                //             draw_world_node(data);
+                //         }, 3000);
                 draw_world_node(data);
+
             },
             error: function () {
                 alert("Fail to get firstChart data!");
@@ -1081,13 +1138,14 @@ function new_worldmap_node(){
 
 }
 function compare_price_chart(){
+    myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    myChart.showLoading();
     $.ajax({
         url:"/compare_price",
         type:"GET",
         success:function (data) {
-            myChart = echarts.init(document.getElementById('map'));
-            myChart.clear();
-            myChart.showLoading();
+
             var gdax_time_scale=[];
             var gemini_time_scale=[];
             var bitfinex_time_scale=[];
@@ -1122,6 +1180,15 @@ function compare_price_chart(){
 
 
             option = {
+                title:{
+                    text: "PRICE DIFF OF BTC-USD FROM PLATFORMS (DATA FROM COINBASE.COM)-Live Price Compare",
+                    x:'left',
+                    textStyle:{
+                        color:"#ffffff",
+                    },
+                    subtext:'TIME:'+current_time_getter(),
+                },
+                backgroundColor: '#404a59',
                 color: colors,
 
                 tooltip: {
@@ -1129,7 +1196,9 @@ function compare_price_chart(){
 
                 },
                 legend: {
-                    data:['gdax', 'bitfinex','gemini','kraken']
+                    data:['gdax', 'bitfinex','gemini','kraken'],
+                    orient:'vertical',
+                    left:"right",
                 },
                 grid: {
                     top: 70,
@@ -1284,8 +1353,9 @@ function card_of_askbid_setter() {
     })
 }
 function draw_world_node(data) {
+    //console.log(data)
     var myChart = echarts.init(document.getElementById('map'));
-    myChart.clear();
+
     var resultList = [];
     var randomList = [];
     //devide into 10 parts to display
@@ -1309,6 +1379,24 @@ function draw_world_node(data) {
         resultList.push(item);
     }
     var option = {
+        title:{
+            text:'LIVE GLOBAL BITCOIN NODES DISTRIBUTION NODES:'+data.length,
+            left:'left',
+            textStyle:{
+                //文字颜色
+                color:'#ccc',
+                //字体风格,'normal','italic','oblique'
+                fontStyle:'normal',
+                //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
+                fontWeight:'bold',
+                //字体系列
+                fontFamily:'sans-serif',
+                //字体大小
+                fontSize:18
+            },
+            subtext:'TIME:'+current_time_getter(),
+        },
+        backgroundColor: '#404a59',
         tooltip:{
 
             formatter:'{b}:{c}',
@@ -1317,11 +1405,17 @@ function draw_world_node(data) {
 
         geo:{
             map:"world",
+            itemStyle: {
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#111'
+                },
+            }
         },
 
         series: [
             {
-                name: '',
+                name: {'GLOBAL BITCOIN NODES DISTRIBUTION NODES:':data.length},
                 type: 'scatter',
                 coordinateSystem: "geo",
                 data: resultList,
@@ -1341,4 +1435,73 @@ function draw_world_node(data) {
     myChart = echarts.init(document.getElementById('map'));
     myChart.clear();
     myChart.setOption(option);
+}
+function node_data_getter(){
+    $.ajax({
+        async:false,
+        url: "/world_map",
+        type: "GET",
+        success: function (data) {
+            node_data = data;
+        }})
+}
+//wss://bitnodes.earn.com/ws-nodes/nodes
+function nodes() {
+    var wsUri ="wss://bitnodes.earn.com/ws-nodes/nodes";
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(evt) {};
+    websocket.onerror = function(evt) { };
+    websocket.onmessage =  evt =>{
+        let str  = eval("("+evt.data+")");
+        console.log(str)
+    };
+    websocket.onclose = function(evt) { };
+}
+function draw_worldmap(){
+    myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    var option={
+        backgroundColor: '#404a59',
+        geo:{
+            map:"world",
+            itemStyle: {
+                normal: {
+                    areaColor: '#323c48',
+                    borderColor: '#111'
+                },
+            }
+        },
+
+    }
+    myChart.setOption(option);
+}
+function current_time_getter() {
+    var myDate = new Date();
+
+    myDate.getYear();        //获取当前年份(2位)
+
+    myDate.getFullYear();    //获取完整的年份(4位,1970-????)
+
+    myDate.getMonth();       //获取当前月份(0-11,0代表1月)
+
+    myDate.getDate();        //获取当前日(1-31)
+
+    myDate.getDay();         //获取当前星期X(0-6,0代表星期天)
+
+    myDate.getTime();        //获取当前时间(从1970.1.1开始的毫秒数)
+
+    myDate.getHours();       //获取当前小时数(0-23)
+
+    myDate.getMinutes();     //获取当前分钟数(0-59)
+
+    myDate.getSeconds();     //获取当前秒数(0-59)
+
+    myDate.getMilliseconds();    //获取当前毫秒数(0-999)
+
+    //myDate.toLocaleDateString();     //获取当前日期
+
+    var mytime=myDate.toLocaleTimeString();     //获取当前时间
+
+    myDate.toLocaleString( );        //获取日期与时间
+    return myDate;
 }
