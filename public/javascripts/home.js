@@ -10,6 +10,7 @@ $(document).ready(function() {
     var volume_card;
     var ask_card;
     var bid_card;
+    var node_original_data;
     //card_setter();
     check_preference_appear();
     var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")", 60000);
@@ -27,11 +28,12 @@ $(document).ready(function() {
     mini_chart("ETC-EUR", "price6", "volume6");
 
     candlestick_chart();
-    refresh_controller(chart_id);
+    refresh_controller(chart_id,chart_update_fruquency);
 
     var controller_timer = window.setInterval(function () {
         refresh_controller(chart_id);
     }, chart_update_fruquency);
+
     $.ajaxSetup({async: false});
     $("#preference").change(function () {
         var selected = $(this).children('option:selected').val();
@@ -121,6 +123,7 @@ $(document).ready(function() {
     $('#map_chart').click(function () {
         chart_id = 2;
         chart_update_fruquency = 3000;
+        console.log("fruquency:"+chart_update_fruquency)
         new_worldmap_node();
     });
     $("#orderbook_chart").click(function () {
@@ -809,13 +812,16 @@ function mini_chart(id,element_price_id,element_mini_chart_id){
         })
     }
 function refresh_controller(chart_id){
+    var myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    myChart.showLoading();
     console.log("chartid:"+chart_id);
-    if(chart_id==1){
+    //console.log("fruency:"+chart_update_fruquency);
+    if(chart_id == 1){
         console.log("now is candle refresh");
         candlestick_chart();
     }
     if(chart_id == 2){
-        console.log('now is map refresh');
         new_worldmap_node();
     }
     // if(chart_id == 3){
@@ -1060,70 +1066,11 @@ function new_worldmap_node(){
             url: "/world_map",
             type: "GET",
             success: function (data) {
-                console.log("mapdata:"+data[0].IP);
+                //console.log("mapdata:"+data[0].IP);
                 // var world_node_timer = window.setInterval(function () {
                 //     draw_world_node();
                 // }, 3000);
-                draw_world_node();
-                function draw_world_node() {
-                    var myChart = echarts.init(document.getElementById('map'));
-                    myChart.clear();
-                    var resultList = [];
-                    var randomList = [];
-                    //devide into 10 parts to display
-                    for(var k=0;k<((data.length)*0.001);k++){
-                        var random_num = Math.floor(Math.random()*(data.length-0+1)+0);
-
-                        randomList.push(random_num);
-                    }
-                    console.log(randomList);
-                    for (var i=0;i<randomList.length;i++) {
-                        console.log("i=="+randomList[i]);
-                        var index=randomList[i];
-                        var city = data[index].IP+">"+data[index].city;
-                        var coord = [];
-                        coord.push(data[index].longitude);
-                        coord.push(data[index].latitude);
-                        var item = {
-                            name: city,
-                            value: coord,
-                        };
-                        resultList.push(item);
-                    }
-                    var option = {
-                        tooltip:{
-
-                            formatter:'{b}:{c}',
-                            itemStyle : { normal: {label : {show: true, position: 'top'}}},
-                        },
-
-                        geo:{
-                            map:"world",
-                        },
-
-                        series: [
-                            {
-                                name: '',
-                                type: 'scatter',
-                                coordinateSystem: "geo",
-                                data: resultList,
-                                symbolSize: 3,
-                                itemStyle : {
-                                    normal: {
-                                        label : {
-                                            fontSize: 8,
-                                            show: true,
-                                            position: 'top',
-                                            formatter:'{b}:{c}',
-                                }}},
-                            }
-                        ],
-
-                    }
-                    myChart = echarts.init(document.getElementById('map'));
-                    myChart.clear();
-                    myChart.setOption(option);
-                }
+                draw_world_node(data);
             },
             error: function () {
                 alert("Fail to get firstChart data!");
@@ -1335,4 +1282,63 @@ function card_of_askbid_setter() {
 
         }
     })
+}
+function draw_world_node(data) {
+    var myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    var resultList = [];
+    var randomList = [];
+    //devide into 10 parts to display
+    for(var k=0;k<((data.length)*0.001);k++){
+        var random_num = Math.floor(Math.random()*(data.length-0+1)+0);
+
+        randomList.push(random_num);
+    }
+    console.log(randomList);
+    for (var i=0;i<randomList.length;i++) {
+        console.log("i=="+randomList[i]);
+        var index=randomList[i];
+        var city = data[index].IP+">"+data[index].city;
+        var coord = [];
+        coord.push(data[index].longitude);
+        coord.push(data[index].latitude);
+        var item = {
+            name: city,
+            value: coord,
+        };
+        resultList.push(item);
+    }
+    var option = {
+        tooltip:{
+
+            formatter:'{b}:{c}',
+            itemStyle : { normal: {label : {show: true, position: 'top'}}},
+        },
+
+        geo:{
+            map:"world",
+        },
+
+        series: [
+            {
+                name: '',
+                type: 'scatter',
+                coordinateSystem: "geo",
+                data: resultList,
+                symbolSize: 3,
+                itemStyle : {
+                    normal: {
+                        label : {
+                            fontSize: 8,
+                            show: true,
+                            position: 'top',
+                            formatter:'{b}:{c}',
+                        }}},
+            }
+        ],
+
+    }
+    myChart = echarts.init(document.getElementById('map'));
+    myChart.clear();
+    myChart.setOption(option);
 }
