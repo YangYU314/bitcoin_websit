@@ -13,6 +13,8 @@ body {
     margin: 0px !important;
     font-size:14px !important;
     height: 100%;
+    font-family: 'Avenir', san-serif;
+
 }
 h1,h2,h3,h4,h5{
     font-weight: 300;
@@ -75,6 +77,7 @@ table tr th { color: #688a7e;}
     min-height: 60px;
     padding: 0 15px;
 }
+
 .box1 {
     font-size: 16px;
     display: inline-block;
@@ -87,6 +90,7 @@ table tr th { color: #688a7e;}
     left: 0;
     right: 0;
     z-index: 1002;
+    font-size: 1.1em;
 }
 .header a{
     color: white;
@@ -366,8 +370,9 @@ row3{
     /*box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);*/
 }
 
-
 .info-box h1{
+    padding-top: 80px;
+    margin-left: 40%;
 
 }
 
@@ -486,12 +491,12 @@ row3{
 
 .dark-bg {
     color : #fff;
-    background : #434954;
+    background : #16161c;
     box-shadow: white;
     /*background-color : #1a2732;*/
-    -moz-box-shadow:3px 3px 6px #3f444e;
-    -webkit-box-shadow:3px 3px 6px #3f444e;
-    box-shadow:3px 3px 6px #3f444e;}
+    -moz-box-shadow:3px 3px 6px #16161c;
+    -webkit-box-shadow:3px 3px 6px #16161c;
+    box-shadow:3px 3px 6px #16161c;}
 /*.facebook-bg {*/
 /*color: #fff;*/
 /*background: #3b5998;*/
@@ -507,6 +512,7 @@ row3{
 /*background: #4875b4;*/
 /*background-color : #4875b4;  */
 /*}*/
+
 /*----------------------	panel-----------------*/
 .panel {
     border:none;
@@ -1165,8 +1171,10 @@ td{
 }
 
 .tu{
-    margin: 0 10px;
-    width: 28px;
+    /*margin: 0 10px;*/
+    margin: 5px 0 10px 10px;
+    width: 20px;
+
 }
 
 .but{
@@ -1215,7 +1223,7 @@ td{
 /*}*/
 
 #footer {
-    background: #434954 !important;
+    background: #28282e !important;
     margin-top: 60px;
     padding: 10px 0;
 }
@@ -1369,7 +1377,7 @@ i{
 
 .fig {
     color: #fcfcfc;
-    font-family: 'Karla', san-serif;
+    font-family: 'Avenir', san-serif;
     font-weight: 400;
     font-size: 4em;
     text-align: center;
@@ -1379,12 +1387,13 @@ i{
     width: 250px;
     -webkit-transition: all 1s ease;
     transition: all 1s ease;
+
 }
 
 .fig:hover {
-    border-radius: 0px;
-    color: #333;
-    background: #fff;
+    border-radius: 30px;
+    color:#2b2b2b;
+    background: rgba(255,255,255,0.5);
     cursor: pointer;
     text-decoration: none;
 }
