@@ -223,7 +223,7 @@ function click_newUser(){
         type: "POST",
         data: {username: document.getElementById('username_home').value},
         success: function (data) {
-
+            alert(data.result);
         },
         error: function () {
             alert("Connection failed!");
