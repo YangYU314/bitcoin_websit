@@ -43,7 +43,7 @@
         <p>
             <span class="h1">③</span><span class="h2">Tips</span>
             <br>You can see the introduction of each block here!<br>
-            <a class="over"> Never display </a>
+            <a class="over" id="newuser"> Never display </a>
             <a class="over"> Finish </a>
         </p>
     </div>
@@ -51,22 +51,25 @@
 
 <script>
     $(function () {
-        $('.help').show();
-        $('#step1').show();
-        $('.close').on('click', function () {
-            $('.step').hide();
-            $('.help').hide();
-        });
-        $('.next').on('click', function () {
-            var obj = $(this).parents('.step');
-            var step = obj.attr('step');
-            obj.hide();
-            $('#step' + (parseInt(step) + 1)).show();
-        });
-        $('.over').on('click', function () {
-            $(this).parents('.step').hide();
-            $('.help').hide();
-        });
+        var newUser = document.getElementById("newUser").value;
+        if (newUser == 0){
+            $('.help').show();
+            $('#step1').show();
+            $('.close').on('click', function () {
+                $('.step').hide();
+                $('.help').hide();
+            });
+            $('.next').on('click', function () {
+                var obj = $(this).parents('.step');
+                var step = obj.attr('step');
+                obj.hide();
+                $('#step' + (parseInt(step) + 1)).show();
+            });
+            $('.over').on('click', function () {
+                $(this).parents('.step').hide();
+                $('.help').hide();
+            });
+        }
     });
 </script>
 
@@ -84,6 +87,8 @@
             <div class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle">
                     <span class="username"><%=user%></span>
+                    <input id="username_home" type="hidden" value="<%=user %>" />
+                    <input id="newUser" type="hidden" value="<%=newuser %>" />
                     <input id="hidden_preference" name="hid" type="hidden" value="<%=preference %>" />
                 </a>
                 <ul class="dropdown-menu">
