@@ -122,6 +122,7 @@ $(document).ready(function() {
         controller_timer = window.setInterval(function () {
             refresh_controller(chart_id);
         }, chart_update_fruquency);
+        candlestick_chart();
 
     });
     $('#map_chart').click(function () {
@@ -144,6 +145,7 @@ $(document).ready(function() {
         controller_timer = window.setInterval(function () {
             refresh_controller(chart_id);
         }, chart_update_fruquency);
+        order_chart();
     });
     $("#compare_price").click(function () {
         clearInterval(controller_timer);
@@ -154,6 +156,7 @@ $(document).ready(function() {
         controller_timer = window.setInterval(function () {
             refresh_controller(chart_id);
         }, chart_update_fruquency);
+        compare_price_chart();
     })
 })
 function head_price_volume() {
@@ -250,8 +253,8 @@ function candlestick_chart(){
                 var hvolume_show_head = document.getElementById("24hrVolume");
                 //console.log(last_price_show_head);
                 //last price and volume of preference
-                last_price = data[data.length-1].close;
-                volume_24h = (data[data.length-1].volume).toString().substring(0,7);
+                var last_price = data[data.length-1].close;
+                var volume_24h = (data[data.length-1].volume).toString().substring(0,7);
                 //alert("last price of preference:"+last_price);
                 //preference price
                 last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
@@ -1440,7 +1443,11 @@ function draw_world_node(data) {
         tooltip:{
 
             formatter:'{b}:{c}',
-            itemStyle : { normal: {label : {show: true, position: 'top'}}},
+            itemStyle : { normal: {label : {show: true, position: 'top',color:'#FFFFFF'}},
+                textStyle:{
+                color:'#FFFFFF',
+                },
+            },
         },
 
         geo:{
@@ -1463,10 +1470,12 @@ function draw_world_node(data) {
                 itemStyle : {
                     normal: {
                         label : {
-                            fontSize: 8,
+                            fontSize: 10,
+                            fontColor:'#FFFFFF',
                             show: true,
                             position: 'top',
                             formatter:'{b}:{c}',
+                            label:'#FFFFFF',
                         }}},
             }
         ],
