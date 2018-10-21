@@ -11,16 +11,24 @@ $(document).ready(function() {
     var t5 = window.setInterval("mini_chart(\"ETC-GBP\",\"price5\",\"volume5\")", 60000);
     var t6 = window.setInterval("mini_chart(\"ETC-EUR\",\"price6\",\"volume6\")", 60000);
 
+
+
+    price_volume_card_setter();
+    card_of_askbid_setter();
+    window.setInterval(function () {
+        card_of_askbid_setter();
+        price_volume_card_setter();
+    },60000);
+
+    //price_volume_card_setter();
     mini_chart("BTC-USD", "price1", "volume1");
     mini_chart("BTC-GBP", "price2", "volume2");
     mini_chart("BTC-EUR", "price3", "volume3");
     mini_chart("ETC-USD", "price4", "volume4");
     mini_chart("ETC-GBP", "price5", "volume5");
     mini_chart("ETC-EUR", "price6", "volume6");
+
     candlestick_chart();
-    card_of_askbid_setter();
-
-
     //auto-updating, failure in design and implement!
     var controller_timer = window.setInterval(function () {
         refresh_controller(chart_id);
@@ -30,9 +38,12 @@ $(document).ready(function() {
         var selected = $(this).children('option:selected').val();
         document.getElementById("hidden_preference").value = selected;
         head_price_volume();
+        price_volume_card_setter();
+        card_of_askbid_setter();
         if (chart_id == "candle") {
             console.log("now is candle");
             candlestick_chart();
+
         }
         if (chart_id == "map") {
             console.log('now is map');
@@ -245,18 +256,18 @@ function candlestick_chart(){
                 //preference price
                 last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
                 hvolume_show_head.innerText = "24Hr Volume: "+volume_24h+preference.toString().substring(0,3);
-                var price_card = new CountUp("price_card", 0, last_price,3);
-                if (!price_card.error) {
-                    price_card.start();
-                } else {
-                    console.error(price_card.error);
-                }
-                var volume_card = new CountUp("volume_card", 0, volume_24h,3);
-                if (!volume_card.error) {
-                    volume_card.start();
-                } else {
-                    console.error(volume_card.error);
-                }
+                // var price_card = new CountUp("price_card", 0, last_price,2);
+                // if (!price_card.error) {
+                //     price_card.start();
+                // } else {
+                //     console.error(price_card.error);
+                // }
+                // var volume_card = new CountUp("volume_card", 0, volume_24h,3);
+                // if (!volume_card.error) {
+                //     volume_card.start();
+                // } else {
+                //     console.error(volume_card.error);
+                // }
 
                 function unixtime_exchange(time) {
                     let unixtime = time
@@ -890,8 +901,7 @@ function refresh_controller(chart_id){
     }
     if(chart_id == "compare"){
         console.log("now is network refresh")
-        //bitcoin_network();
-        //test_draw();
+        compare_price_chart();
 
     }
 
@@ -1226,7 +1236,7 @@ function compare_price_chart(){
                         axisLine: {
                             onZero: false,
                             lineStyle: {
-                                color: colors[1]
+                                color: '#FFFFFF'
                             }
                         },
                         axisPointer: {
@@ -1311,6 +1321,11 @@ function compare_price_chart(){
                         name: "LAST_PRICE",
                         type: 'value',
                         scale:true,
+                        axisLine:{
+                            lineStyle:{
+                                color:'#FFFFFF',
+                            }
+                        }
                     }
                 ],
                 series: [
@@ -1362,13 +1377,13 @@ function card_of_askbid_setter() {
         success: function (data) {
             var best_bid=data[0].bids[0][0];
             var best_ask=data[0].asks[0][0];
-            var ask_card = new CountUp("ask_card", 0, best_ask,3);
+            var ask_card = new CountUp("ask_card", 0, best_ask,2);
             if (!ask_card.error) {
                 ask_card.start();
             } else {
                 console.error(ask_card.error);
             }
-            var bid_card = new CountUp("bid_card", 0, best_bid,3);
+            var bid_card = new CountUp("bid_card", 0, best_bid,2);
             if (!bid_card.error) {
                 bid_card.start();
             } else {
@@ -1531,10 +1546,27 @@ function current_time_getter() {
     return myDate;
 }
 function price_volume_card_setter() {
-    var numAnim = new CountUp("ask_card", 0, 99.99);
-    if (!numAnim.error) {
-        numAnim.start();
-    } else {
-        console.error(numAnim.error);
-    }
+    var preference = document.getElementById("hidden_preference").value;
+    $.ajax({
+        url: "/candle_stick",
+        type: "POST",
+        data:{product_id: preference},
+        success: function (data) {
+            last_price = data[data.length-1].close;
+            volume_24h = (data[data.length-1].volume)
+            var price_card = new CountUp("price_card", 0, last_price,2);
+
+            if (!price_card.error) {
+                price_card.start();
+            } else {
+                console.error(price_card.error);
+            }
+            var volume_card = new CountUp("volume_card", 0, volume_24h,3);
+            if (!volume_card.error) {
+                volume_card.start();
+            } else {
+                console.error(volume_card.error);
+            }
+        }
+    })
 }
