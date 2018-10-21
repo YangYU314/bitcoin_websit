@@ -12,7 +12,7 @@ router.get('/register', controller.register);
 router.post('/register', controller.validation_register);
 router.post('/person', controller.person);
 router.post('/setting', controller.validation_setting);
-router.get('/newuser', controller.newUser);
+router.post('/newuser', controller.newUser);
 
 //overall
 router.get('/home', home.showMainPage);

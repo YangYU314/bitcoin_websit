@@ -11,8 +11,6 @@ $(document).ready(function() {
     var t5 = window.setInterval("mini_chart(\"ETC-GBP\",\"price5\",\"volume5\")", 60000);
     var t6 = window.setInterval("mini_chart(\"ETC-EUR\",\"price6\",\"volume6\")", 60000);
 
-
-
     price_volume_card_setter();
     card_of_askbid_setter();
     window.setInterval(function () {
@@ -104,15 +102,20 @@ $(document).ready(function() {
         image4.src = news_list[4].articleImage;
         var description4 = document.getElementById("description4");
         description4.innerText = news_list[4].articleDescrption;
-
-
     });
+
     $('#logout').click(function () {
         click_logout();
     });
+
     $("#setting").click(function () {
         click_setting();
     })
+
+    $("#newuser").click(function () {
+        click_newUser();
+    })
+
     $('#candle_chart').click(function () {
         clearInterval(controller_timer);
         chart_id = "candle";
@@ -182,9 +185,10 @@ function head_price_volume() {
                     hvolume_show_head.innerText = "24Hr Volume: "+volume_24h+preference.toString().substring(0,3);
 
                 }
-                }
-            })
-        }
+            }
+    })
+}
+
 function click_setting(){
     $.ajax({
         url: "/setting",
@@ -197,6 +201,7 @@ function click_setting(){
         }
     })
 }
+
 function click_logout(){
     $.ajax({
         url: "/logout",
@@ -211,6 +216,21 @@ function click_logout(){
         }
     })
 }
+
+function click_newUser(){
+    $.ajax({
+        url: "/newuser",
+        type: "POST",
+        data: {username: document.getElementById('username_home').value},
+        success: function (data) {
+
+        },
+        error: function () {
+            alert("Connection failed!");
+        }
+    })
+}
+
 function candlestick_chart(){
     //var t1 = window.setInterval("candlestick_chart('BTC-USD')",3000);
     var preference = document.getElementById("hidden_preference").value;
