@@ -183,14 +183,15 @@ table tr th { color: #688a7e;}
 }
 
 .preference .aaa{
-    background-color: rgba(0,0,0,0.15);
+    /*background-color: rgba(0,0,0,0.15);*/
+    background-color: #16161c;
     color: #ffffff;
-    border: none;
+    border: #16161c;
 }
 
 .preference .bbb{
     background-color: white;
-    color:grey;
+    color:black;
     -webkit-border-radius: 5px;
     border-color:black;
 }
@@ -203,7 +204,7 @@ table tr th { color: #688a7e;}
 
 .preference{
     display: inline;
-    margin-right: 60px;
+    margin-right: 80px;
     cursor: pointer;
 }
 
@@ -330,7 +331,7 @@ row3{
     width: 80%;
     margin-right: auto;
     margin-left: auto;
-    margin-top: 120px;
+    margin-top: 100px;
     /*position: absolute;*/
 
     /*margin: 0px;*/
@@ -956,7 +957,7 @@ row3{
     display: block;
     height: 32px;
     /*margin-left: 15px;*/
-    right: 40px;
+    right: 60px;
     position: fixed;
     top: 25px;
     width: 32px;
