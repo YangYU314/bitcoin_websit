@@ -7,7 +7,7 @@ var ComparePriceModel = require('../models/compare_price');
 module.exports.showMainPage = function(req, res){
     var sess = req.session;
     if ("username" in sess && sess.username != null){
-        res.render('home', {user: sess.username, preference: sess.preference});
+        res.render('home', {user: sess.username, preference: sess.preference, newuser: sess.newuser});
     }else{
         //res.render('home', {user: "Shenghui Wu", preference: "BTC-USD"});
         res.render('index');

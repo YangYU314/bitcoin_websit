@@ -25,6 +25,7 @@ module.exports.validation_login = function(req, res){
             if (result != 0){
                 sess.username = result.username;
                 sess.preference = result.preference;
+                sess.newuser = result.newuser;
             }
             res.json({result: result});
         })
@@ -36,6 +37,7 @@ module.exports.logout = function(req, res) {
     if ("username" in sess && sess.username != null){
         sess.username = null;
         sess.preference = null;
+        sess.newuser = null;
         res.json({result: 0});
     }
 }
@@ -98,4 +100,12 @@ module.exports.validation_setting = function(req, res){
             res.json({result: result});
         });
     }
+}
+
+//judge if he is a new user
+module.exports.newUser = function (req, res) {
+    var username = req.body.username;
+    usersModel.person_newuser(username, function(result){
+        res.json({result: result});
+    })
 }

@@ -7,13 +7,14 @@ var userSchema = new Schema({
     username: String,
     password: String,
     email: String,
-    preference: String
+    preference: String,
+    newuser: Number
 });
 
 userSchema.statics.find_login = function(username, password, callback){
     return this
         .find({username: username, password: password})
-        .select({username:1, preference:1})
+        .select({username:1, preference:1, newuser:1})
         .exec(function (err, result){
             if(err){
                 console.log(err);
@@ -42,7 +43,8 @@ userSchema.statics.insert_register = function(firstname, lastname, username, pas
                         username: username,
                         password: password,
                         email: email,
-                        preference: preference
+                        preference: preference,
+                        newuser: 0
                     })
                 newUser.save();
                 callback(1);
@@ -102,6 +104,17 @@ userSchema.statics.person_password = function(username, callback){
         .find({username: username})
         .select({password:1})
         .exec(callback)
+}
+
+//update the new user information
+userSchema.statics.person_newuser = function(username, callback){
+    users.updateOne({username: username}, {$set:{newuser: 1}}, function(err, data){
+        if(err){
+            console.log("Query: Update Error!");
+        }else{
+            callback("Success!");
+        }
+    });
 }
 
 var users = mongoose.model('Users', userSchema, 'users');
