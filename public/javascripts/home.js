@@ -249,16 +249,16 @@ function candlestick_chart(){
                     values.push(temp);
                 }
                 //get haed last_price and 24h volume
-                var last_price_show_head = document.getElementById("LastPrice");
-                var hvolume_show_head = document.getElementById("24hrVolume");
+                // var last_price_show_head = document.getElementById("LastPrice");
+                // var hvolume_show_head = document.getElementById("24hrVolume");
                 //console.log(last_price_show_head);
                 //last price and volume of preference
                 var last_price = data[data.length-1].close;
                 var volume_24h = (data[data.length-1].volume).toString().substring(0,7);
                 //alert("last price of preference:"+last_price);
                 //preference price
-                last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
-                hvolume_show_head.innerText = "24Hr Volume: "+volume_24h+preference.toString().substring(0,3);
+                // last_price_show_head.innerText= "Last Price: "+last_price+preference.toString().substring(4,7);
+                // hvolume_show_head.innerText = "24Hr Volume: "+volume_24h+preference.toString().substring(0,3);
                 // var price_card = new CountUp("price_card", 0, last_price,2);
                 // if (!price_card.error) {
                 //     price_card.start();
