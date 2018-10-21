@@ -2541,6 +2541,13 @@ input[type="button"].btn-block {
 [data-toggle="buttons"] > .btn > input[type="checkbox"] {
   display: none;
 }
+
+#ser-input{
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
 .input-group {
   position: relative;
   display: table;
