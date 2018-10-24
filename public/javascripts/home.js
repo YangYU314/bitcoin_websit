@@ -132,8 +132,9 @@ $(document).ready(function() {
         clearInterval(controller_timer);
         chart_id="map"
         chart_update_fruquency=5000;
-        draw_worldmap();
+
         new_worldmap_node();
+        draw_worldmap();
 
         controller_timer = window.setInterval(function () {
             refresh_controller(chart_id);
@@ -1244,6 +1245,11 @@ function compare_price_chart(){
                     data:['gdax', 'bitfinex','gemini','kraken'],
                     orient:'vertical',
                     left:"right",
+                    color:"#FFD700",
+                    textStyle:{
+                        color:"#FFD700",
+                        fontColor:"#FFD700",
+                    }
                 },
                 grid: {
                     top: 70,
@@ -1466,6 +1472,7 @@ function draw_world_node(data) {
             itemStyle : { normal: {label : {show: true, position: 'top',color:'#FFFFFF'}},
                 textStyle:{
                 color:'#FFFFFF',
+                    fontColor: '#FFFFFF',
                 },
             },
         },
@@ -1489,6 +1496,7 @@ function draw_world_node(data) {
                 symbolSize: 3,
                 itemStyle : {
                     normal: {
+                        color:'#FFD700 ',
                         label : {
                             fontSize: 10,
                             fontColor:'#FFFFFF',
@@ -1515,17 +1523,17 @@ function node_data_getter(){
         }})
 }
 //wss://bitnodes.earn.com/ws-nodes/nodes
-function nodes() {
-    var wsUri ="wss://bitnodes.earn.com/ws-nodes/nodes";
-    websocket = new WebSocket(wsUri);
-    websocket.onopen = function(evt) {};
-    websocket.onerror = function(evt) { };
-    websocket.onmessage =  evt =>{
-        let str  = eval("("+evt.data+")");
-        console.log(str)
-    };
-    websocket.onclose = function(evt) { };
-}
+// function nodes() {
+//     var wsUri ="wss://bitnodes.earn.com/ws-nodes/nodes";
+//     websocket = new WebSocket(wsUri);
+//     websocket.onopen = function(evt) {};
+//     websocket.onerror = function(evt) { };
+//     websocket.onmessage =  evt =>{
+//         let str  = eval("("+evt.data+")");
+//         console.log(str)
+//     };
+//     websocket.onclose = function(evt) { };
+// }
 function draw_worldmap(){
     myChart = echarts.init(document.getElementById('map'));
     myChart.clear();
