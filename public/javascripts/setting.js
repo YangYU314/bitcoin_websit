@@ -11,7 +11,7 @@ $(document).ready(function(){
     });
 
     $('#submit').click(function (){
-        if (isEmail() && isUsername() && isPassword()) {
+        if (isEmail() && isUsername()) {
             $.ajax({
                 url: "/setting",
                 type: "POST",
@@ -55,17 +55,6 @@ $(document).ready(function(){
             return false;
         }else if(!reg.test(obj.value)){
             alert("Username must be 8-60 numbers or letters!");
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    function isPassword(){
-        var reg = new RegExp("^[A-Za-z0-9]{8,20}$");
-        var obj = document.getElementById("password1");
-        if(!reg.test(obj.value)){
-            alert("Password must be 8-20 numbers or letters!");
             return false;
         }else{
             return true;
