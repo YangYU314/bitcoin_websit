@@ -197,7 +197,7 @@ function click_setting(){
             window.location.href = "/setting";
         },
         error: function () {
-            alert ("redirect to setting error, try again later");
+            // alert ("redirect to setting error, try again later");
         }
     })
 }
@@ -212,7 +212,7 @@ function click_logout(){
             }
         },
         error: function () {
-            alert("Connection failed!");
+            // alert("Connection failed!");
         }
     })
 }
@@ -226,7 +226,7 @@ function click_newUser(){
             
         },
         error: function () {
-            alert("Connection failed!");
+            // alert("Connection failed!");
         }
     })
 }
@@ -472,7 +472,7 @@ function candlestick_chart(){
             }
         },
         error: function () {
-            alert("Fail to get firstChart data!");
+            // alert("Fail to get firstChart data!");
         }
     })
 }
@@ -574,7 +574,7 @@ function map_exchange_distribution(){
 
         },
             error: function () {
-                alert("Fail to get firstChart data!");
+                // alert("Fail to get firstChart data!");
             }
     }
     )
@@ -713,7 +713,7 @@ function bid_ask_chart(){
 
             },
             error: function () {
-                alert("Fail to get firstChart data!");
+                // alert("Fail to get firstChart data!");
             }
         }
     )
@@ -898,7 +898,7 @@ function mini_chart(id,element_price_id,element_mini_chart_id){
                 }
             },
             error: function () {
-                alert("Fail to get firstChart data!");
+                // alert("Fail to get firstChart data!");
             }
         })
     }
@@ -1175,7 +1175,7 @@ function new_worldmap_node(){
 
             },
             error: function () {
-                alert("Fail to get firstChart data!");
+                // alert("Fail to get firstChart data!");
             }
         }
     )
