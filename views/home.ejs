@@ -30,7 +30,7 @@
             <a class="next">Next</a>
         </p>
     </div>
-    <div id="step2" class="step" step="2" style="top:10%;right:0px;width:20%">
+    <div id="step2" class="step" step="2" style="top:10%;right:1%;width:20%">
         <b class="jt jt_top" style="right:25px;top:-40px"></b>
         <p>
             <span class="h1">②</span><span class="h2">News</span>
@@ -38,11 +38,11 @@
             <a class="next">Next</a>
         </p>
     </div>
-    <div id="step3" class="step" step="3" style="top:19%;right:0px;width:20%">
+    <div id="step3" class="step" step="3" style="top:10%;right:71%;width:20%">
         <b class="jt jt_top" style="right:25px;top:-40px"></b>
         <p>
-            <span class="h1">③</span><span class="h2">Tips</span>
-            <br>You can see the introduction of each block here!<br>
+            <span class="h1">③</span><span class="h2">Guidance</span>
+            <br>You can see the guidance of each block here!<br>
             <a class="over" id="newuser"> Never display </a>
             <a class="over"> Finish </a>
         </p>
@@ -73,14 +73,95 @@
     });
 </script>
 
+<div class="guide">
+    <a class="close" title="close">×</a>
+    <div id="step4" class="step" step="4" style="top:10%;left:3%;width:20%">
+        <b class="jt jt_bottom" style="right:10%;top:100%"></b>
+        <p>
+            <!--<span class="h1">①</span><span class="h2">Preference</span>-->
+            <br>The latest price of the preferred cryptocurrency.<br>
+            <a class="next">Next</a>
+        </p>
+    </div>
+    <div id="step5" class="step" step="5" style="top:10%;left:27%;width:20%">
+        <b class="jt jt_bottom" style="right:10%;top:100%"></b>
+        <p>
+            <!--<span class="h1">②</span><span class="h2">News</span>-->
+            <br>Get 24 hr stats for the product. volume is in base currency units.<br>
+            <a class="next">Next</a>
+        </p>
+    </div>
+    <div id="step6" class="step" step=6 style="top:8%;left:52%;width:20%">
+        <b class="jt jt_bottom" style="right:10%;top:100%"></b>
+        <p>
+            <!--<span class="h1">③</span><span class="h2">Tips</span>-->
+            <br>The lowest price a would-be seller will accept for the cryptocurrency.<br>Cryptocurrency can be sold above the ASK price, but never below it.<br>
+            <a class="next">Next</a>
+        </p>
+    </div>
+    <div id="step7" class="step" step=7 style="top:8%;right:3%;width:20%">
+        <b class="jt jt_bottom" style="right:10%;top:100%"></b>
+        <p>
+            <!--<span class="h1">③</span><span class="h2">Tips</span>-->
+            <br>The highest price a potential buyer will pay for the cryptocurrency.<br>Cryptocurrency usually are bought below BID, but never above it.<br>
+            <a class="next" href="#banner_number">Next</a>
+        </p>
+    </div>
+    <div id="step8" class="step" step=8 style="top:32%;right:1%;width:10%">
+        <b class="jt jt_left" style="right:100%;top:10%"></b>
+        <p>
+            <!--<span class="h1">③</span><span class="h2">Tips</span>-->
+            <br>The red-line shows the trend in base currency units in last 3 days.<br>
+            <a class="next" href="#map_"> Next </a>
+        </p>
+    </div>
+    <div id="step9" class="step" step=9 style="top:52%;right:1%;width:10%">
+        <b class="jt jt_left" style="right:100%;top:10%"></b>
+        <p>
+            <!--<span class="h1">③</span><span class="h2">Tips</span>-->
+            <br>1.Candle: Exchange K line chart.<br>
+            <br>2.Order: Ask price, bids price and volume in the latest 50 orderbook.<br>
+            <br>3.Compare: Last price difference between platforms.<br>
+            <br>4.Worldmap: Live bitcoin transcation nodes on the world map.<br>
+            <a class="over"> Finish </a>
+        </p>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var t = $('#guide').offset().top;  //jump to #guide
+        $('#guide').click(function(){
+            $(window).scrollTop(t);
+            $('.guide').show();
+            $('#step4').show();
+            $('.close').on('click', function () {
+                $('.step').hide();
+                $('.guide').hide();
+            });
+            $('.next').on('click', function () {
+                var obj = $(this).parents('.step');
+                var step = obj.attr('step');
+                obj.hide();
+                $('#step' + (parseInt(step) + 1)).show();
+            });
+            $('.over').on('click', function () {
+                $(this).parents('.step').hide();
+                $('.guide').hide();
+            });
+        });
+    });
+</script>
+
 <section id="container" >
     <header class="header dark-bg">
 
         <a href="home" class="logo"><img src="images/logo.png" width="120"  ></a>
 
-        <div class="navi">
+        <div class="navi"  id="guide_">
             <a href="home">Home</a>
             <a id="worldMap" href="#map_">Charts</a>
+            <button id="guide">Guidance</button>
         </div>
 
         <div class="pull-right">
@@ -241,9 +322,9 @@
 
             <div class="container_dad" >
                 <div class="row">
-                    <div>
-                        <img src="images/qm.png"  id="question">
-                    </div>
+                    <!--<div>-->
+                        <!--<img src="images/qm.png"  id="question">-->
+                    <!--</div>-->
                     <div class="banner_row1">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="info-box">
@@ -253,7 +334,7 @@
                     </div>
 
                 </div>
-                <div class="row" style="margin:90px 0 0; text-align: center;">
+                <div class="row" style="margin:90px 0 0; text-align: center;" id="banner_number">
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="text-align: center;">
                         <a class="fig">
                             <!--<p class = "timer" data-to="1700" data-speed="1500" data-decimals="2">0</p>-->
@@ -284,7 +365,7 @@
                 </div>
             </div>
 
-            <div class="banner2">
+            <div class="banner2" id="banner2">
                 <div class="banner_row3">
                     <!--<h1>Know The Digital World</h1>-->
                     <div class="carousel slide media-carousel" id="media">
