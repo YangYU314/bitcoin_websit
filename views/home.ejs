@@ -10,12 +10,10 @@
     <script src="/javascripts/home.js" type="text/javascript"></script>
     <script src="/javascripts/echarts.js" type="text/javascript"></script>
     <script src="/javascripts/world.js" type="text/javascript"></script>
-    <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <!--<script src="/javascripts/countUp.js/dist/countUp.js"></script>-->
     <script src="https://cdn.bootcss.com/countup.js/1.9.3/countUp.js"></script>
 </head>
 
@@ -322,9 +320,6 @@
 
             <div class="container_dad" >
                 <div class="row">
-                    <!--<div>-->
-                        <!--<img src="images/qm.png"  id="question">-->
-                    <!--</div>-->
                     <div class="banner_row1">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                             <div class="info-box">
@@ -452,13 +447,6 @@
                                 <button id = "orderbook_chart" input class="flag but" type="submit" onclick="dj(this);">Order</button>
                                 <button id = "compare_price" input class="flag but" type="submit" onclick="dj(this);">Compare</button>
                                 <button id="map_chart" input class="flag but" type="submit" onclick="dj(this);">World Map</button>
-                                <!--<button id = "test_world" input class="flag but" type="submit" onclick="dj(this);">Test_World</button>-->
-                                <!--<button id = "test_chart">TEST</button>-->
-                                <!--<div class="panel-actions">-->
-                                <!--<a href="index.html#" class="btn-setting"><i class="fa fa-rotate-right"></i></a>-->
-                                <!--<a href="index.html#" class="btn-minimize"><i class="fa fa-chevron-up"></i></a>-->
-                                <!--<a href="index.html#" class="btn-close"><i class="fa fa-times"></i></a>-->
-                                <!--</div>-->
                             </div>
                             <!--charts-->
                             <div class="panel-body-map">
@@ -585,16 +573,6 @@
         });
         $("#search-close").click(function() {
             $('.search-full-view').removeClass("search-normal-screen");
-        });
-    });
-
-    $(function() {
-        $('#dowebok').simplerSidebar({
-            opener: '#toggle-sidebar',
-            sidebar: {
-                align: 'left',
-                width: 250
-            }
         });
     });
 </script>
