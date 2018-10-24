@@ -1,6 +1,5 @@
 
 /* Import fonts */
-/*@import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);*/
 @import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600";
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css');
@@ -43,10 +42,6 @@ table tr th { color: #688a7e;}
     color: #fff;
 }
 
-/*#container {*/
-/*width: 100%;*/
-/*height: 100%;*/
-/*}*/
 .copyrights{
     text-indent:-9999px;
     height:0;
@@ -198,16 +193,6 @@ table tr th { color: #688a7e;}
     color: #fed189;
 }
 
-
-/*#nav{*/
-/*margin: 0;*/
-/*padding: 0;*/
-/*border: 0;*/
-/*font-size: 100%;*/
-/*font: inherit;*/
-/*vertical-align: baseline;*/
-/*}*/
-
 .white-bg {
     background: rgba(255,255,255,0.9);
     border-bottom: 1px solid #f1f2f7;
@@ -290,17 +275,6 @@ table tr th { color: #688a7e;}
     cursor: pointer;
 }
 
-
-/*#preference{*/
-    /*background-color: transparent;*/
-    /*color: #ffffff;*/
-    /*border: none;*/
-/*}*/
-
-/*#preference:hover{*/
-    /*color: #fabb3d;*/
-/*}*/
-
 .top-nav{
     margin-top: 0px !important;
     padding-top: 0px !important;
@@ -339,16 +313,11 @@ row3{
 }
 
 .banner_row1{
-    /*background-color: #3e424d;*/
     height: 150px;
     width: 100%;
     left: 0;
     right: 0;
     margin-top: 0;
-    /*-moz-box-shadow:3px 3px 6px grey;*/
-    /*-webkit-box-shadow:3px 3px 6px grey;*/
-    /*box-shadow:3px 3px 6px grey;*/
-    /*position: fixed;*/
 }
 
 .banner_row1 h1{
@@ -382,32 +351,6 @@ row3{
     padding-top: 30px;
 }
 
-/*.banner_row2{*/
-    /*height: 250px;*/
-    /*width: auto;*/
-    /*text-align: center;*/
-    /*!*font-weight: 900;*!*/
-    /*!*font-size: 40px;*!*/
-/*}*/
-/*.banner_row2 h1{*/
-    /*margin-top: 100px;*/
-    /*text-align: center;*/
-    /*vertical-align: center;*/
-    /*font-size: 40px;*/
-    /*font-weight: bold;*/
-    /*color: #3f444e;*/
-
-/*}*/
-/*.banner2{*/
-    /*width: 100%;*/
-    /*height: 800px;*/
-    /*background-image: url(../../images/banner.png);*/
-    /*background-size: contain;*/
-
-
-/*}*/
-
-
 .banner_row3{
     /*background-color: grey !important;*/
     width: 80%;
@@ -433,12 +376,6 @@ row3{
 
 /* .info-box
 =================================================================== */
-/*#bitlogo{*/
-    /*height: 150px;*/
-    /*overflow: hidden;*/
-    /*padding: 0 !important;*/
-    /*width: 600px;*/
-/*}*/
 
 .info-box {
     min-height: 140px;
@@ -448,10 +385,6 @@ row3{
     border: #2E2E2E 1px;
     margin-left: 10px;
     width: 80%;
-    /*margin-top: 20px;*/
-    /*-webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);*/
-    /*-moz-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);*/
-    /*box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px rgba(0, 0, 0, 0.1);*/
 }
 
 .info-box #home_head_h1{
@@ -511,16 +444,7 @@ row3{
     height: 10%;
     float: right;
 }
-/*.info-box #price {*/
-    /*font-size: 1.5em;*/
-    /*font-weight: 500;*/
-    /*text-align: right;*/
-    /*color: #2E2E2E;*/
-    /*width: 80%;*/
-    /*height: 30%;*/
-    /*float: right;*/
 
-/*}*/
 .info-box .price {
     font-size: 1.5em;
     font-weight: 500;
@@ -531,18 +455,7 @@ row3{
     float: right;
 
 }
-/*.info-box #volume{*/
-    /*font-size: 1em;*/
-    /*font-weight: 200;*/
-    /*text-align: right;*/
-    /*color: #2E2E2E;*/
-    /*height: 2em;*/
-    /*horiz-align: right;*/
-    /*width: 80%;*/
-    /*height:60%;*/
-    /*float: right;*/
 
-/*}*/
 .info-box .volume{
      font-size: 1em;
      font-weight: 200;
@@ -588,21 +501,6 @@ row3{
     height: 7%;
     font-size: 17px;
 }
-/*.facebook-bg {*/
-/*color: #fff;*/
-/*background: #3b5998;*/
-/*background-color : #3b5998;*/
-/*}*/
-/*.twitter-bg {*/
-/*color: #fff;*/
-/*background: #00aced;*/
-/*background-color : #00aced; */
-/*}*/
-/*.linkedin-bg {*/
-/*color: #fff;*/
-/*background: #4875b4;*/
-/*background-color : #4875b4;  */
-/*}*/
 
 /*----------------------	panel-----------------*/
 .panel {
@@ -804,9 +702,6 @@ row3{
     border-color: #ff5454;
 }
 
-/*.buttons button{*/
-/*margin-top:10px;*/
-/*}*/
 
 /** Google maps *!*/
 
@@ -873,15 +768,7 @@ row3{
 /*-------------------------------*/
 /*           VARIABLES           */
 /*-------------------------------*/
-/*body {*/
-/*position: relative;*/
-/*overflow-x: hidden;*/
-/*}*/
-/*body,*/
-/*html {*/
-/*height: 100%;*/
-/*background-color: #583e7e;*/
-/*}*/
+
 .nav .open > a {
     background-color: transparent;
 }
@@ -985,15 +872,7 @@ row3{
 .sidebar-nav li:nth-child(6):before {
     background-color: rgba(0,0,0,0.15);
 }
-/*.sidebar-nav li:nth-child(7):before {*/
-    /*background-color: #434954;*/
-/*}*/
-/*.sidebar-nav li:nth-child(8):before {*/
-    /*background-color: #434954;*/
-/*}*/
-/*.sidebar-nav li:nth-child(9):before {*/
-    /*background-color: #434954;*/
-/*}*/
+
 .sidebar-nav li:hover:before {
     -webkit-transition: width 0.2s ease-in;
     transition: width 0.2s ease-in;
@@ -1164,19 +1043,15 @@ row3{
     table-layout: fixed;
     width:90%;
     word-break: break-all;
-    word-wrap: break-word;//表格固定布局
+    word-wrap: break-word;
 }
 /*??????????*/
 td{
-    width:100px;             /*单元格宽度*/
-    /*height:50px;             !*单元格高度*!*/
-    text-align:left;       /*单元格文字居中对齐*/
+    width:100px;
+    text-align:left;
 }
 .award-name{
-    /*-o-text-overflow:ellipsis;*/
-    /*text-overflow:ellipsis;*/
-    /*overflow:hidden;*/
-    /*white-space:nowrap;*/
+
 
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -1314,9 +1189,6 @@ td{
 /* End carousel */
 
 /* Footer */
-/*section {*/
-/*padding: 30px 0;*/
-/*}*/
 
 #footer {
     background: #28282e !important;
@@ -1487,9 +1359,9 @@ i{
 }
 
 .fig:hover {
-    border-radius: 30px;
+    border-radius: 20px 20px 0 0;
     color:#2b2b2b;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,1);
     cursor: pointer;
     text-decoration: none;
 }
@@ -1566,10 +1438,4 @@ i{
 }
 .over{
     margin-left: 10%;
-}
-
-#question{
-    padding: 2.5% 2.5% 0 0;
-    float: right;
-    width:4%;
 }
