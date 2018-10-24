@@ -1493,7 +1493,7 @@ function draw_world_node(data) {
                 type: 'scatter',
                 coordinateSystem: "geo",
                 data: resultList,
-                symbolSize: 3,
+                symbolSize: 4,
                 itemStyle : {
                     normal: {
                         color:'#FFD700 ',
