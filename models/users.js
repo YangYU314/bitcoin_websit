@@ -54,7 +54,7 @@ userSchema.statics.insert_register = function(firstname, lastname, username, pas
 }
 
 userSchema.statics.setting = function(username, firstname, lastname, old_password, new_password, email, preference, callback){
-    users.updateOne({username: username}, {$set:{firstname: firstname, lastname: lastname, email: email}}, function(err, data){
+    users.updateOne({username: username}, {$set:{firstname: firstname, lastname: lastname, email: email, preference: preference}}, function(err, data){
         if(err){
             console.log("Query: Update Error!");
         }else{
