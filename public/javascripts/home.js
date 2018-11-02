@@ -4,12 +4,12 @@ $(document).ready(function() {
     var chart_update_fruquency = 60000;
 
     check_preference_appear();
-    var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")", 60000);
+/*    var t1 = window.setInterval("mini_chart(\"BTC-USD\",\"price1\",\"volume1\")", 60000);
     var t2 = window.setInterval("mini_chart(\"BTC-GBP\",\"price2\",\"volume2\")", 60000);
     var t3 = window.setInterval("mini_chart(\"BTC-EUR\",\"price3\",\"volume3\")", 60000);
     var t4 = window.setInterval("mini_chart(\"ETC-USD\",\"price4\",\"volume4\")", 60000);
     var t5 = window.setInterval("mini_chart(\"ETC-GBP\",\"price5\",\"volume5\")", 60000);
-    var t6 = window.setInterval("mini_chart(\"ETC-EUR\",\"price6\",\"volume6\")", 60000);
+    var t6 = window.setInterval("mini_chart(\"ETC-EUR\",\"price6\",\"volume6\")", 60000);*/
 
     price_volume_card_setter();
     card_of_askbid_setter();
