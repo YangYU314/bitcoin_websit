@@ -1428,7 +1428,7 @@ function draw_world_node(data) {
     var resultList = [];
     var randomList = [];
     //devide into 10 parts to display
-    for(var k=0;k<((data.length)*0.001);k++){
+    for(var k=0;k<((data.length)*0.01);k++){
         var random_num = Math.floor(Math.random()*(data.length-0+1)+0);
 
         randomList.push(random_num);
